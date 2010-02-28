@@ -1,0 +1,163 @@
+\section{Entendiendo Linux}
+\subsection{Gestión de procesos}
+\begin{frame}{¿Qué es un proceso?}
+	\begin{itemize}
+		\item Estructura de datos en el SO.
+		\item Proceso completo o hilo.
+		\item Instancia de tarea a realizar por la CPU.
+		\item Utiliza, reserva y comparte recursos.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Prioridades}
+	\begin{itemize}
+		\item Los procesos tienen 2 prioridades.
+		\item Estática (Asignada por el tipo de tarea y el nice)
+		\item Dinámica (Calculada por el scheduler)
+		\item El nivel nice determina el tamaño del quamto del proceso.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Context Switch}
+	\begin{itemize}
+		\item Para simular multitarea se va alternando la ejecución de procesos.
+		\item Cada cambio de contexto tiene unos costes de tiempo.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Interrupciones}
+	\begin{itemize}
+		\item El hardware y el software produce interrupciones.
+		\item Las interrupciones, normalmente producen cambios de contexto.
+		\item Las interrupciones hardware, por lo general, se envían a todos los procesadores.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Scheduler}
+	\begin{itemize}
+		\item Es el encargado de seleccionar un proceso u otro.
+		\item Antes del 2.6.23 el scheduler era el O(1).
+		\item En el 2.6.23 y posteriores el scheduler es CFS.
+	\end{itemize}
+\end{frame}
+
+\subsection{Gestión de memoria}
+\begin{frame}{Memoria principal}
+	\begin{itemize}
+		\item Segmentos: Linux apenas los utiliza.
+		\item Paginas: Lo que utiliza normalmente Linux.
+		\item En sistemas de 32bits se debe dividir la memoria en 2 partes:
+		\begin{itemize}
+			\item Una accesible directamente (hasta los 896M).
+			\item Y el resto mapeada a través de la zona accesible directamente (hasta 64G usando PAE).
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Sistema de caches}
+	\begin{itemize}
+		\item Los sistemas modernos tienen caches de memoria.
+		\item Las caches son memorias mas rápidas que evitan el acceso a la memoria principal
+		\item Usan ciertas políticas y algoritmos para determinar de que se guarda cache.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Swap}
+	\begin{itemize}
+		\item Memoria basada en dispositivos de disco.
+		\item Almacena paginas de memoria a las que no se acceden en mucho tiempo.
+		\item En caso de falta de falta de memoria principal se utiliza la swap como tal.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Asignación de Memoria}
+	\begin{itemize}
+		\item Al solicitar memoria, si hay paginas libres las asigna.
+		\item Si no hay paginas libres, utiliza métodos de reclamado de pagina.
+		\item Para esto utiliza el Buddy System, que se encarga de:
+		\begin{itemize}
+			\item Mantener una lista de las paginas libres.
+			\item Solicita la liberación paginas a kswapd.
+			\item Evitar la fragmentación de la memoria.
+		\end{itemize}
+		\item kswapd libera paginas basándose en ciertas políticas.
+	\end{itemize}
+\end{frame}
+
+\subsection{Gestión de IO}
+\begin{frame}{Sistemas de ficheros}
+	\begin{itemize}
+		\item VFS: Capa de abstracción para el acceso a sistemas de ficheros.
+		\item Journaling: Log de las operaciones realizadas.
+		\item Sistema de Ficheros: Estructura de datos para almacenar ficheros (normalmente en disco).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Acceso a disco (IO)}
+	\begin{itemize}
+		\item Los sistemas de ficheros acceden a disco a través del sistema IO.
+		\item El sistema IO organiza los acceso a discos con el IO Scheduler.
+		\item Y este finalmente escribe los datos a través del driver de disco.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{IO Schedulers}
+	\begin{itemize}
+		\item Se pueden escoger entre 4:
+		\begin{itemize}
+			\item Anticipatory: Intenta guardar datos para escribir en tramas largas y continuas. Además usa deadline.
+			\item CFQ (Completely Fair Queuing): Implementa un reparto equitativo del IO entre procesos.
+			\item Deadline: Round robin con deadline.
+			\item NOOP: No hace ninguna operación de orden. Es un FIFO.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Métricas de rendimiento}
+\begin{frame}{Métricas de procesador}
+	\begin{itemize}
+		\item Uso de CPU.
+		\item User time: Tiempo utilizado por los procesos de usuario (no kernel).
+		\item System time: Tiempo utilizado por operaciones del kernel.
+		\item Waiting: Tiempo esperando al subsistema IO.
+		\item Idle time: Tiempo esperando tareas.
+		\item Nice time: Tiempo utilizado para restablecer prioridades de los procesos.
+		\item Load average: Carga del equipo (no es un porcentaje).
+		\item Runable processes: Numero de procesos listos para correr.
+		\item Blocked: Procesos esperando IO.
+		\item Context Switch: Cantidad de cambios de contexto.
+		\item Interrupts: Cantidad de interrupciones
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Metricas de memoria}
+	\begin{itemize}
+		\item Memoria libre.
+		\item Uso de Swap.
+		\item Buffer y cache: Caches asignadas al sistema de ficheros o a dispositivos de bloque. 
+		\item Slabs: Uso de memoria del kernel (no swapeable).
+		\item Memoria activa/inactiva: La memoria inactiva es la que es candidata de ser swapeada.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Metricas de red}
+	\begin{itemize}
+		\item Paquetes recibidos y enviados.
+		\item Bytes recibidos y enviados.
+		\item Colisiones por segundo.
+		\item Paquetes "tirados".
+		\item Overruns: Veces que la tarjeta de red se ha quedado sin espacio en el buffer.
+		\item Errors: Numero de tramas marcadas como fallidas.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Metricas de IO}
+	\begin{itemize}
+		\item iowait: Tiempo de CPU gastado esperando al subsistema IO.
+		\item Media de longitud de la cola: Media de peticiones IO en cola.
+		\item Media de espera: Tiempo medio de respuesta de una petición IO.
+		\item Transferencias por segundo: Numero de operaciones IO por segundo.
+		\item Bloques por segundo r/w
+		\item KB por segundo r/w
+	\end{itemize}
+\end{frame}

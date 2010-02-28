@@ -1,0 +1,83 @@
+\section{Tunning}
+\subsection{Herramientas}
+
+\begin{frame}{Monitorizacion}
+	\begin{itemize}
+		\item top
+		\item vmstat
+		\item uptime
+		\item ps
+		\item free
+		\item iostat
+		\item mpstat
+		\item numastat
+		\item pmap
+		\item netstat
+		\item wireshark
+		\item strace
+		\item /proc
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Benchmarks}
+	\begin{itemize}
+		\item lmbench
+		\item iozone
+		\item netperf
+	\end{itemize}
+\end{frame}
+
+\subsection{En la CPU}
+\begin{frame}{En la CPU}
+	\begin{itemize}
+		\item Herramientas: uptime, top, vmstat, lmbench\dots
+		\item Determinar prioridades: Baja latencia, alta cantidad de proceso.
+		\item Determinar las prioridades de los procesos.
+		\item Buscar una disminución del context-switch por interrupción.
+		\item Asignar interrupciones a una CPU en concreto (por ejemplo las de una tarjeta red).
+		\item Podemos ampliar CPU.
+	\end{itemize}
+\end{frame}
+
+\subsection{En la memoria}
+\begin{frame}{En la memoria}
+	\begin{itemize}
+		\item Herramientas: top, vmstat, free, pmap, iostat, lmbench\dots
+		\item Determinar prioridades: Aprovechamiento de la memoria, menor carga de proceso.
+		\item Si hay mucho uso de swap, normalmente indica falta de memoria.
+		\item Si hay muchas peticiones de paginas nos podemos plantear ampliar el tamaño de las mismas.
+		\item Si tenemos poca memoria y muchos procesos muy pequeños, podemos disminuir el tamaño de pagina. 
+		\item Podemos analizar procesos concretos para ver en que consumen la memoria.
+		\item Podemos asegurarnos de usar programas con bibliotecas dinámicas.
+		\item Podemos ampliar memoria.
+	\end{itemize}
+\end{frame}
+
+\subsection{En el disco}
+\begin{frame}{En la disco}
+	\begin{itemize}
+		\item Herramientas: vmstat, iostat, iozone, lmbench\dots
+		\item Determinar prioridades: Aprovechamiento, menor carga de proceso, mas ancho de banda.
+		\item Deberíamos determinar el sistema de fichero que nos interesa.
+		\item Si usamos solo ficheros muy grandes, podríamos ampliar el tamaño de bloque del sistema de ficheros.
+		\item Si usamos muchos ficheros pequeños, podríamos disminuir el tamaño de bloque del sistema de ficheros.
+		\item Escoger el IO Scheduler que nos pueda interesar.
+		\item Añadir mas RAM. Esto amplia la memoria de cache para disco.
+		\item Establecer parámetros del sistema de ficheros (por ejemplo, noatime).
+		\item Establecer las políticas de journaling correctas.
+		\item Uso de sistemas RAID o volúmenes lógicos.
+	\end{itemize}
+\end{frame}
+
+\subsection{En la red}
+\begin{frame}{En la red}
+	\begin{itemize}
+		\item Herramientas: netperf, lmbench, netstat \dots
+		\item Determinar prioridades: Ancho de banda, baja latencia.
+		\item Ampliar el tamaño del frame (jumbo frames, no soportados por todo el hardware!).
+		\item Asignar interrupciones a un procesador en concreto.
+		\item Usar mejores tarjetas de red (para mas ancho de banda o para mas baja latencia).
+		\item Hacer bonding o balanceo de carga.
+		\item El firewall ralentiza las comunicaciones.
+	\end{itemize}
+\end{frame}
