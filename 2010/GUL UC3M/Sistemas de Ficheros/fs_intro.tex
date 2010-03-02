@@ -1,14 +1,14 @@
 \section*{Introducción}
 \subsection*{Conceptos Básicos}
-\begin{frame}{Terminos}
+\begin{frame}{Términos}
   \begin{itemize}
-    \item Sistema de ficheros: Conjunto de algoritmos y datos que nos permiten almacenar nuestros datos y acceder a ellos en un dispositivo fisico.
+    \item Sistema de ficheros: Conjunto de algoritmos y datos que nos permiten almacenar nuestros datos y acceder a ellos en un dispositivo físico.
     \item Sector: Unidad de almacenamiento en disco.
-    \item Bloque/Sector: Conjunto de sectores contiguos que conforman la unidad de almacenamiento mas pequeña de la particion.
+    \item Bloque/Sector: Conjunto de sectores contiguos que conforman la unidad de almacenamiento más pequeña de la partición.
     \item Inodo: Estructura de datos que almacena un objeto del sistema de ficheros.
-    \item Sector de Arranque: Zona de la particion reservada para el arranque del sistema operativo.
-    \item Superblock: Bloque de datos que contiene informacion referente a toda la partició.
-    \item Trashing: Ineficiencia producida en un sistema de ficheros debido al execivo movimiento de los cabezales del disco duro.
+    \item Sector de Arranque: Zona de la partición reservada para el arranque del sistema operativo.
+    \item Superblock: Bloque de datos que contiene información referente a toda la partición.
+    \item Trashing: Ineficiencia producida en un sistema de ficheros debido al excesivo movimiento de los cabezales del disco duro.
     \item Extent: Conjunto de bloques contiguos y relacionados.
   \end{itemize}
 \end{frame}
@@ -16,7 +16,7 @@
 \begin{frame}{Journaling}
   \begin{itemize}
     \item Sistema de seguridad de los sistemas de ficheros para preservar la consistencia.
-    \item Guarda información de las operaciones para poder dar marcha atras en caso de ser necesario.
+    \item Guarda información de las operaciones para poder dar marcha atrás en caso de ser necesario.
     \item El proceso de journaling es sencillo:
     \begin{itemize}
       \item Se bloquean las estructuras afectadas.
@@ -24,22 +24,22 @@
       \item Se van apuntando y realizando las operaciones en el journal
       \item Al terminar, si todo ha ido bien, se elimina el journal.
     \end{itemize}
-    \item En los sistemas de fichero se suelen usar unicamente para los metadatos.
+    \item En los sistemas de fichero se suelen usar únicamente para los metadatos.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{ACLs}
   \begin{itemize}
-    \item Listas de control de accesso.
+    \item Listas de control de acceso.
     \item Permiten un control de acceso muy granular.
-    \item Se define quien accede a que y con que permisos.
+    \item Se define quién accede a qué y con qué permisos.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Arboles B+}
   \begin{itemize}
-    \item Arbol donde solo los nodos hoja tiene información.
-    \item Los nodos hojas estan enlazados entre si (para acceso secuencial).
+    \item Árbol donde sólo los nodos hoja tiene información.
+    \item Los nodos hojas están enlazados entre si (para acceso secuencial).
     \item Usado para acceso y borrado de forma eficiente.
   \end{itemize}
 \end{frame}
@@ -48,8 +48,8 @@
 \begin{frame}{Tipos de Sistemas de Ficheros}
   \begin{itemize}
     \item Sistemas de disco: Diseñados para almacenar ficheros en un dispositivo de almacenamiento de datos (Ej: disco duro, cdrom, dvd, discos de memoria, etc).
-    \item Sistemas de ficheros de bases de datos: Estan basados en metadatos, de este modo las busquedas se realizan por consultas a dicha base de datos (Ej: Gnome VFS, BFS, WinFS,etc).
+    \item Sistemas de ficheros de bases de datos: Están basados en metadatos, de este modo las búsquedas se realizan por consultas a dicha base de datos (Ej: Gnome VFS, BFS, WinFS,etc).
     \item Sistemas de ficheros transaccionales: Sistemas de ficheros que soportan transacciones.
-    \item Sistemas de ficheros de proposito especifico: Sus contenidos son generados directamente por software (Ej: /proc, /sys, etc).
+    \item Sistemas de ficheros de propósito especifico: Sus contenidos son generados directamente por software (Ej: /proc, /sys, etc).
   \end{itemize}
 \end{frame}
