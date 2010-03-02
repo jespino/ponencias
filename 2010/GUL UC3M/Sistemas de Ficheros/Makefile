@@ -1,6 +1,6 @@
 default: fs.pdf
 
-fs.pdf: fs.tex fs_intro.tex fs_ext.tex
+fs.pdf: fs.tex fs_intro.tex fs_ext.tex fs_fat.tex fs_ntfs.tex fs_reiserfs.tex fs_xfs.tex fs_close.tex
 	pdflatex fs.tex
 	pdflatex fs.tex
 
