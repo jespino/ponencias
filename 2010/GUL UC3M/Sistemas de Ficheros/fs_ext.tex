@@ -14,8 +14,8 @@
   \begin{itemize}
     \item Permisos POSIX
     \item ACLs
-    \item Tamaño maximo: 4TB
-    \item Tamaño maximo de fichero: 2GB
+    \item Tamaño maximo: 8TB
+    \item Tamaño maximo de fichero: 2TB
     \item Maximo de caracteres de nombre de fichero: 255B
     \item Maximo numero de ficheros: NA
   \end{itemize}
@@ -25,8 +25,9 @@
   \begin{itemize}
     \item Journaling
     \item ACLs
-    \item Tamaño maximo: 4TB
-    \item Tamaño maximo de fichero: 2GB
+    \item Extents (Actualización)
+    \item Tamaño maximo: 8TB
+    \item Tamaño maximo de fichero: 2TB
     \item Maximo de caracteres de nombre de fichero: 255B
     \item Maximo numero de ficheros: NA
   \end{itemize}
@@ -36,11 +37,11 @@
   \begin{itemize}
     \item Journaling
     \item ACLs
-    \item extends
-    \item Tamaño maximo: 4TB
-    \item Tamaño maximo de fichero: 2GB
+    \item Extents
+    \item Tamaño maximo: 1EB
+    \item Tamaño maximo de fichero: 16TB
     \item Maximo de caracteres de nombre de fichero: 255B
-    \item Maximo numero de ficheros: NA
+    \item Maximo numero de ficheros: 4.000.000.000
   \end{itemize}
 \end{frame}
 
@@ -69,13 +70,18 @@
 \begin{frame}{Ficheros}
   \begin{itemize}
     \item La informacion de los ficheros se almacena en los inodos. Un fichero puede ser un directorio, un fichero regular, un socket, etc...
-    \item En el inodo no se almacenan datos, solo punteros a los bloques de datos.
+    \item En el inodo no se almacenan datos, solo punteros a los bloques de datos o extents.
     \item Los punteros a los bloques de datos pueden ser:
     \begin{itemize}
       \item Directos: Apuntan directamente a un bloque de datos
-      \item Indirectos: Apuntan a un bloque de punteros a bloques de datos.
-      \item Doblemente indirectos: Apuntan a un bloque de punteros a bloques de punteros a bloques de datos.
-      \item Triplemente indirectos: Apuntan a un bloque de puntersoa a bloques de punteros a bloques de punteros a bloques de datos.
+      \item Indirectos: Apuntan a un bloque de punteros directos.
+      \item Doblemente indirectos: Apuntan a un bloque de punteros indirectos.
+      \item Triplemente indirectos: Apuntan a un bloque de puntersos doblemente indirectos.
+    \end{itemize}
+    \item Los extents se representan dentro de un arbol B+:
+    \begin{itemize}
+      \item Cualquier nodo intermedio contiene una serie de indices que apuntan a nodos hijos.
+      \item Los nodos hoja continen estructuras extent que apuntan a un conjunto de bloques.
     \end{itemize}
     \item Los datos almacenados en los directorios son el nombre del fichero y el inodo que lo contiene.
   \end{itemize}

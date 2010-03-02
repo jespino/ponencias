@@ -48,8 +48,9 @@
     \item Para especificar los bloques de datos usa “extents”, es decir, direccion inicial y tamaño total.
     \item Los inodos pueden tener almacenar los datos del fichero de tres maneras:
     \begin{itemize}
-      \item LOCAL: Los datos directamente en el inodo.
-      \item EXTENDS: Un mapa de extends de bloques de datos.
+      \item NULO: No hay ningun dato, por lo tanto no hay extents.
+      \item EXTENTS: Un mapa de extents de bloques de datos.
+      \item B+ EXTENTS: Un arbol B+ de extents en el que los nodos hoja son bloques de datos.
     \end{itemize}
   \end{itemize}
 \end{frame}
