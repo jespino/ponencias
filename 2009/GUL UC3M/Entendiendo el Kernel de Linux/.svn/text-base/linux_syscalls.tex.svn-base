@@ -1,0 +1,65 @@
+\section{syscalls y señales}
+\subsection{syscalls}
+\begin{frame}{syscalls}
+	\begin{itemize}
+		\item Son el mecanismo que tienen los procesos para comunicarse con el núcleo.
+		\item Todas devuelven un valor de tipo \emph{long} para indicar si ha habido éxito.
+		\item Están identificadas por un valor que utiliza la aplicación cuando le quiere indicar al núcleo qué \emph{syscall} desea utilizar.
+		\item Todas se encuentran en una tabla denominada \emph{sys\_call\_table} que es dependiente de la arquitectura. La tabla suele estar en el fichero \emph{entry.S} y en los i386 se encuentra en \emph{arch/i386/kernel}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{syscalls}
+	\begin{itemize}
+		\item Se utiliza una interrupción software para indicarle al núcleo que se va a hacer uso de una \emph{syscall}. En la arquitectura i386 se utiliza la interrupción 0x80.
+		\item Las \emph{syscalls} tienen parámetros, que en el caso de la arquitectura i386 se pasan por registro. Si hay más de 5 parámetros, éstos serán pasados a través de un buffer de memoria. Núnca se debe acceder a dicho buffer directamente, se copia con \emph{copy\_from\_user} a espacio de núcleo y si se le tiene que pasar información se usa \emph{copy\_to\_user}.	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{syscalls}
+	El formato de una \emph{syscall} es el siguiente:
+	\begin{verbatim}
+		asmlinkage long sys_nombre(/*parametros*/)
+		{
+		   return 0;
+		}
+	\end{verbatim}
+	Además se registran en \emph{asm/unistd.h} con un define de formato \_\_NR\_nombre. Y con \emph{\_syscall}$n$ se crea una función que hará la llamada a la \emph{syscall}.
+\end{frame}
+
+\subsection{Señales}
+\begin{frame}{Señales}
+	\begin{itemize}
+		\item Las señales son mensajes que se envían a los procesos o grupos de procesos para informarles de ciertos eventos, como alarmas, fallos de segmentación de memoria, etc.
+		\item Es un sistema bastante complejo internamente que requiere de más de 6 tipos diferentes de estructuras.
+		\item Se puede obtener una lista de las señales en \emph{man 7 signal}.
+		\item Hay dos señales que no pueden ser capturadas por los procesos: SIGKILL y SIGSTOP.
+		\item El núcleo divide la gestión de señales en dos partes:
+		\begin{itemize}
+			\item Generación de señales, dónde se actualizan las tablas del proceso para representar que se ha enviado la señal, y
+			\item Despacho de señales, dónde se fuerza al proceso a reaccionar ante la señal.
+		\end{itemize}
+		\item El núcleo comprueba constantemente el estado de las señales.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Señales}
+	Los procesos pueden realizar alguna de las siguientes acciones con las señales:
+	\begin{itemize}
+		\item Ignorarlas
+		\item Ejecutar una de las acciones por defecto, que son:
+		\begin{itemize}
+			\item Terminar, que hace que el proceso no siga ejecutándose.
+			\item Realizar un volcado de memoria (generar un fichero \emph{core}) y luego termina al proceso.
+			\item Ignorar.
+			\item Parar, que deja al procesos suspendido hasta que reciba una señal.
+			\item Continuar, que en caso de que el proceso se encontrase parado lo reanuda.
+		\end{itemize}
+		\item Capturar la señal y tratarla con un manejador de señal.
+	\end{itemize}
+
+\end{frame}
+
+%\begin{frame}{Generación de señales}
+%\end{frame}
+%\begin{frame}{Descpaho de señales}
+%\end{frame}

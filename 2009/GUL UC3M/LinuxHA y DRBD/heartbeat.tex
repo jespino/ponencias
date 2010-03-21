@@ -1,0 +1,355 @@
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+
+%\usepackage{beamerouterthemeinfolines}
+%\usepackage{beamerthemeBoadilla}      % Sin {,sub}apartados, blanco
+%\usepackage{beamerthemeRochester}     % Sin {,sub}apartados, simple, cuadrado
+%\usepackage{beamerthemeboxes}         % Sin {,sub}apartados, muy blanco
+%\usepackage{beamerthemePittsburgh}    % Sin {,sub}apartados, muy blanco, redondo
+%\usepackage{beamerthemeMadrid}        % Sin {,sub}apartados
+%\usepackage{beamerthemeSingapore}     % Sin subapartados, blanco, puntitos
+\usepackage{beamerthemeCopenhagen}    % Violeta/negro, cargado, con todo
+%\usepackage{beamerthemeLuebeck}       % Como Copenhagen, cuadrado
+%\usepackage{beamerthemeWarsaw}        % Violeta/negro, gradiente, cargado, con todo
+
+% Image declarations
+% \pgfdeclaremask{imagemask}{imagemaskfile}
+% \pgfdeclareimage[interpolate=true,mask=imagemask,%
+                 % width=2cm,height=1.3cm]{imagename}{imagename}
+\pgfdeclareimage[interpolate=true,%
+                 width=8cm]{notshareddata}{notshareddata}
+\pgfdeclareimage[interpolate=true,%
+                 width=8cm]{shareddata}{shareddata}
+\pgfdeclareimage[interpolate=true,%
+                 width=8cm]{drbd}{drbd}
+\pgfdeclareimage[interpolate=true,%
+                 width=8cm]{failover}{failover}
+\pgfdeclareimage[interpolate=true,%
+                 width=8cm]{gui}{gui}
+\pgfdeclareimage[interpolate=true,%
+                 width=5cm]{gul}{gul}
+\pgfdeclareimage[interpolate=true,%
+                 width=10cm]{drbd}{drbd}
+
+\title{LinuxHA+DRBD: Alta disponibilidad de bajo coste}
+\author{Jesús Espino García\\ \texttt{jespinog@gmail.com}}
+\institute{\pgfuseimage{gul}}
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{¿Qué es clustering?}
+  \begin{itemize}
+    \item Conjunto de maquinas.
+    \item Trabajando en equipo.
+    \item Con un mismo objetivo.
+    \item Los casos mas habituales son:
+    \begin{itemize}
+      \item Cluster computacional.
+      \item Alta Disponibilidad.
+      \item Balanceo de carga.
+    \end{itemize}
+  \end{itemize}
+ 
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{Alta Disponibilidad VS Toleraciona a Fallos}
+  \begin{itemize}
+    \item Tolerancia a fallos:
+    \begin{itemize}
+      \item Caro.
+      \item Hardware tolerante a fallos (redundancia interna, detección de errores).
+      \item Perdidas de servicio muy breves, entre décimas de segundo y unos pocos segundos.
+    \end{itemize}
+    \item Alta disponibilidad:
+    \begin{itemize}
+      \item Barato.
+      \item Redundancia de hardware.
+      \item Perdida de servicios entre algunos segundos hasta unos pocos minutos.
+      \item Hace uso en subsistemas tolerantes a fallos.
+    \end{itemize}
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{¿Qué es Linux HA?}
+  \begin{itemize}
+    \item Un sistema de clustering de Alta disponibilidad.
+    \item Libre.
+    \item Maduro: En el mercado desde 1998.
+    \item Extendido: Mas de 30.000 cluster en producción.
+    \item Una comunidad de desarrollo abierta liderada por IBM y Novell.
+    \item Distribuido con la mayoría de las distribuciones.
+    \item Sin requerimientos de hardware especial.
+    \item Independiente del kernel (todo en espacio de usuario).
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{¿Qué nos permite hacer?}
+  \begin{itemize}
+    \item Elaborar sistemas resistentes a un único punto de fallo.
+    \item Los tiempos de caída son muy cortos.
+    \item Aproximadamente añade un ''9'' a tu disponibilidad.
+    \item Hasta 16 nodos.
+    \item Recuperación en caso de fallo de nodo o de servicio.
+    \item Recuperación en caso de perdida de conectividad.
+    \item Clusters activo-pasivo y activo-activo.
+    \item Monitorización de recursos.
+    \item Interfaz gráfico de configuración y monitorización.
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{¿Qué no puede hacer?}
+  \begin{itemize}
+    \item Dar el 100\% de disponibilidad (nadie puede).
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{
+  \frametitle{Algunos numeros}
+  \begin{itemize}
+    \item $99.9999\%$ $\to{}$ 30sec
+    \item $99.999\%$ $\to{}$ 5min
+    \item $99.99\%$ $\to{}$ 52min
+    \item $99.9\%$ $\to{}$ 9h
+    \item $99\%$ $\to{}$ 3.5días
+  \end{itemize}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+  \frametitle{Algunos conceptos}
+  \begin{itemize}
+    \item Nodo: Maquina (real o virtual) que forma parte del cluster.
+    \item Recurso: Algo que manejar (Servicio, IP, Unidad de disco...).
+    \item Agente de recurso: Un (init) script que controla un recurso.
+    \item Heartbeat: Pulso de comunicación que indica a un nodo el estado de los demás.
+    \item Failover: Toma de control por parte de un nodo de los servicios de otro.
+    \item Split Brain: Falla la comunicación ''Heartbeat'' entre dos grupos diferentes de nodos.
+    \item Quorum: Sistema de acuerdos en el cluster.
+    \item Fencing: Exclusion de un nodo del cluster.
+    \item SPOFs (Single Point of Failure).
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{Failover}
+  \pgfuseimage{failover}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{Split Brain}
+  \begin{itemize}
+    \item División del cluster por culpa de fallos.
+    \item Normalmente de comunicación del Heartbeat.
+    \item Cada nodo crea ser el nodo activo.
+    \item OJO!! Peligro de corrupción de datos.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Quorum}
+  \begin{itemize}
+    \item Es un intento de evitar la mayor parte de los fallos de split brain.
+    \item Trata de asegurase que solo uno de las divisiones este activa.
+    \item Uno de los sistemas mas comunes de quorum es el voto. Solo la división con mas nodos puede ejecutar el cluster.
+    \begin{itemize}
+      \item Esto no funciona muy bien para 2 nodos.
+    \end{itemize}
+    \item Otro sistema de quorum es el acceso a un recurso exclusivo, el que llegue después, desiste y cede los servicios.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Fencing}
+  \begin{itemize}
+    \item Excluye a los nodos que estén dando fallos para que no accedan a los recursos del cluster.
+    \item Linux HA soporta:
+    \begin{itemize}
+      \item STONITH (Shoot The Other Node In The Head) para node Fencing.
+      \item Sistemas Self-Fencing (Sistemas que aseguran acceso exclusivo a un recurso (ServerRAID de IBM)) para resource fencing.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{SPOFs}
+  \begin{itemize}
+    \item Elemento del sistema que en caso de fallo puede dejar todo el sistema inutilizado.
+    \item Un buen diseño elimina todos los SPOFs.
+    \item Existe un limite, normalmente impuesto por el coste, en la eliminación de SPOFs.
+    \item Mucho cuidado con los SPOFs no evidentes:
+    \begin{itemize}
+      \item Unidades raid con una sola controladora.
+      \item Enlaces redundantes usando el mismo cable.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sistemas NON-SPOFs}
+  \begin{itemize}
+    \item Importante las tres R de la alta disponibilidad:
+    \begin{itemize}
+      \item<2-> Redundancia.
+      \item<3-> Redundancia.
+      \item<4-> Redundancia.
+    \end{itemize}
+    \item<5-> La mayoría de los SPOFs se eliminan con redundancia.
+    \item<6-> Siempre existen algún punto de fallo simple, hay que saber donde parar.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Compartiendo datos: Mediante unidad compartida}
+  \begin{itemize}
+    \item El modo normal.
+    \item Eleva el precio de cluster.
+    \item Da muy buen rendimiento.
+    \item Solución de bajo coste (AoE).
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Compartiendo datos: Mediante unidad compartida}
+  \pgfuseimage{shareddata}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Compartiendo datos: Replicación de los datos}
+  \begin{itemize}
+    \item El modo barato.
+    \item No necesitas unidad compartida.
+    \item El rendimiento es menor.
+    \item Se basa en los sistemas de replicación de los propios servicios y en servicios de replicación de ficheros (DRBD).
+    \item Una relación calidad/precio excelente.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Compartiendo datos: Replicación de los datos}
+  \pgfuseimage{drbd}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Compartiendo datos: Sin datos que compartir}
+  \begin{itemize}
+    \item Es raro, pero existen casos.
+    \item Firewalls.
+    \item Balanceadores de carga.
+    \item Servidores Proxy.
+    \item Servidores Web estáticos (replicación inicial de los contenidos).
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Compartiendo datos: Sin datos que compartir}
+  \pgfuseimage{notshareddata}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sistemas de ficheros de Cluster}
+  \begin{itemize}
+    \item Preparados para accesos concurrentes desde varios nodos.
+    \item Pensados para mantener la consistencia de los datos.
+    \item Los sistemas de ficheros para cluster libres mas conocidos son:
+    \begin{itemize}
+      \item GFS: Global File System (Comprado por RedHat y licenciado como GPL).
+      \item OCFS2: Oracle Cluster File System (Desarrollado por Oracle, GPL).
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Interfaz gráfica}
+  \pgfuseimage{gui}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{¿Qué es DRBD?}
+  \begin{itemize}
+    \item Servicio de replica de dispositivos.
+    \item GPL.
+    \item Funcionamiento sobre dispositivos fisicos o virtuales.
+    \item Funcionamiento bajo dispositivos virtuales (LVM).
+    \item Sincronizacion Activo-Pasivo y Activo-Activo.
+    \item Modos Asincrono, Semi-Sincrono y Sincrono.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{¿Como funciona DRBD?}
+  \pgfuseimage{drbd}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame
+{
+  \frametitle{Ejemplo en vivo}
+  \begin{itemize}
+    \item Montar dispositivo con sincronizacion DRBD.
+    \item Montar PeaceMaker.
+    \item Montar servicios sobre DRBD y PeaceMaker.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Referencias}
+  \begin{itemize}
+    \item Linux-HA: http://www.linux-ha.org
+    \item DRBD: http://www.drbd.org
+    \item Comunidad: http://linux-ha.org/ContactUs (Listas, IRC, bugtracking...)
+    \item GFS: http://sources.redhat.com/cluster/gfs/
+    \item OCFS2: http://oss.oracle.com/projects/ocfs/
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Dudas y preguntas}
+  \center{Dudas\dots{}}
+\end{frame}
+\end{document}

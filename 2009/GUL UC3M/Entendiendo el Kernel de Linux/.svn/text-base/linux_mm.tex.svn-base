@@ -1,0 +1,98 @@
+\section{Subsistema de Memoria}
+\subsection{Direcciones de memoria}
+\begin{frame}{Tipos de Direcciones}
+	\begin{itemize}
+		\item Dirección lógica: Dirección del segmento mas el offset.
+		\item Dirección lineal (o virtual): Dirección en toda la memoria.
+		\item Dirección física: Dirección de acceso a la RAM.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Segmentos}
+\begin{frame}{¿Qué es un segmento?}
+	\begin{itemize}
+		\item Conjunto de memoria.
+		\item Se utiliza para establecer unos permisos a la memoria.
+		\item Se accede a sus contenidos a través de dirección del segmento + offset.
+		\item Esta implementado en hardware.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{¿Cómo lo usa Linux?}
+	\begin{itemize}
+		\item Lo usa de un modo muy limitado.
+		\item Se prefiere el uso de páginas.
+		\item Linux crea 4 segmentos que abarca toda la memoria (cada uno).
+		\begin{itemize}
+			\item usercode
+			\item userdata
+			\item kernelcode
+			\item kerneldata
+		\end{itemize}
+		\item Como todos los segmentos empiezan en 0, la posición se define únicamente por el offset.
+		\item Linux solo usa segmentos cuando lo requiere la arquitectura.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Paginas}
+\begin{frame}{¿Qué son las páginas?}
+	\begin{itemize}
+		\item Conjunto de memoria.
+		\item Se utiliza para establecer unos permisos a la memoria.
+		\item Se accede a su contenido a través de una dirección compuesta de varios elementos.
+		\item Los elementos de la dirección designan posiciones en unas tablas de índices.
+		\item Esta implementado en hardware.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{¿Cómo las usa Linux?}
+	\begin{itemize}
+		\item Se usa un modelo con 4 tablas de direccionamiento (para poder albergar mucha memoria):
+		\begin{itemize}
+			\item Page Global Directory
+			\item Page Upper Directory
+			\item Page Middle Directory
+			\item Page Table
+		\end{itemize}
+		\item Se usa el mismo modelo para 32 y 64 bits.
+		\item Cuando se usa 32 bits y no se usa PAE, Linux elimina las tablas Upper y Middle.
+		\item Cuando se usa 32 bits y se usa PAE, Linux elimina la tabla Upper.
+	\end{itemize}
+\end{frame}
+
+\subsection{Gestión de memoria}
+\subsubsection{Buddy System}
+\begin{frame}{Buddy System}
+	\begin{itemize}
+		\item Sistema encargado de reservar las páginas y hacer un seguimiento de las páginas libres.
+		\item Soluciona el problema de la fragmentación externa.
+		\item Se almacenan las páginas en 11 listas dependiendo del grupo de páginas contiguas disponibles.
+		\item Linux utiliza varios Buddy System, uno para cada ''zona'' de memoria (DMA, normal, high).
+	\end{itemize}
+\end{frame}
+\subsubsection{Slab Allocator}
+\begin{frame}{Slab Allocator}
+	\begin{itemize}
+		\item El Buddy System reserva memoria como mínimo del tamaño de la página.
+		\item El Slab Allocator permite reservar bloques de tamaños arbitrarios mas pequeños que una página.
+		\item Funciona encima del Buddy System.
+		\item Tiene un sistema de caches que permite reutilizar bloques de memoria.
+		\item La reutilización mejora el rendimiento de Linux que utiliza los slab con frecuencia.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Reclamado de páginas}
+\begin{frame}{Reclamado de páginas}
+	\begin{itemize}
+		\item Al hacer una petición al Buddy System y no encontrar páginas apropiadas, este hace un reclamado.
+		\item El sistema de reclamado divide las páginas en 4 tipos:
+		\begin{itemize}
+			\item Unreclaimable: Paginas que no pueden o no es necesario reclamar.
+			\item Swappable: Paginas que pueden pasarse a la swap.
+			\item Syncable: Paginas que pueden ser sincronizadas a disco.
+			\item Discardables: Paginas que pueden ser descargadas.
+		\end{itemize}
+		\item Dependiendo del tipo de páginas hace una acción u otra.
+		\item El reclamado de páginas también se ejecuta periódicamente mediante kswapd.
+	\end{itemize}
+\end{frame}

@@ -1,0 +1,143 @@
+\section{Subsistema de procesos}
+\subsection{Los procesos}
+\subsubsection{¿Qué es un proceso?}
+\begin{frame}{¿Qué es un proceso?}
+	\begin{itemize}
+		\item Estructura de datos en el SO.
+		\item Proceso completo o hilo.
+		\item Instancia de tarea a realizar por la CPU.
+		\item Utiliza, reserva y comparte recursos.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Tipos de procesos}
+\begin{frame}{Tipos de procesos}
+	\begin{itemize}
+		\item Procesos: Instancia de un programa en ejecución.
+		\item Procesos ligeros: Instancia del ''contador de programa''.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Descriptor de proceso}
+\begin{frame}{Descriptor de proceso}
+	\begin{block}{Información que contiene}
+		\begin{itemize}
+			\item Estado.
+			\item Memoria asignadas.
+			\item Ficheros abiertos.
+			\item Directorio actual.
+			\item Padre.
+			\item Señales recibidas.
+			\item y mucho más.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsubsection{Estados}
+\begin{frame}{Estados de un proceso}
+	\begin{itemize}
+		\item TASK\_RUNNING: Proceso en la CPU o a espera de CPU.
+		\item TASK\_INTERRUPTIBLE: Proceso durmiendo a espera de algo.
+		\item TASK\_UNINTERRUPTIBLE: Como TASK\_INTERRUPTIBLE, pero sin poder ser interrumpido.
+		\item TASK\_STOPPED: Se ha parado la ejecución del proceso.
+		\item TASK\_TRACED: Se ha parado la ejecución del proceso por un debugger.
+		\item TASK\_ZOMBIE: Se ha terminado el proceso pero no hay ningún wait esperándole.
+		\item TASK\_DEAD: El proceso esta siendo eliminado definitivamente.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Cambio de proceso}
+\begin{frame}{Cambio de proceso}
+	\begin{itemize}
+		\item Muchos cambios de proceso por segundo.
+		\item Actividad necesariamente rápida.
+		\item Se deben a las interrupciones.
+		\item La interrupción por tiempo permite hacer planificación de procesos.
+		\item Consiste en almacenar el estado del proceso actual y sustituirlo por otro.
+		\item El kernel (casi en su totalidad) es ''reentrant''.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Crear procesos}
+\begin{frame}{Crear procesos}
+	\begin{block}{Procesos}
+		\begin{itemize}
+			\item Proceso 0: El swapper o idle, se crea al inicio de manera ''artesanal''.
+			\item Proceso 1: El init, se crea como copia del proceso 0 y ejecuta el programa init (ya en modo usuario).
+			\item Resto de los procesos: Se crean como copia del proceso padre (normalmente init).
+		\end{itemize}
+	\end{block}
+	\begin{block}{Estrategias}
+		\begin{itemize}
+			\item Copy On Write: Padre e hijo comparten memoria para lectura y en el momento de la escritura se reserva una nueva pagina.
+			\item Procesos ligeros: Padre e hijo comparte memoria.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsubsection{Destruir procesos}
+\begin{frame}{Destruir procesos}
+	\begin{itemize}
+		\item Recibe la syscall \_exit().
+		\item Pasa del estado en que este a TASK\_ZOMBIE.
+		\item Su padre hace un wait, y pasa al estado TASK\_DEAD.
+		\item Se eliminan todos los datos del proceso.
+		\item Se elimina su descriptor del sistema.
+		\item Los compiladores normalmente incluyen \_exit() de manera automática al final del binario.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{Hilos del kernel}
+\begin{frame}{Hilos del kernel}
+	\begin{itemize}
+		\item Son procesos creados dentro del kernel.
+		\item Algunos se crean al inicio.
+		\item Otros bajo demanda.
+		\item Algunos ejemplos son:
+		\begin{itemize}
+			\item kapmd: Gestiona eventos relacionados con APM.
+			\item kswapd: Reclama memoria periódicamente.
+			\item pdflush: Vacía los buffers ''sucios'' a disco.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{Planificación (Scheduling)}
+\begin{frame}{Algoritmos}
+	\begin{block}{O(1)}
+		\begin{itemize}
+			\item Scheduler hasta el 2.6.22
+			\item Basado en listas de prioridad.
+			\item Calculo del quamto basado en prioridad estática.
+			\item Calculo del sucesor basado en prioridad dinámica.
+			\item La prioridad estática viene dada por el tipo de proceso (normal o tiempo real) y el nice.
+			\item La prioridad dinámica se calcula a partir de la prioridad estática y el ''average sleep'' del proceso.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Algoritmos}
+	\begin{block}{CFS (Completely Fair Scheduler)}
+		\begin{itemize}
+			\item Scheduler desde 2.6.23
+			\item Mas simple
+			\item Reparte el tiempo del procesador de manera equitativa.
+			\item Puntúa mas a los procesos que han usado menos el procesador.
+			\item Penaliza a los que más.
+			\item Intenta que el reparto sea justo.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Memoria de procesos}
+\begin{frame}{Memoria de procesos}
+	\begin{itemize}
+		\item Un proceso usar un conjunto de direcciones (regiones de memoria).
+		\item Cada proceso cuenta con una pila que puede usar para albergar memoria dinámica.
+		\item Cada región de memoria tiene unos permisos de acceso para el proceso.
+		\item Varios procesos pueden acceder a las mismas posiciones de memoria (bibliotecas, shared memory\dots).
+		\item El intento de acceso a cualquier otra posición de memoria genera una excepción.
+		\item El intento de uso no debido de las posiciones de memoria asignadas genera una excepción.
+		\item Al acceder a su memoria puede ser que no este la pagina (por diversos motivos), por lo cual se produce una demanda de pagina.
+	\end{itemize}
+\end{frame}

@@ -1,0 +1,79 @@
+\section{Inicio del sistema}
+\subsection{Inicio del sistema}
+\begin{frame}{Inicio del sistema}
+	\begin{itemize}
+		\item Es el proceso que permite poner en funcionamiento al sistema operativo.
+		\item Comienza por la BIOS, que realiza una comprobación del hardware y pasa el control a un programa que típicamente se encuentra en el sector de inicio del disco duro.
+		\item El cargador de arranque se encarga de cargar el núcleo en memoria y pasarle el control junto con una serie de parámetros (se llama a la función \emph{setup( )} que se encuentra desplazada 0x200 bytes del inicio del núcleo).
+	\end{itemize}
+\end{frame}
+
+\subsection{Proceso de inicio}
+\begin{frame}{Proceso de inicio}
+	El proceso de arranque realiza las siguientes tareas:
+	\begin{itemize}
+		\item Se invoca a la BIOS para saber la cantidad de RAM del sistema o, en sistemas ACPI, obtener un mapa físico de la RAM.
+		\item Ajusta la la velocidad del repetición del teclado.
+		\item Inicializa el adaptador de vídeo.
+		\item Reinicia el controlador de disco y obtiene los parámetros de los discos.
+		\item Comprueba que haya un bus IBM Micro Channel.
+		\item Comprueba si hay un ratón PS/2.
+		\item Comprueba si la BIOS soporta APM (\emph{Advanced Power Management}).
+		\item En caso de que la BIOS soporte EDD (\emph{Enhanced Disk Drive Services}), se solicita crear una tabla en memoria con la descripción de los discos duros.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Proceso de inicio}
+	\begin{itemize}
+ 		\item Según si el núcleo era sin comprimir o comprimido, procede a continuar o desplaza el núcleo en memoria para colocarlo donde le corresponde.
+		\item Se activa el pin A20 en el controlador de teclado 8042.
+		\item Se crea una tabla de descriptores de interrupciones (IDT) provisional y una tabla global de descripción (GDT) provisional.
+		\item Reinicia la unidad de coma flotante (FPU).
+		\item Se reprograma el controlador programable de interrupciones (PIC) para enmascarar todas las interrupciones menos la de IRQ2.
+		\item Se pone la CPU en modo protegido.
+		\item Se llama a la función \emph{startup\_32( )}.
+	\end{itemize}
+\end{frame}
+
+\subsection{startup\_32}
+\begin{frame}{La función startup\_32 (I)}
+	\begin{itemize}
+		\item Inicializa los registros de segmentación y una pila provisional.
+		\item Pone a 0 los bits del registro \emph{eflags}.
+		\item Inicializa con ceros el área de datos del núcleo que se encuentran en \emph{\_edata} y \emph{\_end}.
+		\item Llama a \emph{decompress\_kernel( )}.
+		\item Una vez descomprimido el núcleo se llama a un nuevo método \emph{startup\_32~(~)}.
+	\end{itemize}
+\end{frame}
+\begin{frame}{La función startup\_32 (y II)}
+	El nuevo \emph{startup\_32( )} hace las siguiente operaciones:
+	\begin{itemize}
+		\item Inicializa los registros de segmentación con los valores finales.
+		\item Rellena el segmento \emph{bss} del núcleo con ceros.
+		\item Inicializa la tabla de páginas provisional del núcleo.
+		\item Almacena la dirección del \emph{Page Global Directory} en el registro \emph{cr3}.
+		\item Asigna la pila de modo núcleo al proceso 0.
+		\item Vuelve a poner a 0 el registro \emph{eflags}.
+		\item Llama a \emph{setup\_idt( )}.
+		\item Almacena los parámetros obtenidos de la BIOS en el primer \emph{frame} de memoria.
+		\item Identifica el modelo del procesador.
+		\item Carga los registros de la tabla GDT e IDT.
+		\item salta a la función \emph{start\_kernel( )}. 
+	\end{itemize}
+\end{frame}
+
+\subsection{start\_kernel}
+\begin{frame}{La función start\_kernel}
+	Llama a las siguientes funciones:
+	\begin{itemize}
+		\item \emph{sched\_init( )}.
+		\item \emph{build\_all\_zonelists( )}.
+		\item \emph{page\_alloc\_init( )} y \emph{mem\_init( )}.
+		\item \emph{trap\_init( )}.
+		\item \emph{softirq\_init( )}.
+		\item \emph{time\_init( )}.
+		\item \emph{kmem\_cache\_init( )}.
+		\item \emph{calibrate\_delay( )}.
+		\item \emph{kernel\_thread( )}.
+	\end{itemize}
+\end{frame}
+

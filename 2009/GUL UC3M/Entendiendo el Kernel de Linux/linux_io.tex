@@ -1,0 +1,74 @@
+\section{Input/Output}
+\subsection{Dispositivos}
+\begin{frame}{Dispositivos}
+	\begin{itemize}
+		\item Los dispositivos son todos los elementos de un ordenador que permiten realizar operaciones de entrada/salida. Por ejemplo los discos duros, el teclado, etc.
+		\item Los dispositivos se representan en \emph{sysfs} con un sistema de \emph{kobjects} (se encuentra declarado en \emph{linux/kobject.h}). Estos \emph{kobjects} describen la información sobre un dispositivo para que puede ser fácilmente consultable.
+		\item Para poder acceder a los dispositivos se necesitan los ficheros de dispositivo (típicamente se encuentran en \emph{/dev/}). Estos vienen descritos por dos números denominados \emph{major} y \emph{minor}  y por su tipo, que puede ser caracter o bloque.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Dispositivos}
+	\begin{itemize}
+		\item El \emph{major} identifica el tipo de dispositivo y el \emph{minor} identifica un dispositivo concreto de ese tipo.
+		\item Los dispositivos permiten realizar al programador una serie de acciones (\emph{open}, \emph{read}, \emph{lseek}, \emph{ioctl}, etc.).
+		\item Los controladores de dispositivo deben estar registrados en el sistema y utilizan un descriptor de tipo \emph{device\_driver} que debe encontrarse en dentro de una estructura de tipo \emph{device}.
+		\item Los controladores de dispositivo compilados estáticamente en el núcleo se registran durante el proceso de inicio. El resto deberán llamar a la función de registro que le corresponda (por ejemplo \emph{pci\_register\_driver}).
+		\item Casi todos los controladores de dispositivo siguen una política de asignación de recursos tardía. De este modo, asignan la memoria cuando se les solicita hacer algo (normalmente por una llamada a \emph{open}) y la liberan cuando ya no es necesaria (no hay ninguna aplicación utilizando sus recursos).
+	\end{itemize}
+\end{frame}
+
+\subsection{Arquitectura de I/O en bloques}
+\subsubsection{Arquitectura}
+\begin{frame}{Arquitectura}
+	Hay dos tipos de dispositivos:
+	\begin{itemize}
+		\item Dispositivos de caracter: leen y/o escriben un flujo de datos. Su acceso es secuencial. Ejemplos de este tipo de dispositivos son el ratón y el teclado.
+		\item Dispositivos de bloque: leen y/o escriben bloques de datos y permiten el acceso aleatorio a los mismos. Ejemplos de este tipo de dispositivos tenemos los discos duros, DVDs, etc.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Arquitectura}
+	Los dispositivos de bloques entrañan más complejidad.
+	\begin{itemize}
+		\item Los dispositivos se dividen en sectores.
+		\item Los sectores se agrupan en bloques.
+		\item Los bloques se agrupan en segmentos (un segmento es la cantidad de información que puede mandarse por un canal DMA).
+		\item Los segmentos se agrupan en páginas (pueden tener bloques que no se encuentran en un segmento).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Arquitectura}
+	\begin{itemize}
+		\item Los bloques se leen a memoria en áreas denominadas buffers.
+		\item Los buffers está definidos por la estructura \emph{buffer\_head} que se encuentra en \emph{linux/buffer\_head.h}.
+		\item Esta estructura controla los datos sobre a qué bloque corresponde el buffer, de qué dispositivo, en qué estado se encuentra, cuantas referencias hay a él, etc.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Arquitectura}
+	\begin{itemize}
+		\item Las operaciones de I/O que se están realizando se encuentran definidas por la estructura \emph{bio} que se encuentra en \emph{linux/bio.h}.
+		\item Esta estructura representa las operaciones sobre páginas.
+		\item La operación de I/O puede afectar a más de una página. Se controla con el array \emph{bio\_vec} de \emph{bio}.
+		\item Las operaciones se encolan un una cola de peticiones pendientes.
+	\end{itemize}
+\end{frame}
+
+\subsubsection{IO Scheduler}
+\begin{frame}{IO Scheduler}
+	\begin{itemize}
+		\item Las operaciones de I/O no son óptimas en tiempo.
+		\item El sistema operativo planifica estas operaciones para mejorar el rendimiento.
+		\item La planificación se lleva a cabo siguiendo alguna de las siguientes políticas (en el núcleo se denominan \emph{elevators}):
+		\begin{itemize}
+			\item \emph{Linus Elevator}
+			\item \emph{Deadline I/O Scheduler}
+			\item \emph{Anticipatory I/O Scheduler}
+			\item \emph{Complete Fair Queuing I/O Scheduler}
+			\item \emph{Noop I/O Scheduler}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{VFS}

@@ -1,0 +1,262 @@
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+
+%\usepackage{beamerouterthemeinfolines}
+%\usepackage{beamerthemeBoadilla}      % Sin {,sub}apartados, blanco
+%\usepackage{beamerthemeRochester}     % Sin {,sub}apartados, simple, cuadrado
+%\usepackage{beamerthemeboxes}         % Sin {,sub}apartados, muy blanco
+%\usepackage{beamerthemePittsburgh}    % Sin {,sub}apartados, muy blanco, redondo
+%\usepackage{beamerthemeMadrid}        % Sin {,sub}apartados
+%\usepackage{beamerthemeSingapore}     % Sin subapartados, blanco, puntitos
+\usepackage{beamerthemeCopenhagen}    % Violeta/negro, cargado, con todo
+%\usepackage{beamerthemeLuebeck}       % Como Copenhagen, cuadrado
+%\usepackage{beamerthemeWarsaw}        % Violeta/negro, gradiente, cargado, con todo
+
+% Image declarations
+% \pgfdeclaremask{imagemask}{imagemaskfile}
+% \pgfdeclareimage[interpolate=true,mask=imagemask,%
+                 % width=2cm,height=1.3cm]{imagename}{imagename}
+\pgfdeclareimage[interpolate=true,%
+                 width=2cm]{gul}{gul}
+
+\title{OpenVPN: Redes Privadas Virtuales sencillas}
+\author{Jesús Espino García\\ \texttt{jespinog@gmail.com}}
+\institute{Jornadas de Otoño 2009\\\pgfuseimage{gul}}
+
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section<presentation>*{Índice}
+
+\frame
+{
+  \frametitle{Índice}
+  \tableofcontents[part=1]
+}
+
+\AtBeginSubsection[]
+{
+  \frame<handout:0>
+  {
+    \frametitle{Índice}
+    \tableofcontents[current,currentsubsection]
+  }
+}
+
+
+\part<presentation>{Contents}
+
+\section{Introducción}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% VPN %
+\frame
+{
+  \frametitle{¿Qué es una VPN?}
+  \begin{itemize}
+  \item Red Privada Virtual.
+  \item Redes privadas sobre redes publicas.
+  \item Trasferencia de datos cifrada.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OpenVPN %
+\frame
+{
+  \frametitle{¿Que es OpenVPN?}
+  \begin{itemize}
+  \item Software para construir VPNs.
+  \item GPL.
+  \item Multi Plataforma.
+  \item Cifrado sobre OpenSSL.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Porque OpenVPN %
+\frame
+{
+  \frametitle{¿Por qué OpenVPN?}
+  \begin{itemize}
+  \item Libre.
+  \item Portable.
+  \item SSL.
+  \item Fácil de configurar.
+  \item Escalable.
+  \item Es un programa en espacio de usuario.
+  \item Puede conectar a través de proxy HTTP.
+  \end{itemize}
+}
+
+\section{Usar OpenVPN}
+
+\subsection{Modos de funcionamiento}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: ¿Que son? %
+\frame
+{
+  \frametitle{Routing}
+  \begin{itemize}
+  \item Eficiente y escalable.
+  \item Usa modo "Tun" del driver tun/tap.
+  \item Modifica reglas de firewall y rutado.
+  \item Funciona con IPv4 y en algunos casos con IPv6.
+  \item No propaga el trafico broadcast.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: ¿Que son? %
+\frame
+{
+  \frametitle{Bridge}
+  \begin{itemize}
+  \item Bridge Ethernet.
+  \item Usa modo "Tap" del driver tun/tap.
+  \item Usa las bridge tools.
+  \item Une dos redes.
+  \item Soporta otros protocolos a parte de IPv4 (IPX, AppleTalk...).
+  \item Menos eficiente y escalable que el routing.
+  \end{itemize}
+}
+
+\subsection{Modos de cifrado}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: ¿Que son? %
+\frame
+{
+  \frametitle{Clave compartida}
+  \begin{itemize}
+  \item Usar una clave que comparten cliente y servidor.
+  \item Poco seguro.
+  \item Poco escalable.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: ¿Que son? %
+\frame
+{
+  \frametitle{Certificados X509}
+  \begin{itemize}
+  \item Usar Certificados para autenticar ambos extremos.
+  \item Utiliza una Autoridad certificador para dar validez a los certificados.
+  \item Las altas se hacen mediante generación y firma de certificados por parte de la CA.
+  \item Las bajas se hacen como revocaciones de un certificado.
+  \item Muy seguro.
+  \item Muy escalable.
+  \end{itemize}
+}
+
+\section{Ejemplos}
+\subsection{Clave compartida con Routing}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: Ficheros y directorios %
+\begin{frame}[fragile]
+  \frametitle{Clave compartida con Routing}
+  Configuración con clave estática y compartida.
+  \begin{itemize}
+  \item Creamos una clave: \verb+openvpn --genkey --secret static.key+
+  \item Copiamos esta clave en los dos equipos a conectar.
+  \item Configuramos el servidor para que acepte esta clave.
+  \item Configuramos el cliente para que conecte al servidor y use esta clave.
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: Principales funciones %
+\begin{frame}[fragile]
+  \frametitle{Clave compartida con Routing}
+  \begin{itemize}
+  \item Cliente:
+  \begin{verbatim}
+dev tun0
+ifconfig 10.8.0.1 10.8.0.2
+secret static.key
+  \end{verbatim}
+  \item Servidor:
+  \begin{verbatim}
+remote myserver.com
+dev tun0
+ifconfig 10.8.0.2 10.8.0.1
+secret static.key
+  \end{verbatim}
+  \end{itemize}
+\end{frame}
+
+\subsection{X509 con Bridging}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: Ficheros y directorios %
+\begin{frame}[fragile]
+  \frametitle{X509 con Bridging}
+  Configuración con certificados X509.
+  \begin{itemize}
+  \item Creamos una autoridad certificadora.
+  \item Creamos un certificado y su clave para el servidor.
+  \item Creamos un certificado y su clave para el cliente.
+  \item Firmamos los certificados del servidor y cliente con la autoridad certificadora.
+  \item Configuramos el servidor para usar esa CA, su certificado y su clave.
+  \item Configuramos el cliente para usar esa CA, su certificado y su clave.
+  \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Templates: Principales funciones %
+\begin{frame}[fragile]
+  \frametitle{X509 con Bridging}
+  \begin{itemize}
+  \item Cliente:
+  \begin{verbatim}
+client
+dev tap1
+proto tcp
+port 1196
+ca keys/ca.crt
+cert keys/client.crt
+key keys/client.key
+dh keys/dh1024.pem
+remote 127.0.0.1 1195
+  \end{verbatim}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{X509 con Bridging}
+  \begin{itemize}
+  \item Servidor:
+  \begin{verbatim}
+dev tap0
+proto tcp
+lport 1195
+ca keys/ca.crt
+cert keys/server.crt
+key keys/server.key
+dh keys/dh1024.pem
+server-bridge 192.168.0.2 255.255.255.0 192.168.0.128 192.168.0.254
+  \end{verbatim}
+  \end{itemize}
+\end{frame}
+
+\section{Para terminar}
+
+\subsection{Referencias}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Referencias %
+\begin{frame}
+  \frametitle{Referencias}
+  \begin{itemize}
+  \item www.openvpn.net: Pagina oficial de OpenVPN.
+  \item gul@gul.uc3m.es: Lista de correo del GUL.
+  \end{itemize}
+\end{frame}
+
+\subsection{Dudas}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Dudas %
+\begin{frame}
+  \frametitle{Dudas}
+  \begin{center}
+  \ldots
+  \end{center}
+\end{frame}
+
+\end{document}

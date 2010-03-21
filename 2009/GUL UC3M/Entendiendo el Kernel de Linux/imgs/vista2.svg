@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2488"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="vision-general-02.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs2490">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2496" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.63476245"
+     inkscape:cx="155.43077"
+     inkscape:cy="392.49531"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="888"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata2493">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2695"
+       transform="translate(-3.9298145,0)">
+      <rect
+         ry="8.9968281"
+         y="242.14029"
+         x="112.57391"
+         height="90.482841"
+         width="506.46719"
+         id="rect2389"
+         style="fill:#ea984f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.2684679;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         transform="scale(0.9827827,1.0175189)"
+         id="text2419"
+         y="290.2937"
+         x="237.20601"
+         style="font-size:28.49053001px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="290.2937"
+           x="237.20601"
+           id="tspan2421"
+           sodipodi:role="line">Espacio de usuario</tspan></text>
+    </g>
+    <g
+       id="g2586"
+       transform="translate(4.7348354,270.9675)">
+      <rect
+         ry="9.1569405"
+         y="643.06018"
+         x="103.93218"
+         height="92.093117"
+         width="506.42136"
+         id="rect2383"
+         style="fill:#ea984f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.27964723;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         id="text2411"
+         y="697.96985"
+         x="288.86551"
+         style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="697.96985"
+           x="288.86551"
+           id="tspan2413"
+           sodipodi:role="line">Hardware</tspan></text>
+    </g>
+    <g
+       id="g2700"
+       transform="translate(3.9471386,0)">
+      <g
+         id="g2690">
+        <rect
+           style="fill:#ea984f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.28;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2391"
+           width="504.54779"
+           height="561.26184"
+           x="105.65666"
+           y="342.30936"
+           ry="27.449949" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="233.63954"
+           y="371.86365"
+           id="text2407"><tspan
+             sodipodi:role="line"
+             id="tspan2409"
+             x="233.63954"
+             y="371.86365">Espacio de Kernel</tspan></text>
+      </g>
+      <g
+         transform="translate(1.8918533,7.6293945e-6)"
+         id="g2685">
+        <rect
+           style="fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.86779237;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2393"
+           width="485.35309"
+           height="74.175652"
+           x="113.36216"
+           y="399.29587"
+           ry="14.507777" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="158.34338"
+           y="444.10831"
+           id="text2399"><tspan
+             sodipodi:role="line"
+             id="tspan2401"
+             x="158.34338"
+             y="444.10831">Interfaz (Syscalls y ficheros)</tspan></text>
+      </g>
+      <g
+         transform="translate(1.8918533,-3.0517578e-5)"
+         id="g2680">
+        <rect
+           style="fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.86779237;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2615"
+           width="485.35309"
+           height="74.175652"
+           x="113.36216"
+           y="482.79172"
+           ry="14.507777" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="251.98206"
+           y="530.31799"
+           id="text2617"><tspan
+             sodipodi:role="line"
+             x="251.98206"
+             y="530.31799"
+             id="tspan2648">Interfaz Virtual</tspan></text>
+      </g>
+      <g
+         transform="translate(1.8918533,-3.1508255)"
+         id="g2675">
+        <rect
+           style="fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.86779237;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2621"
+           width="485.35309"
+           height="74.175652"
+           x="113.36216"
+           y="569.43829"
+           ry="14.507777" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="193.0426"
+           y="616.9646"
+           id="text2623"><tspan
+             sodipodi:role="line"
+             id="tspan2625"
+             x="193.0426"
+             y="616.9646">Puente de subsistemas</tspan></text>
+      </g>
+      <g
+         transform="translate(5.0426407,-7.8769989)"
+         id="g2670">
+        <rect
+           style="fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.86779237;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2627"
+           width="485.35309"
+           height="74.175652"
+           x="110.21137"
+           y="657.66028"
+           ry="14.507777" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="234.20236"
+           y="702.47272"
+           id="text2629"><tspan
+             sodipodi:role="line"
+             id="tspan2631"
+             x="234.20236"
+             y="702.47272">Logica del kernel</tspan></text>
+      </g>
+      <g
+         transform="translate(3.4672394,-6.3015976)"
+         id="g2660">
+        <rect
+           style="fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.86779237;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2633"
+           width="485.35309"
+           height="74.175652"
+           x="111.78677"
+           y="739.58069"
+           ry="14.507777" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="195.09027"
+           y="784.39313"
+           id="text2635"><tspan
+             sodipodi:role="line"
+             id="tspan2637"
+             x="195.09027"
+             y="784.39313">Control de dispositivos</tspan></text>
+      </g>
+      <g
+         transform="translate(3.4672546,0)"
+         id="g2665">
+        <rect
+           style="fill:#ffdd55;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.86779237;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect2642"
+           width="485.35309"
+           height="74.175652"
+           x="111.78676"
+           y="816.7749"
+           ry="14.507777" />
+        <text
+           xml:space="preserve"
+           style="font-size:28px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+           x="164.28752"
+           y="862.65375"
+           id="text2644"><tspan
+             sodipodi:role="line"
+             id="tspan2646"
+             x="164.28752"
+             y="862.65375">Interfaz hardware (Drivers)</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

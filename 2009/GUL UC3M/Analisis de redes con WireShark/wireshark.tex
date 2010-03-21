@@ -1,0 +1,201 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+
+% Definiciones para usar luego
+\newtheorem{ejemplo}{Ejemplo}
+\newtheorem{definicion}{Definición}
+
+\title{Análisis de redes con WireShark}
+\author{Jesús Espino García}
+\date{10 de Marzo de 2009}
+\subject{Análisis de redes con WireShark}
+
+\institute[GUL UC3M]{
+  Grupo de usuarios de Linux\\
+  Universidad Carlos III de Madrid.\\
+  \ \\
+  \includegraphics[height=1.5cm]{gul}}
+
+\begin{document}
+
+  \frame{\maketitle}
+  
+  \section{Introducción}
+
+  \begin{frame}{Conceptos básicos de red}
+    \begin{itemize}
+      \item Pila TCP-UDP/IP (Física,Enlace,IP,TCP,Aplicación)
+      \item Hardware (Hub/Switch)
+      \item Puerto.
+      \item Protocolo.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Qué es?}
+    \begin{itemize}
+      \item Sniffer de red.
+      \item Es GPL.
+      \item Multiplataforma.
+      \item Reconoce mas de 480 protocolos.
+      \item Capaz de seguir sesiones TCP.
+      \item Soporta archivos de captura de otros sniffers.
+      \item Compatible con tcpdump.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Por qué?}
+    \begin{itemize}
+      \item Detección de errores.
+      \item Detección de intrusiones.
+      \item Detección de congestiones.
+      \item Obtención de información privada.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Cómo?}
+    \begin{itemize}
+      \item Usando wireshark.
+      \item Usando tcpdump.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Dónde?}
+    \begin{itemize}
+      \item Misma maquina.
+      \item Misma red física (hubs).
+      \item Mismo switch con puerto espejo.
+      \item Mismo switch con cache poisoning.
+      \item En ambas maquinas (origen y destino).
+    \end{itemize}
+  \end{frame}
+
+  \section{Obteniendo el trafico de red}
+
+  \begin{frame}[containsverbatim]{Obteniendo el trafico de red}
+    \begin{block}{Con wireshark}
+      \begin{itemize}
+        \item Abrir WireShark como root.
+        \item Ir a Capture > Interface\dots
+        \item Hacer click en start en la interfaz que nos interesa.
+        \item Al terminar ir a Capture > Stop.
+      \end{itemize}
+    \end{block}
+
+    \begin{block}{Con tcpdump}
+      \begin{itemize}
+        \item En un terminal como root ejecutar \verb+tcpdump -w <fichero.pcap>+
+        \item Abrir el fichero creado con WireShark.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \section{Usando WireShark}
+
+  \subsection{Filtrando paquetes}
+
+  \begin{frame}{Filtrando paquetes}
+    \begin{block}{En la captura}
+      \begin{itemize}
+        \item Filtros que permiten capturar solo el trafico que nos interesa.
+        \item Generan ficheros mas pequeños y manejables.
+        \item Pueden perderse tramas interesantes para el diagnostico.
+      \end{itemize}
+    \end{block}
+
+    \begin{block}{En el mostrado}
+      \begin{itemize}
+        \item Ocultan los paquetes que no coinciden con el filtro.
+        \item Maneja todos los datos, podemos diagnosticar con mas información.
+        \item Los ficheros normalmente son mas grandes y mas pesados de manejar.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Filtrando paquetes}
+    \begin{block}{Expresiones}
+      \begin{itemize}
+        \item Para poder filtrar mas fácilmente podemos usar el botón "Expresion\dots".
+        \item Nos permite construir filtros de manera sencilla sin tener que acordarnos de todo.
+      \end{itemize}
+    \end{block}
+
+    \begin{block}{Seguir tramas}
+      \begin{itemize}
+        \item Hacemos click derecho sobre un paquete y seleccionamos "Follow TCP Stream".
+        \item Nos crea automáticamente un filtro para esta trama.
+        \item Ademas nos abre una ventana con la información intercambiada.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \subsection{Modificando los tiempos}
+
+  \begin{frame}{Modificando los tiempos}
+    \begin{block}{El formato}
+      \begin{itemize}
+        \item Se pueden seleccionar diferentes formatos y precisiones para los tiempos.
+        \item Formatos como, la fecha, la hora, el numero de segundos desde el principio de la captura\dots
+        \item Precisiones desde segundos hasta nanosegundos.
+      \end{itemize}
+    \end{block}
+
+    \begin{block}{La referencia}
+      \begin{itemize}
+        \item También es interesante contar el tiempo a partir de un determinado paquete.
+        \item WireShark permite seleccionar un paquete para que sea el segundo 0.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \section{Ejemplos}
+
+  \begin{frame}{Ejemplos}
+    \begin{itemize}
+      \item Telnet.
+      \item IMAP.
+      \item DNS.
+      \item DHCP.
+      \item Virus Slammer.
+      \item WakeOnLan.
+    \end{itemize}
+  \end{frame}
+
+  \section{Para terminar.}
+
+  \begin{frame}[containsverbatim]{Referencias}
+    \begin{itemize}
+      \item \verb+man wireshark+: Pagina del manual de WireShark.
+      \item \verb+man tcpdump+: Pagina del manual de tcpdump.
+      \item http://www.wireshark.org: Pagina oficial de WireShark.
+      \item http://wiki.wireshark.org/SampleCaptures: Ejemplos de capturas.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Dudas}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{gul}
+    \end{center}
+  \end{frame}
+
+\end{document}

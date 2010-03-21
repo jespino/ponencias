@@ -1,0 +1,49 @@
+\section{Interrupciones}
+\subsection{Tipos interrupciones}
+\begin{frame}{Tipos de interrupciones}
+	\begin{itemize}
+		\item Excepciones: Interrupciones del propio procesador.
+		\item Interrupciones: Señales (normalmente por IRQ) del hardware.
+	\end{itemize}
+\end{frame}
+
+\subsection{IRQs y APIC}
+\begin{frame}{IRQs y APIC}
+	\begin{block}{IRQ}
+		\begin{itemize}
+			\item IRQ es una señal especial que va directamente a la CPU.
+			\item Tiene su propio canal de comunicación (normalmente incluido en el bus del sistema).
+			\item Este bus permite mandar señales al procesador en cualquier momento.
+		\end{itemize}
+	\end{block}
+	\begin{block}{APCI}
+		\begin{itemize}
+			\item APIC es un sistema de IRQs en 2 niveles (normalmente) para sistemas SMP.
+			\item Permite discriminar el envío de IRQs a un procesador u otro.
+			\item Cada CPU tiene su sistema de APIC local para gestionar sus interrupciones.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Excepciones}
+\begin{frame}{Excepciones}
+	\begin{itemize}
+		\item Indica un error emitido por la CPU.
+		\item Normalmente es una situación anómala producida por la programación.
+		\item Ocurre durante la ejecución del proceso y no hay cambio de contexto.
+	\end{itemize}
+\end{frame}
+
+\subsection{Interrupciones}
+\begin{frame}{Interrupciones}
+	\begin{itemize}
+		\item Indica una solicitud al procesador de que se haga algo.
+		\item Normalmente las interrupciones las producen el hardware.
+		\item Puede ser urgente o no.
+		\item En caso de ser urgente se interrumpe la ejecución y lanza el manejador.
+		\item En caso de no ser urgente se espera al momento idóneo para lanzar el manejador.
+		\item Para manejar una interrupción se produce un cambio de contexto.
+		\item Se pueden emitir interrupciones por software (softirq).
+		\item Las interrupciones pueden ser interrumpidas por otras.
+	\end{itemize}
+\end{frame}
