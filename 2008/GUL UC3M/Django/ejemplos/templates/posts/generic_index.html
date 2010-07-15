@@ -1,0 +1,14 @@
+{% extends 'posts/main.html' %}
+{% block body %}
+    <h1>Listado de Posts</h1>
+    {% for post in object_list %}
+    <div class='post' style='border:1px;border-style:solid;margin:5px; padding:5px; float:left; width:95%;'>
+      <h2>{{ post.title }}</h2>
+      <div style='border:1px;border-style:solid;margin:5px; width: 80%; float:left;'>{{ post.text }}</div>
+      <div style='border:1px;border-style:solid;margin:5px; padding:5px; float:left;'><a href='/delete/{{ post.id }}'>Borrar</a></div>
+    </div>
+    {% endfor %}
+    <div class='nuevo' style='border:1px;border-style:solid;margin:5px; padding:5px; float:left; width=95%;'>
+      <a href='/new/'>Nuevo Post</a>
+    </div>
+{% endblock %}

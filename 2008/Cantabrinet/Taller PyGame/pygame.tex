@@ -1,0 +1,437 @@
+% Copyright 2008 by Jesus Espino <jespinog@gmail.com>.
+%
+% This document can be redistributed and/or modified under the terms
+% of the Creative Commons BY-SA.
+
+\documentclass{beamer}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\usetheme{Madrid}
+\usecolortheme[RGB={135,211,0}]{structure} 
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\title{PyGame: Desarrollo de juegos en Python}
+\author{Jesús Espino García}
+\date{6 de Septiembre de 2008}
+\subject{PyGame: Desarrollo de juegos en Python}
+
+\institute[Cenatic]{
+  \includegraphics[height=1.5cm]{images/cantabrianet}
+  \includegraphics[height=1.5cm]{images/cenatic}
+}
+
+\begin{document}
+
+  \frame{\titlepage}
+
+  \section*{Outline}
+  \frame{\tableofcontents}
+
+  \section{Introducción}
+  \frame{\tableofcontents[currentsection]}
+
+  \begin{frame}
+    \frametitle{¿Qué es?}
+    \begin{itemize}
+      \item Es una biblioteca SDL de python.
+      \item Simplifica el uso de SDL.
+      \item Esta orientada al desarrollo de juegos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ventajas e inconvenientes}
+    Ventajas:
+    \begin{itemize}
+      \item Es específico para crear juegos.
+      \item Da capacidades multimedia de forma sencilla.
+      \item Es Python!!
+      \item Es rápido de programar.
+      \item Es LGPL.
+    \end{itemize}
+
+    Desventajas:
+    \begin{itemize}
+      \item Es específico para crear juegos.
+      \item Es Python!!
+      \item No es especialmente rápido.
+    \end{itemize}
+  \end{frame}
+  
+  \section{Elementos}
+  \frame{\tableofcontents[currentsection]}
+
+  \begin{frame}
+    \frametitle{Elementos}
+    En el diseño de juegos con pygame, tendremos 4 elementos básicos.
+    \begin{itemize}
+      \item La ventana principal (Display)
+      \item Las superficies (Sufaces)
+      \item Los eventos (Events)
+      \item Los rectángulos (Rects)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{La ventana principal}
+    Esto nos va a permitir el control sobre la ventana principal con operaciones como...
+    \begin{itemize}
+      \item \verb+Info()+: Obtiene información sobre la configuración gráfica.
+      \item \verb+set_mode()+: Establece las dimensiones de la ventana.
+      \item \verb+set_caption()+: Establece el título de la ventana.
+      \item \verb+set_icon()+: Establece el icono de la ventana.
+      \item \verb+flip()+: Actualiza el contenido de la ventana.
+      \item \verb+update()+: Actualiza el contenido de la ventana solo en algunas partes. 
+    \end{itemize}
+    Además tiene una superficie que engloba todo el contenido de la ventana.
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Superficies}
+    Son elementos que almacenan las imágenes que vamos a mostrar.
+    \begin{itemize}
+      \item \verb+convert()+: Convierte nuestra superficie al formato final que usaremos, lo que hace que trábajar con el sea más rápido.
+      \item \verb+blit()+: Copia una superficie a una posición.
+      \item \verb+copy()+: Copia una superficie.
+      \item \verb+fill()+: Rellena una superficie con un color especificado.
+      \item \verb+get_rect()+: Obtiene un objeto Rect asociado a la superficie.
+      \item \verb+subsurface()+: Crea una superficie con datos compartidos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Eventos}
+    Gestiona la interacción del usuario con el juego.
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Rectángulos}
+    Es un objeto que nos permite trabajar cómodamente con rectángulos que
+    representan las posiciones de nuestras superficies y nuestros objetos de juego.
+    Tiene varios métodos muy útiles.
+    \begin{itemize}
+      \item \verb+move()+: Mueve la posición en referencia a la actual.
+      \item \verb+colliderect()+: Comprueba si hay una colisión con otro rectángulo.
+      \item \verb+union()+: Devuelve un Rect que engloba a dos elementos que se le pasen como parametro.
+      \item \verb+unionall()+: Devuelve un Rect que engloba a todos los elementos que se le pasen como parámetro.
+    \end{itemize}
+    Además tiene algunos atributos que nos sirven para modificar la posición de nuestra superficie o objeto de juego.
+    \begin{itemize}
+      \item \verb+centerx,centery+: El centro respecto de x o de y.
+      \item \verb+left,right,top,bottom+: El borde izquierdo, derecho, superior o inferior.
+    \end{itemize}
+  \end{frame}
+  
+  \section{Estructura básica}
+  \frame{\tableofcontents[currentsection]}
+
+  \begin{frame}
+    \frametitle{Estructura básica}
+    \begin{itemize}
+      \item Importar módulos
+      \item Inicializamos PyGame
+      \item Inicialización del escenario de juego (Display y Surfaces)
+      \item Crear el bucle de eventos (Events)
+      \begin{itemize}
+        \item Procesar evento capturado (Events)
+        \item Detectamos y procesamos situaciones del juego.
+        \item Redibujar lo que sea necesario (Display y Surfaces)
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Ejemplo: Hola mundo}
+    \begin{center}
+      \includegraphics[height=3cm]{images/HelloWorld}
+    \end{center}
+  \end{frame}
+
+  \section{Incorporando objetos}
+  \frame{\tableofcontents[currentsection]}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Como utilizar textos en pygame}
+    Para trabajar con textos pygame nos da la clase Font.
+    \begin{itemize}
+      \item \verb+pygame.font.Font()+: nos crea un objeto font con la fuente y el tamaño pasados por parametro.
+      \item \verb+render()+: Nos devuelve una superficie con el texto y el color que le pasamos como parametro. Tambien se puede establecer si se usa o no antialiasing.
+      \item \verb+set_bold()+: Pone el texto en negrita.
+      \item \verb+set_italic()+: Pone el texto en itálica.
+      \item \verb+set_underline()+: Pone el texto subrayado
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Como utilizar imágenes en pygame}
+    Para trabajar con imágenes pygame nos da algunas funciones.
+    \begin{itemize}
+      \item \verb+pygame.image.load()+: Nos devuelve una superficie con la imagen que le hemos pasado.
+      \item \verb+pygame.image.save()+: Guarda una un fichero en formato TGA o BMP la superficie que se le pasa como parámetro.
+      \item \verb+pygame.image.tostring()+: Pasa una superficie a una cadena de texto (para poder pasar imágenes entre programas).
+      \item \verb+pygame.image.fromstring()+: Pasa una cadena a una superficie.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Como utilizar sonido en pygame}
+    Para trabajar con sonidos pygame nos da la clase Sound
+    \begin{itemize}
+      \item \verb+pygame.mixer.Sound()+: Nos devuelve un objeto de tipo sound haciendo referencia al fichero que se le pasa como parámetro.
+      \item \verb+play()+: Este método reproduce el sonido, se le puede especificar el numero de veces y el tiempo máximo para reproducir el sonido.
+      \item \verb+stop()+: Para todos las reproducciones de este sonido.
+      \item \verb+set_volume()+: Establece el volumen de reproducción del sonido, un valor entre 0.0 y 1.0.
+      \item \verb+get_length()+: Devuelve el numero de segundos de datos que tiene el fichero.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ejemplo: Pin Pon}
+    \begin{center}
+      \includegraphics[height=3cm]{images/PinPon1}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ejemplo: Pin Pon con sonido y puntuación}
+    \begin{center}
+      \includegraphics[height=3cm]{images/PinPon2}
+    \end{center}
+  \end{frame}
+  
+  \section{Sprites}
+  \frame{\tableofcontents[currentsection]}
+
+  \begin{frame}
+    \frametitle{¿Qué son?}
+    \begin{itemize}
+      \item Serán nuestros objetos de juego.
+      \item Fáciles de manejar.
+      \item Objeto compuesto de una imagen y una posición.
+      \item Se gestiona a si mismo.
+      \item Conjunto de clases.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Clase Group}
+    \begin{itemize}
+      \item Contenedor de sprites.
+      \item Permite realizar operaciones conjuntas.
+      \item Permite detectar colisiones entre grupos.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Uniendo ambas clases I}
+    Los objetos Sprite tienen métodos para trabajar con los grupos.
+    \begin{itemize}
+      \item \verb+__init__+: En el constructor se le puede especificar a que grupos pertenece en el momento de su creacion.
+      \item \verb+add()+: Añade el sprite a un grupo.
+      \item \verb+remove()+: Elimina el sprite de un grupo.
+      \item \verb+kill()+: Elimina el sprite de todos los grupos.
+      \item \verb+alive()+: Nos devuelve true si el sprite pertenece todavía a algún grupo.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Uniendo ambas clases II}
+    Los objetos Group tienen métodos para trabajar con los sprites.
+    \begin{itemize}
+      \item \verb+__init__+: En el constructor se puede especificar que sprites pertenecen en el momento de su creación.
+      \item \verb+add()+: Añade un sprite al grupo.
+      \item \verb+remove()+: Elimina un sprite del grupo.
+      \item \verb+empty()+: Vacía el grupo.
+      \item \verb+copy()+: Devuelve una copia del grupo con todos sus miembros.
+      \item \verb+has()+: Comprueba si pertenecen al grupo los sprites especificados.
+      \item \verb+sprites()+: Devuelve una lista de los sprites del grupo.
+      \item \verb+update()+: Ejecuta el método \verb+update()+ en cada sprite del grupo (por defecto un método vacío).
+      \item \verb+len()+: Devuelve el numero de sprites del grupo.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Uniendo ambas clases III}
+    Cave destacar varias razones para usar las clases Sprite y Group conjuntamente.
+    \begin{itemize}
+      \item Comodidad: Se pueden hacer operaciones sobre los grupos en vez de sobre cada sprite.
+      \item Eficiencia: Tiene poco coste añadir y quitar un sprite de un grupo.
+      \item Orden: Nuestro código y nuestras ideas estarán más ordenadas.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Tipos de grupos I}
+    Hay varios tipos de grupos que se comportan de manera diferente.
+    \begin{itemize}
+      \item \verb+Group+
+      \item \verb+GroupSigle+
+      \item \verb+RenderPlain+
+      \item \verb+RenderClear+: 
+      \item \verb+RenderUpdates+:
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Tipos de grupos II: Group}
+    \begin{itemize}
+      \item Este es el grupo estándar.
+      \item Todos los demás grupos derivan de él añadiendo funcionalidad.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Tipos de grupos III: GroupSigle}
+    \begin{itemize}
+      \item Hereda de Group.
+      \item Solo almacena un srpite.
+      \item Cuando se inserta uno olvida el anterior.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Tipos de grupos IV: RenderPlain}
+    \begin{itemize}
+      \item Hereda de Grupo.
+      \item Añade el método draw() que dibuja todos los sprites que contiene.
+      \item Los sprites necesitan tener los atributos image y rect para saber que y donde dibujar.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Tipos de grupos V: RenderClear}
+    \begin{itemize}
+      \item Hereda de RenderPlain,
+      \item Añade el método clear() que limpia la posición anterior de los sprites.
+      \item Utiliza una imagen de fondo para rellenar las posiciones antiguas.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Tipos de grupos VI: RenderUpdates}
+    \begin{itemize}
+      \item Hereda del grupo RenderClear.
+      \item Modifica el método draw() para que devuelva una lista de rects con las posiciones que han cambiado.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Tipos de grupos VII}
+    Es necesario saber que tipo de Render Group utilizar.
+
+    Para juegos con fondos muy dinámicos es mejor usar RenderPlain, porque no
+    se obtendrá las ventajas que nos proporciona RenderUpdates pero si su consumo
+    de recursos, que es menor. En cambio, para juegos con fondo estático sera mejor
+    usar RenderUpdates que nos facilitara el trabajo y probablemente lo hará mejor
+    que nosotros.
+
+    Se pueden mezclar en un mismo juego los grupos que se quieran.
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Detección de colisiones}
+    Una de las cosas importantes en los juegos es la detección de las colisiones, pygame nos ofrece dos funciones.
+    \begin{itemize}
+      \item \verb+spritecollide(sprite,group,dokill)->list+: Nos devuelve una
+        lista de los sprites que se solapan con el sprite indicado. dokill es un
+        parámetro booleano que si es cierto envía una señal kill a todos los sprites de
+        la lista.
+      \item \verb+groupcollide(group1,group2,dokill1,dokill2)->dictionary+: Nos
+        devuelve un diccionario con los sprites del grupo uno que colisionan con los
+        sprites del grupo dos, si dokill1 es verdadero enviara la señal kill a todos
+        los sprites del diccionario que pertenezcan al grupo 1, si dokill2 es verdadero
+        hará lo mismo con los del grupo 2.
+    \end{itemize}
+    Estas funciones son básicas y probablemente para juegos complejos sea necesario redefinirlas.
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{El bucle de eventos}
+    El bucle de eventos nos permite gestionar los eventos de nuestro juego.
+    Pulsaciones de tecla, clicks del ratón, movimientos del joystick, incluso
+    definir nuestros propios eventos. Las funciones que se utilizan para control de
+    eventos son:
+    \begin{itemize}
+      \item \verb+get()+: Obtiene la lista de eventos que están en espera.
+      \item \verb+wait()+: Espera a la aparición de algún evento.
+      \item \verb+clear()+: Elimina todos los elementos que están en espera.
+      \item \verb+post()+: Mete un elemento en espera.
+      \item \verb+poll()+: Saca un elemento de la espera.
+      \item \verb+set_allowed()+: Permite que elementos se pongan en espera.
+      \item \verb+set_blocked()+: Bloquea que elementos se pongan en espera.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Eventos existentes}
+    Existen algunos elementos predefinidos:
+    \begin{itemize}
+      \item \verb+QUIT+
+      \item \verb+ACTIVEEVENT+
+      \item \verb+KEYDOWN+
+      \item \verb+KEYUP+
+      \item \verb+MOUSEMOTION+
+      \item \verb+MOUSEBUTTONDOWN+
+      \item \verb+MOUSEBUTTONUP+
+      \item \verb+JOYAXISMOTION+
+      \item \verb+JOYBALLMOTION+
+      \item \verb+JOYHATMOTION+
+      \item \verb+JOYBUTTONDOWN+
+      \item \verb+JOYBUTTONUP+
+      \item \verb+VIDEORESIZE+
+      \item \verb+VIDEOEXPOSE+
+      \item \verb+USEREVENT+
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Ejemplo de bucle de eventos}
+    \begin{verbatim}
+for event in pygame.event.wait():
+    if event == QUIT:
+        return
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Una aplicación con sprites, ejemplo del space invaders.}
+    \begin{center}
+      \includegraphics[height=6.5cm]{images/spaceinvaders}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Otra aplicación con sprites, ejemplo del air shutter.}
+    \begin{center}
+      \includegraphics[height=6.5cm]{images/airshutter}
+    \end{center}
+  \end{frame}
+
+  \section{Para terminar}
+  \frame{\tableofcontents[currentsection]}
+ 
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{itemize}
+      \item \small{http://www.pygame.org}
+      \item \small{irc://irc.freenode.org/pygame}
+      \item \small{Lista de correo: pygame-users@seul.org} 
+      \item \small{Beginning Game Development with Python and Pygame - Apress}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{images/cenatic}
+    \end{center}
+  \end{frame}
+
+\end{document}

@@ -1,0 +1,358 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/examples/beamerexample2.tex,v 1.7 2004/10/07 20:53:07 tantau Exp $
+
+% This file is included by beamerexample2.article.tex and
+% beamerexample2.beamer.tex 
+
+% Copyright 2003 by Till Tantau $<$tantau@cs.tu-berlin.de$>$.
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt.
+
+%
+% The purpose of this example is to demonstrate the usage of the
+% nameslide command
+%
+
+\mode<article>
+{
+  \usepackage{fullpage}
+  \usepackage{pgf}
+  \usepackage{hyperref}
+  \usepackage{url}
+  \setjobnamebeamerversion{software\_libre.beamer}
+}
+
+\mode<presentation>
+{
+  \usepackage{url}
+  \usetheme{Madrid}
+
+  \setbeamercovered{transparent}
+}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancybox}
+
+\title{¿Qué es el Software Libre?}
+\author{Paula Nuño Villalba}
+\date{5 de Noviembre de 2007}
+\subject{¿Qué es el Software Libre?}
+
+\begin{document}
+
+  \begin{frame}
+    \maketitle
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Contenidos}
+    \begin{center}
+
+    \begin{itemize}
+      \item Estado actual de la industria del software.
+      \item Claves del Software Libre
+      \begin{itemize}
+        \item ¿Qué es?
+        \item ¿Qué no es?
+        \item ¿Por qué es esto?
+      \end{itemize}
+      \item Un poco de historia
+      \begin{itemize}
+        \item Los comienzos
+        \item Licencias libres 
+      \end{itemize}
+      \item Desarrolladores y usuarios
+      \begin{itemize}
+        \item ¿Quién lo usa y lo desarrolla?
+        \item Motivaciones del desarrollador
+        \item Motivaciones del usuario
+      \end{itemize}
+      \item Principales obstaculos del Software Libre.
+      \item Conclusiones.
+      \item Referencias.
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Estado actual de la industria del software}
+    \begin{center}
+
+    \begin{itemize}
+      \item Dominio del productor.
+      \item Monopolios en nichos de negocio.
+      \item Los errores sólo los puede arreglar el productor.
+      \item No hay adaptación del software.
+    \end{itemize}
+
+    \huge{Copiar y compartir es MALO.}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Claves del Software Libre\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{¿Qué es?}
+    \begin{center}
+  
+    Software Libre es aquel que cumple las cuatro libertades básicas.
+    \begin{itemize}
+      \item Usarlo dónde, cómo y para lo que quiera.
+      \item Redistribuirlo como quiera.
+      \item Modificarlo.
+      \item Redistribuir las modificaciones.
+    \end{itemize}
+
+    Son libertades, en ningún caso obligaciones.
+
+    Es imprescindible disponer del código fuente.
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{¿Qué no es?}
+    \begin{center}
+  
+    Hay varios conceptos que se confunde con Software Libre.
+    \begin{itemize}
+      \item Software gratis.
+      \item Software abierto.
+    \end{itemize}
+
+    Ambas son características que pueden estar en el Software Libre, pero que
+    por sí solas no implican que el software sea libre.
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{¿Por qué es esto?}
+    \begin{center}
+  
+    Motivos Éticos: debería ser así.
+    \begin{itemize}
+      \item Free Software Foundation.
+      \item Ideas formuladas por Richard Stallman.
+    \end{itemize}
+
+    Motivos Prácticos: funciona mejor así.
+    \begin{itemize}
+      \item Open Source Iniciative.
+      \item Nuevas posiblidades de negocio (desafío a monopolios).
+      \item Ideas formuladas por Eric Raymond (La catedral y el bazar).
+    \end{itemize}
+    \end{center}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Un poco de historia\end{center}}
+  \end{frame}
+  
+  
+  \begin{frame}
+    \frametitle{Los comienzos}
+    \begin{center}
+    \begin{itemize}
+      \item 1984: Richard Stallman abandona el AI Lab del MIT para comenzar con el proyecto GNU.
+      \item 1985: Richard Stallman funda la Free Software Foundation.
+      \item 1990: El proyecto GNU estaba casi completo a falta del núcleo del sistema operativo.
+      \item 1991: Aparece en escena el kernel de Linux.
+      \item 1994: Aparece la primera version estable oficial de Linux (1.0).
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Licencias libres}
+    \begin{center}
+    \begin{itemize}
+      \item Herramientas legales que nos permiten imponer ciertos requisitos a los usuarios y los redistribuidores.
+      \item Hacen que se cumplan las cuatro libertades.
+      \item Basadas en leyes de propiedad intelectual.
+    \end{itemize}
+
+    Existen muchas, las dos principales son:
+    \begin{itemize}
+      \item GPL: (General Public License) De la Free Software Foundation.
+      \item LGPL: (Lesser General Public License) De la Free Software Foundation.
+      \item BSD: (Berkeley Software Distribution) De la universidad de Berkeley.
+    \end{itemize}
+
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Desarrolladores y usuarios\end{center}}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{¿Quién lo usa y lo desarrolla?}
+    \begin{center}
+    Hoy por hoy lo usan la mayoría de las grandes empresas del sector informático.
+
+    Lo desarrollan empresas como:
+    \begin{itemize}
+      \item IBM
+      \item Oracle
+      \item Sun Microsistem
+      \item Novell
+      \item Canonical
+      \item \dots{}
+    \end{itemize}
+
+    \huge{El Software Libre no son 4 Hippies.}
+    \end{center}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Motivaciones del desarrollador de Software Libre}
+    \begin{center}
+    \begin{itemize}
+      \item Motivaciones personales:
+      \begin{itemize}
+        \item Deseo de aprender.
+        \item Deseo de compartir. 
+        \item Participar en una comunidad.
+      \end{itemize}
+      \item Formas de obtener beneficios:
+      \begin{itemize}
+        \item Obtener reputación.
+        \item Motivaciones económicas:
+        \begin{itemize}
+          \item Creación.
+          \item Redistribución.
+          \item Integración.
+          \item Modificación.
+          \item Adaptación.
+          \item Soporte.
+        \end{itemize}
+      \end{itemize}
+    \end{itemize}
+    \end{center}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Motivaciones del usuario de Software Libre}
+    \begin{center}
+    \begin{itemize}
+      \item Acceso a la tecnología punta más fácilmente.
+      \item Adaptabilidad.
+      \item Transparencia.
+      \item Problema del cliente cautivo.
+      \item Mejor competencia.
+      \item Variedad de alternativas.
+      \item Ventajas del Software Libre (Más adelante).
+      \item Poder ayudar a los proyectos (Más adelante).
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ventajas del Software Libre}
+    \begin{center}
+  
+    El Software Libre consta de ciertas ventajas frente a software 
+    \begin{itemize}
+      \item Menor coste (aportaciones externas).
+      \item Menor coste de distribucion.
+      \item Desarrollo más cercano al usuario.
+      \item Mantenimiento y soporte independiente del productor.
+      \item Adaptabilidad del software.
+      \item Mayor facilicad de penetración en nichos de negocio.
+    \end{itemize}
+
+    Además combina dos poderosos mecanismos
+    \begin{itemize}
+      \item Competencia.
+      \item Cooperación.
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Formas de ayudar}
+    \begin{center}
+    \begin{itemize}
+      \item Código.
+      \item Documentación.
+      \item Notificando errores y sugerencias.
+      \item Usándolo.
+      \item Redistribuyendo copias.
+      \item Hablando.
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Principales obstáculos del Software Libre}
+    \begin{center}
+    \begin{itemize}
+      \item Desconocimiento.
+      \item Simplemente se ve como una ''alternativa técnica''.
+      \item Técnicas de miedo, desconocimiento y duda.
+      \item Problemas legales (Patentes del software).
+    \end{itemize}
+    \end{center}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Conclusiones}
+    \begin{center}
+    \begin{itemize}
+      \item Aún es temprano.
+      \item El Software Libre demuestra que es viable.
+      \item Nuevos modelos de negocio.
+      \item Necesario información buena y actual.
+      \item Mucha innovación.
+      \item El futuro depende de nosotros(profesionales, clientes, empresarios,...)
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Conclusiones}
+    \begin{center}
+    \huge{Éste es uno de esos raros momentos en los que toda una industria puede estar cambiando de paradigma.}
+    \end{center}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Para terminar.\end{center}}
+  \end{frame}
+ 
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{center}
+    \begin{itemize}
+      \item Free Software Foundation: http://www.fsf.org
+      \item Open Source Initiative: http://www.opensource.org
+      \item Proyecto GNU: http://www.gnu.org
+      \item Manifiesto GNU: Por Richar Stallman, http://www.gnu.org/gnu/manifesto.html
+      \item Debian GNU/Linux: http://www.debian.org
+      \item Licencia GPL: http://www.gnu.org/copyleft/gpl.html
+      \item Licencia LGPL: http://www.gnu.org/copyleft/lesser.html
+      \item Grupo de trabajo de la comisión europea sobre Software Libre: http://eu.conecta.it
+      \item Open Sources (O'Reilly): http://www.oreilly.com/catalog/opensources
+      \item Curso de Software Libre: http://curso-sobre.berlios.de
+    \end{itemize}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \begin{center}
+    \dots
+    \end{center}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{gul}
+    \end{center}
+  \end{frame}
+
+\end{document}

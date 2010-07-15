@@ -1,0 +1,184 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/examples/beamerexample2.tex,v 1.7 2004/10/07 20:53:07 tantau Exp $
+
+% This file is included by beamerexample2.article.tex and
+% beamerexample2.beamer.tex 
+
+% Copyright 2003 by Till Tantau $<$tantau@cs.tu-berlin.de$>$.
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt.
+
+%
+% The purpose of this example is to demonstrate the usage of the
+% nameslide command
+%
+
+% \mode<article>
+% {
+%   \usepackage{fullpage}
+%   \usepackage{pgf}
+%   \usepackage{hyperref}
+%   \setjobnamebeamerversion{presentacion.beamer}
+% }
+% 
+% \mode<presentation>
+% {
+%   \usetheme{Marzo}
+% 
+%   \setbeamercovered{transparent}
+% }
+
+\documentclass{beamer}
+
+\usepackage{beamerthemesplit}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\setbeamertemplate{blocks}[rounded]
+\usetheme{Madrid}
+
+\title{Presentación del GUL}
+\author{Jesús Espino García}
+\date{3 de Marzo de 2008}
+\subject{Presentación del GUL}
+
+\institute[GUL UC3M]{
+  Grupo de usuarios de Linux\\
+  Universidad Carlos III de Madrid.\\
+  \ \\
+  \includegraphics[height=2cm]{gul}}
+
+\begin{document}
+
+  \frame{\titlepage}
+  
+  \begin{frame}
+    \frametitle{¿Qué es el GUL?}
+
+    \begin{block}{El GUL}
+    \begin{itemize}
+      \item Es una asociación de la Universidad Carlos III de Madrid.
+      \item Es el Grupo de Usuarios de Linux de la Universidad Carlos III de Madrid.
+      \item Dedicada a promover el uso del software libre.
+      \item Consta de mas de 300 socios de todo el mundo.
+      \item Ha colaborado en la organización de congresos de primera linea en
+            el ámbito del software como son Hispalinux y Javahispano.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Organización.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Grupos}
+    \begin{block}{Tres clases de grupos}
+    \begin{itemize}
+      \item Junta: Grupo encargado de la toma de decisiones.
+      \item Grupos técnicos: Grupos encargados de llevar a buen puerto los proyectos del GUL.
+      \item Grupos de interés: Grupos con intereses comunes.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Grupos}
+    \begin{block}{La Junta}
+    \begin{itemize}
+      \item Un presidente: Jesús Espino García.
+      \item Un vicepresidente/secretario: Cláudio Jiménez.
+      \item Un tesorero: Samuél Rodríguez Sevilla.
+      \item Un vocal: Rafael Bravo.
+      \item Un coordinador de actividades: Jose María Chumo.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Grupos}
+    \begin{block}{Grupos técnicos}
+    \begin{itemize}
+      \item gul-root: Encargado de la administración de los servidores del GUL.
+      \item gul-www: Encargado de la pagina web del GUL.
+      \item gul-myc: Encargado de marketing y comunicación externas.
+      \item gul-cursos: Encargado de la organización de los cursos.
+    \end{itemize}
+    \end{block}
+    \begin{block}{Grupos de interes}
+    \begin{itemize}
+      \item gul-doc: Documentación y traducción.
+      \item gul-sec: Seguridad.
+      \item gul-dev: Desarrollo.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Proyectos.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Proyectos}
+    \begin{block}{Proyectos del último año}
+    \begin{itemize}
+      \item Cursos de Noviembre.
+      \item Cursos de Marzo.
+      \item Reuniones técnicas.
+      \item Hospedaje de Gentoo-es.
+      \item Mirror de Debian.
+      \item Documentación interna.
+      \item Servidor de Proyectos.
+      \item Cabaret.
+      \item Reuniones del GUL.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Proyectos}
+    \begin{block}{Proyectos futuros}
+    \begin{itemize}
+      \item Cursos de Noviembre.
+      \item Cursos de Marzo.
+      \item Cursos en Getafe.
+      \item Reuniones técnicas.
+      \item Hospedaje de Gentoo-es.
+      \item Documentación interna.
+      \item Alta de nuevos servicios.
+      \item Mejora de las infraestructuras de la asociacion
+      \item Reuniones del GUL.
+      \item Mirrors.
+      \item \dots
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Reuniones del GUL}
+    \begin{block}{Objetivos}
+    \begin{itemize}
+      \item Toma de decisiones.
+      \item Aportación de ideas y proyectos.
+      \item Revisión del estado de los proyectos.
+      \item Incorporación de nuevos activistas al GUL.
+      \item \dots
+    \end{itemize}
+    \end{block}
+    Se suelen hacer el segundo viernes de cada mes, pero lo normal es que alguien de la junta avise en la lista de correo.
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{gul}
+    \end{center}
+  \end{frame}
+
+\end{document}

@@ -1,0 +1,362 @@
+\documentclass[compress,orange,subsection=false,10pt]{beamer}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+\title{\LaTeX{} Beamer}
+\subtitle{Presentaciones como dios manda}
+
+\author{Jesús Espino García}
+\institute{\includegraphics[height=1.5cm]{gul}}
+
+\date{10 de Octubre de 2008}
+
+%\logo{\includegraphics[height=1.5cm]{gul}}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{¿Que es?}
+	\begin{itemize}
+		\item Extension de \LaTeX{}.
+		\item Añade una clase de documento para transparencias.
+		\item Desarrollado por Till Tantau desde el 2003.
+		\item Actualmente esta en la version 3.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{¿Por Que?}
+	\transblindsvertical<1>
+	\only<1>{
+		\begin{block}{Pros}
+			\begin{itemize}
+				\item Es \LaTeX{}!!
+				\item WYSIWYM.
+				\item Efectos y transiciones.
+				\item Aspecto adaptable.
+				\item Plantillas.
+				\item Salidas en diferentes formatos. 
+				\item Barras de navegacion.
+			\end{itemize}
+		\end{block}
+	}
+	\only<2>{
+		\begin{block}{Contras}
+			\begin{itemize}
+				\item Es \LaTeX{} :(
+				\item WYSIWYM.
+				\item Pequeño esfuerzo inicial.
+				\item Adaptaciones profundas del aspecto complicadas.
+			\end{itemize}
+		\end{block}
+	}
+\end{frame}
+
+
+\section{Elementos}
+\subsection{Preludio}
+\begin{frame}[fragile]{El preludio}
+	\begin{block}{Preludio}
+		\begin{enumerate}
+			\item \verb+\documentclass{beamer}+
+			\item \verb+\usetheme{Warsaw}+
+			\item \verb+\author{Jesús Espino}+
+			\item \verb+\title{\LaTeX Beamer}+
+			\item \verb+\date{10 de Octubre de 2008}+
+			\item \verb+\begin{document}+
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\subsection{Frames}
+
+\begin{frame}{Los frames}
+	\transdissolve<1-3>
+	\begin{block}{Sobre los frames}
+		\begin{itemize}[<+->]
+			\item Es un entorno de \LaTeX{}.
+			\item Cada frame es un transparencia.
+			\item Cada frame puede tener un titulo y un subtitulo.
+			\item Cada frame tiene unas opciones.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Como se escribe}
+	\begin{block}{Frame}
+		\begin{verbatim}
+\begin{frame}[opciones]{Titulo}{SubTitulo}
+   Contenido de la transparencia
+\end{frame}
+		\end{verbatim}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Opciones de los frames}
+	\begin{block}{Opciones}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{itemize}
+			\item allowframebreak
+			\item allowdisplaybreaks
+			\item b
+			\item c
+			\item t
+			\item fragile
+		\end{itemize}
+		\column{0.45\textwidth}
+		\begin{itemize}
+			\item environment
+			\item label
+			\item plain
+			\item shrink
+			\item squeeze
+		\end{itemize}
+	\end{columns}
+	\end{block}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Ejemplo de frame}
+	\begin{block}{Ejemplo}
+		\begin{verbatim}
+\begin{frame}{Ejemplo de frame}
+    \begin{itemize}
+        \item Esto es un ejemplo.
+        \item Tiene items.
+        \item \verb+Algunos en modo verbatim+.
+    \end{itemize}
+\end{frame}
+		\end{verbatim}
+	\end{block}
+\end{frame}
+
+\subsection{Bloques}
+
+\begin{frame}[containsverbatim]{Las bloques}
+	Nos permiten resaltar y agrupar contenidos:
+	\begin{block}{Ejemplo de bloque con contenidos}
+		$\left|{1\over N}\sum_{n=1}^N \gamma(u_n)\right|$
+		\begin{itemize}
+			\item Una formula y un listado.
+			\item Dentro de un bloque.
+		\end{itemize}
+	\end{block}
+	\begin{block}{Codigo del bloque}
+		\begin{verbatim}
+\begin{block}{Ejemplo de bloque con contenidos}
+  $\left|{1\over N}\sum_{n=1}^N \gamma(u_n)\right|$
+  \begin{itemize}
+    \item Una formula y un listado.
+    \item Dentro de un bloque.
+  \end{itemize}
+\end{block}
+		\end{verbatim}
+	\end{block}
+\end{frame}
+
+\subsection{Columnas}
+
+\begin{frame}{Las columnas}
+	Nos permite dividir en varias columnas nuestros contenidos:
+	\begin{columns}[c]
+		\column{0.5\textwidth}
+			\begin{block}{Izquierda}
+				\begin{itemize}
+					\item Un listado
+					\item Dentro de un bloque
+					\item Dentro de una columna
+				\end{itemize}
+			\end{block}
+		\column{0.5\textwidth}
+			\begin{block}{Derecha}
+				$\left|{1\over N}\sum_{n=1}^N \gamma(u_n)-{1\over 2\pi}\int_0^{2\pi}\gamma(t){\rm d}t\right|$
+				\begin{itemize}
+					\item Una formula y un listado.
+					\item Dentro de un bloque.
+					\item Dentro de una columna.
+				\end{itemize}
+			\end{block}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Opciones de las columnas}
+	\begin{itemize}
+		\item b: Alinea las columnas por la ultima linea.
+		\item c: Alinea las columnas por el centro.
+		\item t: Alinea las columnas por la primera linea (por defecto).
+		\item T: Alinea las columnas por su punto mas arriba.
+		\item totalwidth: Tamaño maximo del conjunto de columnas.
+		\item onlytextwidth igual que totalwidth=\\textwidth.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Ejemplo de columnas}
+	\begin{block}{Ejemplo}
+		\begin{verbatim}
+\begin{columns}[c]
+  \column{0.5\textwidth}
+    \begin{block}{Izquierda}
+      \begin{itemize}
+        \item Un listado
+      \end{itemize}
+    \end{block}
+  \column{0.5\textwidth}
+  \begin{block}{Derecha}
+    $\left|{1\over N}\sum_{n=1}^N \gamma(u_n)...$
+    \begin{itemize}
+      \item Una formula y un listado.
+    \end{itemize}
+  \end{block}
+\end{columns}
+		\end{verbatim}
+	\end{block}
+\end{frame}
+
+\section{Aspecto}
+\subsection{Tema}
+\begin{frame}[containsverbatim]{Tema}
+	Nos permite configurar todo el layout de nuestra presentacion
+	\begin{block}{Uso}
+		\verb+\usetheme[ options ]{ name list }+
+	\end{block}
+	\begin{block}{Ejemplo}
+		\verb+\usetheme[right]{Berkeley}+
+	\end{block}
+\end{frame}
+
+\subsection{Color}
+\begin{frame}[containsverbatim]{Color}
+	Nos permite configurar el conjunto de colores del layout de nuestra presentacion
+	\begin{block}{Uso}
+		\verb+\usecolortheme[ options ]{ name list }+
+	\end{block}
+	\begin{block}{Ejemplo}
+		\verb+\usecolortheme[ RGB={128,0,0} ]{ structure }+
+	\end{block}
+\end{frame}
+
+\subsection{Fuente}
+\begin{frame}[containsverbatim]{Fuente}
+	Nos permite configurar la fuente del layout de nuestra presentacion
+	\begin{block}{Uso}
+		\verb+\usefonttheme[ options ]{ name }+
+	\end{block}
+	\begin{block}{Ejemplo}
+		\verb+\usefonttheme{ serif }+
+	\end{block}
+\end{frame}
+
+\subsection{Interior}
+\begin{frame}[containsverbatim]{Interior}
+	Nos permite configurar la parte interior del layout de nuestra presentacion
+	\begin{block}{Uso}
+		\verb+\useinnertheme[ options ]{ name }+
+	\end{block}
+	\begin{block}{Ejemplo}
+		\verb+\useinnertheme{ rectangles }+
+	\end{block}
+\end{frame}
+
+\subsection{Exterior}
+\begin{frame}[containsverbatim]{Exterior}
+	Nos permite configurar la parte exterior del layout de nuestra presentacion
+	\begin{block}{Uso}
+		\verb+\useoutertheme[ options ]{ name }+
+	\end{block}
+	\begin{block}{Ejemplo}
+		\verb+\useoutertheme[ footline=authortitle ]{ miniframes }+
+	\end{block}
+\end{frame}
+
+
+\section{Efectos}
+\subsection{Overlays}
+\begin{frame}[containsverbatim]{Overlays}
+	\begin{itemize}
+		\item Separan nuestra presentacion en capas.
+		\item Estas capas puede ocultarse o mostrarse.
+		\item Se les puede establecer un orden de aparicion.
+		\item Se suelen especificar con la expresion \verb+<n>+.
+		\item Ej: \verb+\item<1>+, \verb+\begin{block}{Bloque}<1-3>\end{block}+, \verb+\item<3->+.
+		\item Se pueden establecer pausas con \verb+\pause+.
+		\item Se pueden ocultar o omitir los contenidos \verb+\only<1> != \item<1>+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplos de Overlays}
+	\begin{block}{Bloque1}<1>Este es el bloque 1\end{block}
+	\begin{block}{Bloque2}<2>Este es el bloque 2\end{block}
+	\only<3>{
+		\begin{block}{Bloque 3}Este es el bloque 3\end{block}
+	}
+	\begin{block}{Bloque4}<1->\color<2-4>[rgb]{1,0,0}Este es el bloque 4\end{block}
+\end{frame}
+
+\subsection{Transiciones}
+\begin{frame}{Transiciones}
+	\transblindsvertical<1>
+	\transboxin<2>
+	\transboxout<3>
+	\transdissolve<4>
+	\transglitter<5>
+	\begin{block}{transblindsvertical}<1>\end{block}
+	\begin{block}{transboxin}<2>\end{block}
+	\begin{block}{transboxout}<3>\end{block}
+	\begin{block}{transdissolve}<4>\end{block}
+	\begin{block}{transglitter}<5>\end{block}
+\end{frame}
+\begin{frame}{Transiciones}
+	\transsplitverticalin<1>
+	\transsplitverticalout<2>
+	\transsplithorizontalin<3>
+	\transsplithorizontalout<4>
+	\transwipe<5>
+	\begin{block}{transsplitverticalin}<1>\end{block}
+	\begin{block}{transsplitverticalout}<2>\end{block}
+	\begin{block}{transsplithorizontalin}<3>\end{block}
+	\begin{block}{transsplithorizontalout}<4>\end{block}
+	\begin{block}{transwipe}<5>\end{block}
+\end{frame}
+
+\section{Referencias}
+\begin{frame}{Referencias}
+	\begin{block}{Referencias}
+		\begin{itemize}
+			\item Latex Beamer User Guide
+			\item Lista de correo del GUL <gul@gul.uc3m.es>
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Dudas}
+\begin{frame}{Dudas}
+	\dots{}
+\end{frame}
+\end{document}

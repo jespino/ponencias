@@ -1,0 +1,3 @@
+SConscript('Cantabrinet/sconstruct')
+SConscript('Chaminade/sconstruct')
+SConscript('GUL UC3M/sconstruct')

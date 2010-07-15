@@ -1,0 +1,48 @@
+- Portada
+- Que es?
+- Origenes
+- Filosofia del proyecto
+  - Bajo acomplamiento
+  - Disminuir al minimo la sobrecarga debida al framework
+  - Plantillas comodas para diseñadores
+  - Disminuir el numero de lineas de codigo
+  - Desarrollo rapido
+
+- MVC RoR vs MVC Django:
+  - RoR | Django
+  - Modelo = Modelo
+  - Vista = Templates
+  - Controlador = Vistas
+  - Rutas = Controlador
+
+- Elementos del framweork:
+  - Diagrama
+  - Controlador
+  - Vista
+  - Model
+  - Plantillas
+
+- El controlador
+- La vista
+- El modelo
+- Las plantillas
+
+- Elementos del framework (Ampliacion):
+  - Diagrama
+  - Controlador
+  - Vista
+  - Modelo
+  - Plantillas
+  - Middleware
+  - Formularios
+
+- Middleware
+- Formularios
+
+- Otras Ventajas
+  - Vistas genericas
+  - Entorno de administracion
+  - Ampliacion de plantillas
+  - Internacionalizacion
+  - Uso de bases de datos existentes
+  - Applicaciones ya existentes (Sessiones, Usuarios/Grupos, Autenticacion...)

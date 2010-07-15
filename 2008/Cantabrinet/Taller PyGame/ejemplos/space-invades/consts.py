@@ -1,0 +1,19 @@
+SCREEN_WIDTH=640
+SCREEN_HEIGHT=480
+
+ICON_FILE = "data/invader.png"
+WINDOW_TITLE = "Pygame Space Invader"
+
+# Colors
+BLACK = (0,0,0)
+WHITE = (255,255,255)
+
+# Speeds
+PLAYER_SPEED = 9
+ALIEN_SPEED = 5
+ALIEN_SHOT_SPEED = 15 
+PLAYER_SHOT_SPEED = 15
+
+# Aliens number
+ALIEN_FILES = 5
+ALIEN_COLUMNS = 10

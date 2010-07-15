@@ -1,0 +1,242 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/examples/beamerexample2.tex,v 1.7 2004/10/07 20:53:07 tantau Exp $
+
+% This file is included by beamerexample2.article.tex and
+% beamerexample2.beamer.tex 
+
+% Copyright 2003 by Till Tantau $<$tantau@cs.tu-berlin.de$>$.
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt.
+
+%
+% The purpose of this example is to demonstrate the usage of the
+% nameslide command
+%
+
+\mode<article>
+{
+  \usepackage{fullpage}
+  \usepackage{pgf}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{presentacion.beamer}
+}
+
+\mode<presentation>
+{
+  \usetheme{Madrid}
+
+  \setbeamercovered{transparent}
+}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\title{Presentación del GUL}
+\author{Junta del GUL}
+\date{8 de Noviembre de 2004}
+\subject{Presentación del GUL}
+
+\institute[GUL UC3M]{
+  Grupo de usuarios de Linux\\
+  Universidad Carlos III de Madrid.\\
+  \ \\
+  \includegraphics[height=1.5cm]{gul}}
+
+\begin{document}
+
+  \begin{frame}
+    \maketitle
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Introducción.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Un poco de historia}
+    \begin{itemize}
+      \item El GUL fue creado en Marzo de 1998.
+      \item El apoyo del Grupo de Sistemas y Comunicaciones (GSyC) permite la creación de la primera infraestructura, lista de correo y web.
+      \item Posteriormente se constituye como asociación de la Universidad Carlos III de Madrid.
+      \item Se consigue un despacho y un ordenador.
+      \item La asociación una vez asentada, se registra en el registro oficial de asociaciones de Leganés y Madrid.
+      \item La primera junta la formaron:
+      \begin{itemize}
+	\item Miguel Ángel Hernández (Gudu).
+	\item Álvaro García (Zipher).
+	\item José Andrés Arias Velichko (Locke).
+	\item Daniel Payno.
+	\item Sergio Hernández Rueda (Shr).
+	\item Javier Coso Gutiérrez.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{¿Qué es el GUL?}
+
+    \begin{itemize}
+      \item Es una asociación de la Universidad Carlos III de Madrid.
+      \item Es el Grupo de Usuarios de Linux de la Universidad Carlos III de Madrid.
+      \item Dedicada a promover el uso del software libre.
+      \item Consta de mas de 300 personas suscritas a su lista de correo de todo el mundo.
+      \item Consta de mas de 70 socios inscritos oficialmente en el libro de socios.
+      \item Ha colaborado en la organización de congresos de primera linea en
+            el ámbito del software como son Hispalinux y Javahispano.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{¿Quienes somos?}
+    El GUL se divide en 3 grupos:
+    \begin{itemize}
+      \item Junta: Se encarga de la toma de decisiones.
+      \item Consejo: Organo consultivo compuesto por miembros activos del GUL.
+      \item Activistas: Se encargan de llevar a buen puerto los proyectos.
+      \item Socios: Todo el que este apuntado en la lista de correo.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{¿Quienes pueden ser de la junta?}
+    \begin{itemize}
+      \item Todos los socios pueden presentarse en las elecciones a la junta.
+      \item Se hacen elecciones una vez al año.
+      \item Se vota a los candidatos a cada puesto.
+      \item El puesto lo ocupa el que gane la votación por mayoría simple.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{¿Quien puede ser activista?}
+    \begin{itemize}
+      \item Todos los socios pueden ser activistas.
+      \item No es necesario conocimientos técnicos avanzados, basta con tener ganas de aprender.
+      \item Para pertenecer a un grupo técnico hay que dirigirse a los miembros de dicho grupo.
+      \item La decisión de admisión o no a dicho grupo queda en manos de los miembros del grupo.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{¿Quien puede ser socio?}
+    \begin{itemize}
+      \item Cualquiera puede ser socio.
+      \item No se necesita ningún conocimiento previo.
+      \item Apuntarse a la lista suele ser el primer paso para ser socio.
+      \item Un miembro del GUL se considera socio oficial cuando esta inscrito en el libro de socios.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Organización.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{La Junta}
+    La junta esta formada por 5 personas:
+    \begin{itemize}
+      \item Un presidente: Jesús Espino García.
+      \item Un vicepresidente/secretario: Cláudio Jimenez.
+      \item Un tesorero: Samuél Rodríguez Sevilla.
+      \item Un vocal: Juan Ramón Martín Blanco.
+      \item Un coordinador de actividades: Roberto Muñoz.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Grupos técnicos}
+    Son los grupos que se encargan de las tareas principales del GUL:
+    \begin{itemize}
+      \item gul-root: Encargado de la administración de los servidores del GUL.
+      \item gul-myc: Encargado de marketing y comunicación externas.
+      \item gul-cursos: Encargado de la organización de los cursos.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Grupos de interés}
+    Son los grupos de usuarios y activistas con intereses comunes:
+    \begin{itemize}
+      \item gul-doc: Documentación y traducción.
+      \item gul-sec: Seguridad.
+      \item gul-dev: Desarrollo.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Proyectos.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Proyectos del ultimo año}
+    Todos los años se realizan varios proyectos, los del ultimo año fueron:
+    \begin{itemize}
+      \item Cursos de Noviembre.
+      \item Cursos de Marzo.
+      \item Reuniones técnicas.
+      \item Hospedaje de Gentoo-es.
+      \item Mirror de Debian.
+      \item Nueva pagina web.
+      \item Servidor de Proyectos.
+      \item Migracion de servicios a un nuevo servidor.
+      \item Aplicacion de gestion de cursos.
+      \item Proyectos varios albergados en el servidor de proyectos.
+      \item Reuniones del GUL.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Futuros proyectos}
+    Hay algunos proyectos ya pensados para el próximo año:
+    \begin{itemize}
+      \item Cursos de Noviembre.
+      \item Cursos de Marzo.
+      \item Cursos en Getafe.
+      \item Reuniones técnicas.
+      \item Expansión del GUL a Getafe y Colmenarejo.
+      \item Documentación interna.
+      \item Reuniones del GUL.
+      \item Mirrors.
+      \item \dots
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Reuniones del GUL}
+    Se hacen reuniones de libre asistencia todos los meses para:
+    \begin{itemize}
+      \item Toma de decisiones.
+      \item Aportación de ideas y proyectos.
+      \item Revisión del estado de los proyectos.
+      \item Incorporación de nuevos activistas y socios al GUL.
+      \item \dots
+    \end{itemize}
+    Se suelen hacer el segundo viernes de cada mes, pero lo normal es que alguien de la junta avise en la lista de correo.
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Toma de decisiones}
+    \begin{itemize}
+      \item La toma de decisiones corresponde a la junta.
+      \item Se consulta normalmente al consejo.
+      \item Cuando se considera relevante se consulta a la lista de correo principal.
+      \item Se valora la opinión de todos los inscritos en la lista.
+      \item Se valora mucho la opinión de los activistas.
+      \item Se valorara mas la opinión de un activista relacionado con la decisión a tomar.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{gul}
+    \end{center}
+  \end{frame}
+
+\end{document}

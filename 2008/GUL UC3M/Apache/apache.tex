@@ -1,0 +1,226 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/examples/beamerexample2.tex,v 1.7 2004/10/07 20:53:07 tantau Exp $
+
+% This file is included by beamerexample2.article.tex and
+% beamerexample2.beamer.tex 
+
+% Copyright 2003 by Till Tantau $<$tantau@cs.tu-berlin.de$>$.
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt.
+
+%
+% The purpose of this example is to demonstrate the usage of the
+% nameslide command
+%
+
+\mode<article>
+{
+  \usepackage{fullpage}
+  \usepackage{pgf}
+  \usepackage{hyperref}
+  \setjobnamebeamerversion{apache.beamer}
+}
+
+\mode<presentation>
+{
+  \usetheme{Madrid}
+
+  \setbeamercovered{transparent}
+}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\title{Apache}
+\author{Jesús Espino García}
+\date{31 de Julio de 2008}
+\subject{Apache}
+
+\institute[GUL]{
+  Gul Summery Camp 2008
+  \ \\
+  \includegraphics[height=1.0cm]{apachelogo}}
+
+\begin{document}
+
+  \begin{frame}
+    \maketitle
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{¿Qué es?}
+    \begin{itemize}
+      \item Servidor web.
+      \item Aparece en 1995.
+      \item El más usado del mundo.
+      \item Propósito general.
+      \item Multiplataforma.
+      \item Modular.
+      \item Muy versátil.
+      \item Libre.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Estructura de apache}
+    Apache se compone principalmente de 4 elementos claramente diferenciados.
+    \begin{itemize}
+      \item El núcleo: Encargado de ofrecer una funcionalidad básica y una API para la implementación de módulos.
+      \item El módulo principal (core): Contiene las funcionalidades básicas del servidor.
+      \item Los módulos MPM: Son los módulos encargados de gestionar las peticiones.
+      \item Los módulos extras: Son los módulos que dan funcionalidad extra al sistema (php, perl, ssl...).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{El sistema de módulos}
+    \begin{itemize}
+      \item Son extensiones del servidor que permiten incluir nuevas funcionalidades.
+      \item Los módulos se gestionan a través de las directivas que estos proveen.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{El módulo principal (core)}
+    Contiene las directivas básicas del sistema en las que destacaremos:
+    \begin{itemize}
+      \item ServerRoot: El directorio donde esta la configuración del apache.
+      \item ServerName: Especifica el nombre de dominio del servidor o virtual host.
+      \item ServerAdmin: Indica la dirección de correo del administrador del servidor o virtual host.
+      \item AccessFileName: Nombre del fichero con información de directivas para un directorio.
+      \item AllowOverwrite: Permite que los ficheros .htaccess puedan sobreescribir ciertas directivas.
+      \item Include: Incluye otro fichero de configuración en el actual.
+      \item DocumentRoot: Directorio raíz del servidor.
+      \item Options: Define las opciones para una sección o para el sistema.
+      \item Opciones de validación: Las veremos más adelante.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Módulos Multi-Processing (MPM)}
+    \begin{itemize}
+      \item Son los módulos encargados de gestionar las peticiones.
+      \item Existen versiones dependiendo del sistema operativo.
+      \item Existen versiones dependiendo del tipo de trabajo que se espera del servidor.
+      \item Los más habituales en linux son worker y prefork.
+        \begin{itemize}
+          \item Worker: Combina una serie de forks y cada uno de estos una serie de threads que tratan las peticiones (más óptimo, pero menos estable).
+          \item Prefork: Solo usa forks (pre-creados y esperando) para atender las peticiones (menos óptimo, pero más estable).
+        \end{itemize}
+      \item En otros sistemas existen MPMs específicos como los MPMs \verb+beos+, \verb+mpm_netware+, \verb+mpm_winnt+...
+    \end{itemize}
+  \end{frame}
+
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Otros módulos importantes}
+    \begin{itemize}
+      \item dir: Nos da la directiva DirectoryIndex que especifica el index de una pagina.
+      \item alias: Nos da la directiva Alias para asociar path del sistema a path de url.
+      \item mime: Nos da las directivas para configurar los tipos mime.
+      \item proxy: Nos da la sección <Proxy> y las directivas para configurar secciones proxy.
+      \item ssl: Nos da las directivas para habilitar las conexiones cifradas.
+      \item userdir: Nos da directiva UserDir para configurar los directorios web de los usuarios.
+      \item autoindex: Nos da las directivas para configurar el listado de directorios de apache.
+      \item setenvif: Nos da las directivas SetEnvIf y BrowserMatch para especificar variables de entorno dependiendo de la situación.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Secciones}
+    \begin{itemize}
+      \item \verb+<Directory 'path'>+ y \verb+<DirectoryMatch 'expresion'>+: Establece la configuración para un path del sistema en concreto.
+      \item \verb+<Location 'path'>+ y \verb+<LocationMatch 'expresion'>+: Establece la configuración para un path de la URL en concreto.
+      \item \verb+<Files 'filename'>+ y \verb+<FilesMatch 'expresion'>+: Establece la configuración para los ficheros llamados de cierto modo.
+      \item \verb+<VirtualHost 'ip:port'>+: Establece la configuración de un servidor virtual.
+      \item \verb+<Limit 'method'>+: Limita el uso de ciertos métodos al cumplimiento de ciertos criterios. Métodos como PUT, POST, DELETE.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Virtual Hosts}
+    \begin{itemize}
+      \item Zonas virtuales del servidor que se comportan como un servidor independiente.
+      \item Independizan servicios web por dominio, ip o puerto.
+      \item Se les puede aplicar la mayoría de las directivas y secciones del sistema.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Validación}
+    La validación parte de un módulo base (\verb+auth_basic+) y uno de los diferentes módulos de sistemas de validación. Como ejemplo usaremos \verb+authn_file+.
+
+    Las directivas para validación serian las siguientes:
+    \begin{itemize}
+      \item \verb+AuthType <tipo-de-validacion>+: Especifica el tipo de validación (normalmente basic).
+      \item \verb+AuthName '<texto>'+: Especifica el texto que muestra al usuario que quiere validarse.
+      \item \verb+AuthBasicProvider '<proveedor-de-validacion>'+: Especifica el sistema de validación, en nuestro caso "file".
+      \item \verb+AuthUserFile <path>+: Especifica el fichero donde están los usuarios y contraseñas (directiva de \verb+authn_file+)
+      \item \verb+Require <criterio>+: Especifica el criterio para que el usuario sea valido o no.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Validación II}
+    Ejemplo:
+    \begin{verbatim}
+AuthType basic
+AuthName "Zona privada"
+AuthBasicProvider file
+AuthUserFile /etc/apache2/passwords
+Require valid-user
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Estructura de ficheros de configuración (en Debian)}
+    \begin{itemize}
+      \item Todo parte del fichero apache2.conf que define la configuración principal del servidor.
+      \item apache2.conf incluye los ficheros .load y .conf del directorio mods-enabled
+      \item apache2.conf incluye el fichero httpd.conf y ports.conf .
+      \item apache2.conf incluye los ficheros de conf.d y de sites-enabled.
+      \item mods-enabled tiene los módulos habilitados, los .load cargan el módulo y el .conf lo configuran.
+      \item mods-available tiene todos los módulos instalados en el sistema para habilitarlos.
+      \item sites-enabled tiene las configuraciones de los virtual host habilitados (uno por fichero).
+      \item sites-available tiene las configuraciones de todos los virtual host disponibles (uno por fichero).
+      \item conf.d almacena ficheros de configuraciones extra, normalmente en Debian los incluyen aplicaciones web.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Administrando un apache (en Debian)}
+    \begin{itemize}
+      \item Para configurarlo evidentemente editamos los ficheros de configuración que se consideren oportunos.
+      \item Para iniciarlo o pararlo se puede usar el script /etc/init.d/apache2 o el comando apache2ctl.
+      \item Despues de un cambio de configuración es necesario recargar la configuración o reiniciar el servidor (depende del cambio).
+      \item Para habilitar o deshabilitar módulos se ejecutan los comandos a2enmod o a2dismod seguido del nombre del módulo.
+      \item Para habilitar o deshabilitar un "site" se ejecuta a2ensite o a2dissite seguido del nombre del fichero en sites-availabe.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Buscando ayuda}
+    \begin{itemize}
+      \item httpd.apache.org: Una documentación excelente, extensa y completa.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Empieza el modo taller}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{gul}
+    \end{center}
+  \end{frame}
+
+\end{document}

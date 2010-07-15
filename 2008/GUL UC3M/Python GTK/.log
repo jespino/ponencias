@@ -1,0 +1,36 @@
+This is pdfeTeX, Version 3.14159-1.10b-2.1 (Web2C 7.4.5) (format=pdflatex 2005.5.25)  10 JUL 2005 20:36
+entering extended mode
+**paquetes.article.
+(/usr/share/texmf/tex/latex/tools/.tex{/usr/share/texmf/pdftex/config/pdftex.cf
+g}
+! Interruption.
+<to be read again> 
+                   \begingroup 
+l.1 
+    %%
+? q
+OK, entering \batchmode...
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, catalan, croatian, czech, danish, dutch, finnish, greek, iceland
+ic, irish, italian, latin, magyar, norsk, norsk, portuges, romanian, russian, s
+lovak, slovene, spanish, swedish, turkish, ukrainian, nohyphenation, loaded.
+ File ignored)
+! Emergency stop.
+<*> paquetes.article.
+                     
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 94960
+ 138 string characters out of 1182470
+ 47267 words of memory out of 1000001
+ 3226 multiletter control sequences out of 10000+50000
+ 3640 words of font info for 14 fonts, out of 500000 for 1000
+ 198 hyphenation exceptions out of 1000
+ 5i,0n,1p,97b,8s stack positions out of 1500i,500n,5000p,200000b,5000s
+ 0 PDF objects out of 300000
+ 0 named destinations out of 131072
+ 0 words of extra memory for PDF output out of 65536
+No pages of output.

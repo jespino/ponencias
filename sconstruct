@@ -1,0 +1,5 @@
+SConscript('2006/sconstruct')
+SConscript('2007/sconstruct')
+SConscript('2008/sconstruct')
+SConscript('2009/sconstruct')
+SConscript('2010/sconstruct')

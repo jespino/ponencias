@@ -1,0 +1,7 @@
+SConscript('Apache/sconstruct')
+SConscript('AWK/sconstruct')
+SConscript('Django/sconstruct')
+SConscript('Latex Beamer/sconstruct')
+SConscript('Presentacion del GUL/sconstruct')
+SConscript('Presentacion del GUL Lite/sconstruct')
+SConscript('Python GTK/sconstruct')

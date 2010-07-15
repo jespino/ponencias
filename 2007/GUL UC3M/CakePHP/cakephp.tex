@@ -1,0 +1,311 @@
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+
+%\usepackage{beamerouterthemeinfolines}
+%\usepackage{beamerthemeBoadilla}      % Sin {,sub}apartados, blanco
+%\usepackage{beamerthemeRochester}     % Sin {,sub}apartados, simple, cuadrado
+%\usepackage{beamerthemeboxes}         % Sin {,sub}apartados, muy blanco
+%\usepackage{beamerthemePittsburgh}    % Sin {,sub}apartados, muy blanco, redondo
+\usepackage{beamerthemeMadrid}        % Sin {,sub}apartados
+%\usepackage{beamerthemeSingapore}     % Sin subapartados, blanco, puntitos
+%\usepackage{beamerthemeCopenhagen}    % Violeta/negro, cargado, con todo
+%\usepackage{beamerthemeLuebeck}       % Como Copenhagen, cuadrado
+%\usepackage{beamerthemeWarsaw}        % Violeta/negro, gradiente, cargado, con todo
+
+\title{CakePHP: MVC para PHP}
+\author{Jesús Espino García\\ \texttt{jespinog@gmail.com}}
+\date{8 de Noviembre del 2007}
+
+\pgfdeclareimage[interpolate=true,%
+                 width=11cm]{diagrama}{img/diagrama}
+
+\pgfdeclareimage[interpolate=true,%
+                 width=2cm]{cakephp}{img/cakephp}
+
+\institute[UC3M]{\pgfuseimage{cakephp}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section<presentation>*{Índice}
+
+\frame
+{
+  \frametitle{Índice}
+  \tableofcontents[part=1]
+}
+
+\AtBeginSubsection[]
+{
+  \frame<handout:0>
+  {
+    \frametitle{Índice}
+    \tableofcontents[current,currentsubsection]
+  }
+}
+
+
+\part<presentation>{Contents}
+
+\section{Introducción}
+
+\subsection{¿Qué es?}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ¿Qué es? %
+\frame
+{
+  \frametitle{¿Qué es?}
+  \begin{columns}
+    \begin{column}{7cm}
+      \begin{itemize}
+        \item Framework de desarrollo web.
+        \item<2-> Inspirado en Ruby on Rails.
+        \item<3-> Aparece en el 2005 cuando esta en auge RoR.
+        \item<4-> Sistema MVC.
+      \end{itemize}
+    \end{column}
+    \begin{column}{4cm}
+      \uncover<4->{\pgfuseimage{cakephp}}
+    \end{column}
+  \end{columns}
+}
+
+\subsection{¿Por qué usarlo?}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ¿Por qué usarlo? %
+\frame
+{
+  \frametitle{¿Por qué usarlo?}
+  \begin{itemize}
+    \item Es PHP $:-)$
+    \item Simplifica y agiliza el desarrollo.
+    \item Aumenta la escalabilidad.
+    \item Organiza mejor nuestro codigo.
+    \item Añade de manera sencilla caracteristicas complejas (validacion, autenticacion, ajax...).
+    \item Esta bien documentado.
+  \end{itemize}
+}
+
+
+\subsection{¿Por qué no usarlo?}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ¿Por qué no usarlo? %
+\frame
+{
+  \frametitle{¿Por qué no usarlo?}
+  \begin{itemize}
+    \item Es PHP $:-($
+    \item Existen cosas mas potentes (RoR).
+    \item Sentimiento de perdida de control.
+    \item Orientado a sistemas con BBDD.
+  \end{itemize}
+}
+
+\subsection{¿Como funciona?}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ¿Como funciona? %
+\frame
+{
+  \frametitle{¿Como funciona?}
+  \begin{itemize}
+    \item Arquitectura MVC:
+    \begin{itemize}
+      \item Modelo: Acceso a los datos (BBDD).
+      \item Vista: HTML que se muestra al usuario (Plantillas).
+      \item Controlador: Logica de programa (PHP).
+    \end{itemize}
+  \end{itemize}
+}
+
+\frame
+{
+  \frametitle{¿Como funciona?}
+  \begin{center}
+    \pgfuseimage{diagrama}
+  \end{center}
+}
+
+\section{Trabajando con Cake}
+
+\subsection{Scaffolding}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Scaffolding %
+\frame
+{
+  \frametitle{Scaffolding}
+  \begin{itemize}
+    \item Generacion automatica de codigo.
+    \item Util y practico, pero no definitivo.
+  \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+  \frametitle{Ejemplo}
+  \begin{itemize}
+    \item BBDD
+    \begin{verbatim}
+CREATE DATABASE charlacake;
+CREATE TABLE to_dos(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(100), description VARCHAR(255), finished BOOLEAN);
+    \end{verbatim}
+    \item Controlador
+    \begin{verbatim}
+<?php
+class ToDoController extends AppController
+{
+    var $scaffold;
+}
+?>
+    \end{verbatim}
+    \item Modelo
+    \begin{verbatim}
+<?php
+class ToDo extends AppModel
+{
+    var $name = 'ToDo';
+
+    var $displayField = 'title';
+}
+?>
+    \end{verbatim}
+  \end{itemize}
+}
+
+\subsection{El modelo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% El modelo %
+\frame
+{
+  \frametitle{El modelo}
+  \begin{itemize}
+    \item Convierte las tablas en objetos PHP.
+    \item Simplifica el acceso a los datos (Buscar, modificar, crear...).
+    \item Define las relaciones entre tablas (1:1, 1:N, N:M).
+  \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+  \frametitle{Ejemplo}
+  \begin{verbatim}
+<?php
+class ToDo extends AppModel
+{
+    var $name = 'ToDo';
+}
+?>
+  \end{verbatim}
+}
+
+\subsection{El controlador}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% El controlador %
+\frame
+{
+  \frametitle{El controlador}
+  \begin{itemize}
+    \item Define las acciones de nuestra aplicacion (borrar, editar, ver...).
+    \item Nos permite dirijir el flujo del programa (Redirecciones, Flashes...).
+    \item Acceso a la informacion (Cookies, sesiones, formularios...).
+  \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+  \frametitle{Ejemplo}
+  \begin{verbatim}
+<?php
+class ToDoController extends AppController
+{
+    var $name = 'ToDo';
+
+    function index()
+    {
+        $this->set('todos', $this->ToDo->findAll());
+    }
+}
+?>
+  \end{verbatim}
+}
+
+\subsection{La vista}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% La vista %
+\frame
+{
+  \frametitle{La vista}
+  \begin{itemize}
+    \item Plantillas de codigo HTML con PHP empotrado.
+    \item El PHP accede a los datos pasados por el controlador.
+    \item El resultado es la aplicacion de los datos a la plantilla.
+  \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+  \frametitle{Ejemplo}
+  \begin{verbatim}
+<h1>Tareas pendientes</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Titulo</th>
+        <th>Descripcion</th>
+        <th>Hecha</th>
+    </tr>
+
+    <?php foreach ($todos as $todo): ?>
+    <tr>
+        <td><?php echo $todo['ToDo']['id']; ?></td>
+        <td><?php echo $html->link($todo['ToDo']['title'], "/todos/view/".$todo['ToDo']['id']); ?></td>
+        <td><?php echo $todo['ToDo']['description']; ?></td>
+        <td><?php if($todo['ToDo']['finished']){echo "si";}else{echo "no";} ?></td>
+    </tr>
+    <?php endforeach; ?>
+
+</table>
+  \end{verbatim}
+}
+
+\section{Para terminar}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ¿Que se nos queda en el tintero? %
+\subsection{¿Qué se nos queda en el tintero?}
+
+\frame
+{
+  \frametitle{¿Qué se nos queda en el tintero?}
+  \begin{itemize}
+    \item Validacion de campos en formularios. 
+    \item Gestion de Sessiones y Cookies.
+    \item Convenciones.
+    \item Componente de seguridad.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Referencias %
+\subsection{Referencias}
+
+\frame
+{
+  \frametitle{Referencias}
+  \begin{itemize}
+    \item http://www.cakephp.org: Pagina oficial de CakePHP.
+    \item http://www.cakeforge.org: Sistema de gestion de proyectos CakePHP.
+    \item http://bakery.cakephp.org: Documentacion variada sobre CakePHP.
+    \item http://manual.cakephp.org: Documentacion principal de CakePHP.
+  \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Dudas %
+\subsection{Dudas}
+\frame
+{
+  \frametitle{Dudas}
+  \begin{center}
+    \dots
+  \end{center}
+}
+
+
+\end{document}

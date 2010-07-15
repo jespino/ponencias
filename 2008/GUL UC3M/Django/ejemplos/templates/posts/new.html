@@ -1,0 +1,9 @@
+{% extends 'posts/main.html' %}
+{% block body %}
+    <h1>Nuevo Post</h1>
+    <form method='post' action='.'>
+      <p>Titulo: <input type='text' name='title' /></p>
+      <p>Texto: <br /><textarea name='text'></textarea></p>
+      <p><input type='submit' value='Guardar' /></p>
+    </form>
+{% endblock %}
