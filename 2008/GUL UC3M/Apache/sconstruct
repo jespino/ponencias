@@ -1,1 +1,1 @@
-PDF('apache.pdf','apache.beamer.tex')
+PDF('apache.pdf','apache.tex')

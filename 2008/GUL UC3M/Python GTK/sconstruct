@@ -1,1 +1,1 @@
-PDF('pygtk.pdf','pygtk.beamer.tex')
+PDF('pygtk.pdf','pygtk.tex')
