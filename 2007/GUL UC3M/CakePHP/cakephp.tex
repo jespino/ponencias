@@ -14,7 +14,7 @@
 %\usepackage{beamerthemeWarsaw}        % Violeta/negro, gradiente, cargado, con todo
 
 \title{CakePHP: MVC para PHP}
-\author{Jesús Espino García\\ \texttt{jespinog@gmail.com}}
+\author{Jesús Espino}
 \date{8 de Noviembre del 2007}
 
 \pgfdeclareimage[interpolate=true,%
@@ -23,7 +23,7 @@
 \pgfdeclareimage[interpolate=true,%
                  width=2cm]{cakephp}{img/cakephp}
 
-\institute[UC3M]{\pgfuseimage{cakephp}}
+\institute[GUL UC3M]{\pgfuseimage{cakephp}}
 
 \begin{document}
 
@@ -149,7 +149,10 @@
     \item BBDD
     \begin{verbatim}
 CREATE DATABASE charlacake;
-CREATE TABLE to_dos(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(100), description VARCHAR(255), finished BOOLEAN);
+CREATE TABLE to_dos(id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100),
+  description VARCHAR(255),
+  finished BOOLEAN);
     \end{verbatim}
     \item Controlador
     \begin{verbatim}
@@ -160,6 +163,13 @@ class ToDoController extends AppController
 }
 ?>
     \end{verbatim}
+  \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+  \frametitle{Ejemplo}
+  \begin{itemize}
     \item Modelo
     \begin{verbatim}
 <?php
@@ -247,22 +257,35 @@ class ToDoController extends AppController
   \begin{verbatim}
 <h1>Tareas pendientes</h1>
 <table>
-    <tr>
-        <th>Id</th>
-        <th>Titulo</th>
-        <th>Descripcion</th>
-        <th>Hecha</th>
-    </tr>
+  <tr>
+    <th>Id</th>
+    <th>Titulo</th>
+    <th>Descripcion</th>
+    <th>Hecha</th>
+  </tr>
+  ...
+  \end{verbatim}
+}
 
-    <?php foreach ($todos as $todo): ?>
-    <tr>
-        <td><?php echo $todo['ToDo']['id']; ?></td>
-        <td><?php echo $html->link($todo['ToDo']['title'], "/todos/view/".$todo['ToDo']['id']); ?></td>
-        <td><?php echo $todo['ToDo']['description']; ?></td>
-        <td><?php if($todo['ToDo']['finished']){echo "si";}else{echo "no";} ?></td>
-    </tr>
-    <?php endforeach; ?>
-
+\frame[containsverbatim]
+{
+  \frametitle{Ejemplo}
+  \begin{verbatim}
+  ...
+  <?php foreach ($todos as $todo): ?>
+  <tr>
+    <td><?php echo $todo['ToDo']['id']; ?></td>
+    <td><?php 
+      echo $html->link($todo['ToDo']['title'],
+        "/todos/view/".$todo['ToDo']['id']);
+    ?></td>
+    <td><?php echo $todo['ToDo']['description']; ?></td>
+    <td><?php
+      if($todo['ToDo']['finished'])
+      {echo "si";}else{echo "no";}
+    ?></td>
+  </tr>
+  <?php endforeach; ?>
 </table>
   \end{verbatim}
 }

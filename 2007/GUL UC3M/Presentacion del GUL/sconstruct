@@ -1,1 +1,1 @@
-PDF('presentacion.pdf','presentacion.beamer.tex')
+PDF('presentacion.pdf','presentacion.tex')
