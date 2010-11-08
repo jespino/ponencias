@@ -1,0 +1,59 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+
+% Definiciones para usar luego
+\newtheorem{ejemplo}{Ejemplo}
+\newtheorem{definicion}{Definición}
+
+\title{Entendiendo y Optimizando MySQL}
+\author{Jesús Espino García}
+\date{10 de Noviembre de 2010}
+\subject{Entendiendo y Optmizando MySQL}
+
+\institute[GUL UC3M]{
+  Grupo de Usuarios de Linux\\
+  Universidad Carlos III de Madrid.\\
+  \ \\
+  \includegraphics[height=1.5cm]{imgs/gul}}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+  
+  \include{mysq_arquitectura}
+  \include{mysq_esquemas_e_indices}
+  \include{mysq_storage_engines}
+  \include{mysq_queries}
+  \include{mysq_analizando_el_rendimiento}
+  \include{mysq_optimizador}
+  \include{mysq_cache}
+  \include{mysq_escalando}
+  \include{mysql_close}
+
+\end{document}
