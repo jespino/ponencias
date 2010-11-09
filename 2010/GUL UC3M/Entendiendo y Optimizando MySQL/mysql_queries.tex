@@ -3,7 +3,35 @@
 \subsection{Las queries}
 \begin{frame}{Las queries}
   \begin{itemize}
-    \item 
+    \item El cliente envia una query al servidor.
+    \item Este comprueba si esta en la cache.
+    \item Si esta, devuelve el resultado.
+    \item Si no lo esta, pasa la query al parser.
+    \item Este convierte la query en un arbol y lo pasa al optimizador.
+    \item El optimizador procesa el arbol y optiene un "execution plan".
+    \item Se ejecuta el execution plan sobre los S.E. que corresponda.
+    \item Si es necesario se procesa el resultado en una tabla temporal.
+    \item Se almacena en la cache el resultado, y se devuelve al cliente.
+  \end{itemize}
+\end{frame}
+
+\subsection{Estrategia de ejecucion}
+\begin{frame}{Estrategia de ejecucion}
+  \begin{itemize}
+    \item Toda query en mysql es un "join".
+    \item Mysql crea un bucle de ejecucion recursivo.
+    \item Si tiene que buscar en n tablas busca en la primera.
+    \item Cuando encuentra un resultado empieza a buscar en la segunda.
+    \item Asi hasta la ultima, en la cual, al encontrar resultado, devuelve la fila.
+    \item Al terminar cualqueiera de las tablas, hace backtracking.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Sobre la estrategia de ejecucion}
+  \begin{itemize}
+    \item Algunas optimizaciones se entienden por la estrategia de mysql.
+    \item Es muy importante el orden de las tablas.
+    \item Es muy importante la eleccion correcta de los indices.
     \item 
     \item 
     \item 

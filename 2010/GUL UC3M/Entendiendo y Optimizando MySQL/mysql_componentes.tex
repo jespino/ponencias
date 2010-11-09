@@ -1,29 +1,58 @@
 \section{Componentes}
+\subsection{El servidor}
+\begin{frame}{El servidor}
+  \begin{itemize}
+    \item Espera las conexiones de los usuarios.
+    \item Hace la validacion.
+    \item Comprueba si la consulta esta en la cache.
+    \item Si la consulta esta en la cache, devuelve el resultado.
+    \item Si la consulta no esta en la cache, la pasa al parser.
+    \item 
+  \end{itemize}
+\end{frame}
+
 \subsection{La cache}
 \begin{frame}{La cache}
   \begin{itemize}
+    \item La cache almacena resultados asociados a "hash" de consultas.
+    \item Cualquier modificacion en una tabla relacionada con una consulta, caduca esa consulta en la cache.
     \item 
     \item 
-    \item 
-    \item 
+  \end{itemize}
+\end{frame}
+
+\subsection{El parser}
+\begin{frame}{El parser}
+  \begin{itemize}
+    \item Recibe una consulta en SQL, y la convierte en una estructura de arbol.
+    \item Se preprocesa el arbol y hace cambios que el parser no hace.
+    \item Pasa la estructura de arbol al optimizador.
   \end{itemize}
 \end{frame}
 
 \subsection{El optimizador}
 \begin{frame}{El optimizador}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item Utiliza la estructura de arbol para hacer optimizaciones.
+    \item Mediante datos estadisticos del S.E. y algoritmos de optimizacion hace diferentes pruebas.
+    \item Escoje la prueba que le haya dado un valor mas optimo.
+    \item Algunos ejemplos de algoritmos de optimizacion:
+    \begin{itemize}
+      \item Reordenacion de Joins
+      \item Aplicacion de reglas algebraicas.
+      \item Evaluacion y reduccion de expresiones constantes.
+      \item \dots
+    \end{itemize}
+    \item Como resultado del optimizador se optine el "execution plan" que se aplica a los S.E.
   \end{itemize}
 \end{frame}
 
 \subsection{Storage Engines}
 \begin{frame}{Introducción}
   \begin{itemize}
-    \item 
-    \item 
+    \item Recibe peticiones simples de acceso a datos.
+    \item Mediante estas operaciones simples se satisface el "execution plan".
+    \item Cada S.E. tiene funcionalidades y capacidades diferentes.
     \item 
     \item 
   \end{itemize}
@@ -31,19 +60,20 @@
 
 \begin{frame}{MyISAM}
   \begin{itemize}
-    \item Por defecto
-    \item 
-    \item 
-    \item 
+    \item El tipo por defecto de MySQL.
+    \item Muy rapido
+    \item Lock por tablas
+    \item Indices B-Tree y Full-Text
+    \item Tablas comprimidas (solo lectura)
   \end{itemize}
 \end{frame}
 
 \begin{frame}{InnoDB}
   \begin{itemize}
-    \item Transacional
-    \item 
-    \item 
-    \item 
+    \item Transaccional (ACID).
+    \item Lock por filas.
+    \item Integridad referencial.
+    \item Indices B+Tree con clustered index.
   \end{itemize}
 \end{frame}
 
@@ -52,43 +82,39 @@
     \item Tablas en memoria.
     \item Muy rapidas.
     \item Se pierden todos los datos al reiniciar el mysql.
-    \item 
+    \item Indices Hash y B-Tree.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{CSV}
   \begin{itemize}
+    \item Lock por tabla.
     \item Gestiona los datos como ficheros csv.
     \item Util para gestionar datos compartidos con otras aplicaciones que solo entienden CSV.
-    \item 
-    \item 
   \end{itemize}
 \end{frame}
 
 \begin{frame}{BlackHole}
   \begin{itemize}
-    \item Acepta cualquier query y nunca devuelve nada.
-    \item 
-    \item 
-    \item 
+    \item Transaccional (ACID).
+    \item Lock por filas.
+    \item Descarta cualquier insert.
+    \item El sistema de logs sigue funcionando.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Archive}
   \begin{itemize}
+    \item Transaccional (ACID).
+    \item Lock por filas.
     \item Base de datos orientada a escritura.
-    \item Ideal para logs.
-    \item 
-    \item 
+    \item Ideal para almacenar logs.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Federated}
   \begin{itemize}
     \item Tabla virtual, traduce las consultas a consultas DBMS.
-    \item 
-    \item 
-    \item 
   \end{itemize}
 \end{frame}
 

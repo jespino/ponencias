@@ -1,29 +1,45 @@
 \section{Esquemas e indices}
 
+\subsection{Introducción}
+\begin{frame}{Introducción}
+  \begin{itemize}
+    \item Nuestros esquemas e indices dependen de la funcionalidad.
+    \item Importa tanto que vamos a almacenar como el como lo vamos a consultar.
+    \item Todo el diseño de la base de datos debe contemplar los casos de uso.
+    \item Es muy diferente una base de datos orientada a lectura, que una orientada a escritura.
+    \item Es importante tener en cuenta las necesidades de latencias.
+    \item Todo deriva en un compromiso entre el rendimiento en diferentes situaciones.
+  \end{itemize}
+\end{frame}
+
 \subsection{Normalización}
 \begin{frame}{Normalización}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item Reestructuración de nuestras tablas.
+    \item Busca eliminar redundacia.
+    \item Se aplican una serie de "formas normales".
+    \item Normalmente es una buena politica.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Desnormalización}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item A veces la normalizacion es ineficiente.
+    \item La redundancia puede producir incrementos de rendimiento significativos.
+    \item Bases de datos con mucha lectura y poca escritura.
+    \item Bases de datos con necesidades de latencias muy bajas.
   \end{itemize}
 \end{frame}
 
 \subsection{Filas de tamaño fijo}
 \begin{frame}{Filas de tamaño fijo}
   \begin{itemize}
-    \item 
-    \item 
+    \item Las filas almacenadas en nuestra base de datos tienen un tamaño.
+    \item Este puede ser fijo o variable.
+    \item Las filas de tamaño fijo son mas rapidas.
+    \item Una fila se considera de tamaño fijo, si todos sus campos lo son.
+    \item A veces conviene desaprovechar cierta cantidad de espacio a cambio de rendimiento.
+    \item Dependiendo del tipo de consulta puede resultar mas rapido si ahorramos espacio.
     \item 
     \item 
   \end{itemize}
@@ -32,9 +48,67 @@
 \subsection{Indices}
 \begin{frame}{Indices}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item Estructuras auxiliares para busquedas.
+    \item Aceleran las consultas (cuando tienen datos suficientes).
+    \item Pueden resolver la consulta entera (si los datos necesarios estan contenidos).
+    \item Hacen referencia a uno o mas campos.
+    \item Los indices de varios campos tienen un orden concreto.
+    \item (A,B) != (B,A)
+    \item Cada indice incrementa el espacio consumido y decrementa la velocidad de escritura.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Arboles B}
+  \begin{itemize}
+    \item Este es tipo de indice mas habitual.
+    \item El formato interno del arbol depende del S.E.
+    \item Este tipo de indice permite las siguientes consultas:
+    \begin{itemize}
+      \item El valor completo del indice.
+      \item Valores en la parte izquierda del indice.
+      \item Rangos de valores.
+      \item Una parte exacta (a la izquierda), y el resto como un rango.
+      \item Consultas de solo el indice.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tablas hash}
+  \begin{itemize}
+    \item Para cada columna, se calcula un hash y se asocia al indice.
+    \item Solo permite busquedas exactas.
+    \item Las busquedas son muy rapidas.
+    \item Es el tipo por defecto del S.E. Memory.
+    \item Este modo no esta disponible en MyISAM o InnoDB, pero se puede "emular".
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Spatial indexes}
+  \begin{itemize}
+    \item Indices especiales para GIS.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Full text}
+  \begin{itemize}
+    \item Indices para busquedas sobre el contenido.
+    \item Solo disponibles en MyISAM (por ahora).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Clustered indexes}
+  \begin{itemize}
+    \item No es otro tipo de index, es un concepto.
+    \item Consiste en incluir los datos de la fila, dentro del indice de la clave primaria.
+    \item Esto permite que la busqueda de la clave primaria de como resultado la fila, sin necesidad de ningun salto extra.
+    \item InnoDB implementa este tipo de arbol B.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coverage indexes}
+  \begin{itemize}
+    \item Extraer los datos directamente del indice.
+    \item Solo si todos los datos estan contenidos en el indice.
+    \item Supone un incremento significativo del rendimiento.
   \end{itemize}
 \end{frame}
