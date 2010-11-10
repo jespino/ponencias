@@ -3,39 +3,40 @@
 \subsection{Escalado vertical}
 \begin{frame}{Escalado vertical}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item Ampliar o mejorar el hardware.
+    \item MySQL no se adapta muy bien al escalado vertical.
+    \item Depende mucho del tipo de uso que se haga del mysql.
   \end{itemize}
 \end{frame}
 
 \subsection{Escalado horizontal}
 \begin{frame}{Escalado horizontal}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item Distribucion de los datos.
+    \item Varias opciones:
+    \begin{itemize}
+      \item Replicacion (y uso de los esclavos para lectura).
+      \item Distribucion (por clave)
+      \item Distribucion (por funcionalidad)
+      \item Combinacion de las anteriores.
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
 \subsection{Escalado hacia atras}
 \begin{frame}{Escalado hacia atras}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item Eliminacion de datos ya no necesarios.
+    \item Datos de caracter historico que pueden ser eliminados o migrados.
   \end{itemize}
 \end{frame}
 
 \subsection{Escalado con cluster}
 \begin{frame}{Escalado con cluster}
   \begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
+    \item MySQL Cluster es una implementacion de distribucion de datos transparente.
+    \item Distribuye los datos entre un conjunto de nodos.
+    \item Da buen rendimiento para consultas simples y pocos datos.
+    \item Se comporta mal con consultas complejas y que requieran comunicacion entre nodos.
   \end{itemize}
 \end{frame}
