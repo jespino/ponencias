@@ -3,47 +3,44 @@
 \begin{frame}{El servidor}
   \begin{itemize}
     \item Espera las conexiones de los usuarios.
-    \item Hace la validacion.
+    \item Hace la autenticación de usuarios.
     \item Comprueba si la consulta esta en la cache.
     \item Si la consulta esta en la cache, devuelve el resultado.
     \item Si la consulta no esta en la cache, la pasa al parser.
-    \item 
   \end{itemize}
 \end{frame}
 
 \subsection{La cache}
 \begin{frame}{La cache}
   \begin{itemize}
-    \item La cache almacena resultados asociados a "hash" de consultas.
-    \item Cualquier modificacion en una tabla relacionada con una consulta, caduca esa consulta en la cache.
-    \item 
-    \item 
+    \item La cache almacena resultados asociados a ''hash'' de consultas.
+    \item Cualquier modificación en una tabla relacionada con una consulta, caduca esa consulta.
   \end{itemize}
 \end{frame}
 
 \subsection{El parser}
 \begin{frame}{El parser}
   \begin{itemize}
-    \item Recibe una consulta en SQL, y la convierte en una estructura de arbol.
-    \item Se preprocesa el arbol y hace cambios que el parser no hace.
-    \item Pasa la estructura de arbol al optimizador.
+    \item Recibe una consulta en SQL, y la convierte en una estructura de árbol.
+    \item Pasa la estructura de árbol al optimizador.
   \end{itemize}
 \end{frame}
 
 \subsection{El optimizador}
 \begin{frame}{El optimizador}
   \begin{itemize}
-    \item Utiliza la estructura de arbol para hacer optimizaciones.
-    \item Mediante datos estadisticos del S.E. y algoritmos de optimizacion hace diferentes pruebas.
-    \item Escoje la prueba que le haya dado un valor mas optimo.
-    \item Algunos ejemplos de algoritmos de optimizacion:
+    \item Se preprocesa el árbol y hace cambios que el parser no hace.
+    \item Utiliza la estructura de árbol para hacer optimizaciones.
+    \item Mediante datos estadísticos del S.E. y algoritmos de optimización hace diferentes pruebas.
+    \item Escoge la prueba que le haya dado un valor mas óptimo.
+    \item Algunos ejemplos de algoritmos de optimización:
     \begin{itemize}
-      \item Reordenacion de Joins
-      \item Aplicacion de reglas algebraicas.
-      \item Evaluacion y reduccion de expresiones constantes.
+      \item Reordenación de Joins
+      \item Aplicación de reglas algebraicas.
+      \item Evaluación y reducción de expresiones constantes.
       \item \dots
     \end{itemize}
-    \item Como resultado del optimizador se optine el "execution plan" que se aplica a los S.E.
+    \item Como resultado del optimizador se obtiene el ''execution plan'' que se aplica a los S.E.
   \end{itemize}
 \end{frame}
 
@@ -51,52 +48,50 @@
 \begin{frame}{Introducción}
   \begin{itemize}
     \item Recibe peticiones simples de acceso a datos.
-    \item Mediante estas operaciones simples se satisface el "execution plan".
+    \item Mediante estas operaciones simples se satisface el ''execution plan''.
     \item Cada S.E. tiene funcionalidades y capacidades diferentes.
-    \item 
-    \item 
   \end{itemize}
 \end{frame}
 
 \begin{frame}{MyISAM}
   \begin{itemize}
     \item El tipo por defecto de MySQL.
-    \item Muy rapido
+    \item Muy rápido
     \item Lock por tablas
-    \item Indices B-Tree y Full-Text
+    \item Índices B-Tree y Full-Text
     \item Tablas comprimidas (solo lectura)
   \end{itemize}
 \end{frame}
 
 \begin{frame}{InnoDB}
   \begin{itemize}
-    \item Transaccional (ACID).
+    \item Transaccional.
     \item Lock por filas.
     \item Integridad referencial.
-    \item Indices B+Tree con clustered index.
+    \item Índices B+Tree con clustered index.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Memory (Heap)}
   \begin{itemize}
     \item Tablas en memoria.
-    \item Muy rapidas.
+    \item Muy rápidas.
     \item Se pierden todos los datos al reiniciar el mysql.
-    \item Indices Hash y B-Tree.
+    \item Índices Hash y B-Tree.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{CSV}
   \begin{itemize}
     \item Lock por tabla.
-    \item Gestiona los datos como ficheros csv.
-    \item Util para gestionar datos compartidos con otras aplicaciones que solo entienden CSV.
+    \item Gestiona los datos como ficheros CSV.
+    \item Útil para gestionar datos compartidos con otras aplicaciones que solo entienden CSV.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{BlackHole}
   \begin{itemize}
-    \item Transaccional (ACID).
+    \item Transaccional.
     \item Lock por filas.
     \item Descarta cualquier insert.
     \item El sistema de logs sigue funcionando.
@@ -105,7 +100,7 @@
 
 \begin{frame}{Archive}
   \begin{itemize}
-    \item Transaccional (ACID).
+    \item Transaccional.
     \item Lock por filas.
     \item Base de datos orientada a escritura.
     \item Ideal para almacenar logs.
@@ -115,6 +110,7 @@
 \begin{frame}{Federated}
   \begin{itemize}
     \item Tabla virtual, traduce las consultas a consultas DBMS.
+    \item Por ahora solo permite acceso a otros MySQLs.
   \end{itemize}
 \end{frame}
 
