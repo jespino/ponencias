@@ -1,0 +1,170 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+
+% Definiciones para usar luego
+\newtheorem{ejemplo}{Ejemplo}
+\newtheorem{definicion}{Definición}
+
+\title{Fabric}
+\author{Jesús Espino García}
+\date{8 de Marzo de 2011}
+\subject{Fabric}
+
+\institute[GUL UC3M]{Python-ESP-Centro}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+
+  \section*{Introducción}
+  \begin{frame}{¿Qué es Fabric?}
+    \begin{itemize}
+      \item Herramienta de despliegue.
+      \item Herramienta ejecución de tareas.
+      \item Herramienta para ejecución remota.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{¿Para qué sirve Fabric?}
+    \begin{itemize}
+      \item Despligue de aplicaciones en entornos complejos.
+      \item Despligue de aplicaciones en entornos distribuidos.
+      \item Ejecucion de tareas administrativas habituales.
+      \item Ejecución de tareas administrativas en entornos distribuidos.
+      \item Scripts de construccion.
+      \item \dots{}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{¿Por qué usar Fabric?}
+    \begin{itemize}
+      \item Nos evita errores.
+      \item Nos evita inconsistencias.
+      \item Nos facilita las tareas periodicas.
+
+      \item Disminuye los tiempos despligue.
+      \item Es Python!!
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Como funciona Fabric?}
+    \begin{itemize}
+      \item Se define una serie de tareas en un fichero fabfile.py.
+      \item En este fichero se definen una serie de funciones (tareas).
+      \item Se ejecuta la aplicacion fab <tarea>
+    \end{itemize}
+  \end{frame}
+  
+  \section*{Entendiendo Fabric}
+  \begin{frame}{Entorno}
+    \begin{itemize}
+      \item La ejecución de fabric depende del entorno definido.
+      \item El entorno es un diccionario.
+      \item Para cambiar el comportamiento modificamos el entorno.
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Modelo de ejecución}
+    \begin{itemize}
+      \item Construcción de una lista de tareas.
+      \item Construcción de una lista de hosts.
+      \item Se recorre la lista de tareas.
+      \item Para cada hosts se ejecuta la tarea actual.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Lista de tareas}
+    \begin{itemize}
+      \item Fabric extra las tareas del fichero fabfile.py (Normalmente).
+      \item Considera tarea todo objeto "Callable" que haya al importar el fabfile.py.
+      \item No se consideran tareas las funciones/metodos del propio fabric.
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Lista de hosts}
+    \begin{itemize}
+      \item La lista de hosts se extra del entorno.
+      \item Si la tarea tiene un decorador de hosts sobreescribe los hosts del entorno.
+      \item Si se le pasa como parametro los hosts sobreescribe todo lo anterior.
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Tareas con parametros}
+    \begin{itemize}
+      \item Las tareas pueden recibir parametros.
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+  
+  \subsection*{La API de Fabric}
+  \begin{frame}{Core}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Contrib}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+  
+  \subsection*{Ejemplos}
+  \begin{frame}{}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \section*{Para terminar}
+
+  \begin{frame}{Dudas}
+    \begin{center}
+      \dots
+    \end{center}
+  \end{frame}
+
+\end{document}
