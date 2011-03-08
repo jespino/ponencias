@@ -3,38 +3,35 @@
 \subsection{Las queries}
 \begin{frame}{Las queries}
   \begin{itemize}
-    \item El cliente envia una query al servidor.
+    \item El cliente envía una query al servidor.
     \item Este comprueba si esta en la cache.
     \item Si esta, devuelve el resultado.
     \item Si no lo esta, pasa la query al parser.
-    \item Este convierte la query en un arbol y lo pasa al optimizador.
-    \item El optimizador procesa el arbol y optiene un "execution plan".
+    \item Este convierte la query en un árbol y lo pasa al optimizador.
+    \item El optimizador procesa el árbol y obtiene un ''execution plan''.
     \item Se ejecuta el execution plan sobre los S.E. que corresponda.
     \item Si es necesario se procesa el resultado en una tabla temporal.
     \item Se almacena en la cache el resultado, y se devuelve al cliente.
   \end{itemize}
 \end{frame}
 
-\subsection{Estrategia de ejecucion}
-\begin{frame}{Estrategia de ejecucion}
+\subsection{Estrategia de ejecución}
+\begin{frame}{Estrategia de ejecución}
   \begin{itemize}
-    \item Toda query en mysql es un "join".
-    \item Mysql crea un bucle de ejecucion recursivo.
+    \item Toda query en mysql es un ''join''.
+    \item Mysql crea un bucle de ejecución recursivo.
     \item Si tiene que buscar en n tablas busca en la primera.
     \item Cuando encuentra un resultado empieza a buscar en la segunda.
-    \item Asi hasta la ultima, en la cual, al encontrar resultado, devuelve la fila.
-    \item Al terminar cualqueiera de las tablas, hace backtracking.
+    \item Así hasta la ultima, en la cual, al encontrar resultado, devuelve la fila.
+    \item Al terminar cualquiera de las tablas, hace backtracking.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Sobre la estrategia de ejecucion}
+\begin{frame}{Sobre la estrategia de ejecución}
   \begin{itemize}
     \item Algunas optimizaciones se entienden por la estrategia de mysql.
     \item Es muy importante el orden de las tablas.
-    \item Es muy importante la eleccion correcta de los indices.
-    \item 
-    \item 
-    \item 
+    \item Es muy importante la elección correcta de los índices.
   \end{itemize}
 \end{frame}
 
@@ -51,7 +48,17 @@
   \begin{itemize}
     \item Log de consultas lentas
     \item Explain para ver el execution plan
-    \item 
-    \item 
+    \item SHOW STATUS LIKE 'last\_query\_cost';
+    \item El query cost es por lo que se guía el optimizador para elegir el execution plan.
+    \item El profiler de mysql.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Forzando las cosas}
+  \begin{itemize}
+    \item Normalmente no es necesario forzar las cosas.
+    \item STRAIGHT\_JOIN fuerza el orden de los joins al especificado en la consulta.
+    \item USE INDEX, IGNORE INDEX o FORCE INDEX fuerza, usa o ignora un índice concreto.
+    \item SQL\_CACHE o SQL\_NO\_CACHE le dice al mysql si es o no candidato para cache.
   \end{itemize}
 \end{frame}
