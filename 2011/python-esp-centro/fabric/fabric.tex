@@ -68,17 +68,17 @@
       \item Nos evita errores.
       \item Nos evita inconsistencias.
       \item Nos facilita las tareas periodicas.
-
       \item Disminuye los tiempos despligue.
       \item Es Python!!
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{¿Como funciona Fabric?}
+  \begin{frame}[containsverbatim]
+    \frametitle{¿Como funciona Fabric?}
     \begin{itemize}
-      \item Se define una serie de tareas en un fichero fabfile.py.
+      \item Se escribe un fichero \verb+fabfile.py+.
       \item En este fichero se definen una serie de funciones (tareas).
-      \item Se ejecuta la aplicacion fab <tarea>
+      \item Se ejecuta la aplicacion \verb+fab <tarea>+.
     \end{itemize}
   \end{frame}
   
@@ -86,11 +86,27 @@
   \begin{frame}{Entorno}
     \begin{itemize}
       \item La ejecución de fabric depende del entorno definido.
-      \item El entorno es un diccionario.
+      \item El entorno es un objeto diccionario.
       \item Para cambiar el comportamiento modificamos el entorno.
-      \item 
-      \item 
-      \item 
+      \item Cambios más habituales:
+      \begin{itemize}
+        \item hosts: Host en los que ejecutar las tareas.
+        \item user: Usuario para las conexiones SSH
+        \item password: Password para las conexiones SSH
+        \item warn\_only: No detener en caso de error
+        \item rolesdefs: Definición de roles (grupos de hosts)
+        \item roles: Roles sobre los que ejecutar las tareas.
+        \item fabfile: Fichero a ejecutar en vez de fabfile.py.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{fabricrc}
+    \begin{itemize}
+      \item El fichero ~/.fabricrc nos permite configuraciónes generales.
+      \item Este fichero afecta a todas las ejecuciones de fabric.
+      \item Contiene un serie de parejas clave/valor.
+      \item Las parejas clave valor rellenan el entorno.
     \end{itemize}
   \end{frame}
 
@@ -103,59 +119,68 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Lista de tareas}
+  \begin{frame}[containsverbatim]
+    \frametitle{Lista de tareas}
     \begin{itemize}
-      \item Fabric extra las tareas del fichero fabfile.py (Normalmente).
-      \item Considera tarea todo objeto "Callable" que haya al importar el fabfile.py.
+      \item Fabric extrae las tareas del fichero \verb+fabfile.py+ (Normalmente).
+      \item Considera tarea todo objeto ''Callable'' que haya al importar el \verb+fabfile.py+.
       \item No se consideran tareas las funciones/metodos del propio fabric.
-      \item 
+      \item No se consideran tareas los objetos que su nombre empieza por \_.
+      \item Se pueden listar las tareas ejecutando \verb+fab --list+.
     \end{itemize}
   \end{frame}
 
   \begin{frame}{Lista de hosts}
     \begin{itemize}
-      \item La lista de hosts se extra del entorno.
+      \item La lista de hosts se extrae del entorno.
       \item Si la tarea tiene un decorador de hosts sobreescribe los hosts del entorno.
-      \item Si se le pasa como parametro los hosts sobreescribe todo lo anterior.
-      \item 
+      \item Si se le pasa como parametro los hosts sobreescribe los hosts del entorno y decorador.
+      \item Se extrae la lista de roles del entorno.
+      \item Si la tarea tiene un decorador de roles se sobreescriben los roles del entorno.
+      \item Si se le pasa como parametro los roles sobreescribe los roles del entorno y decorador.
+      \item Se hace la union de los hosts y de los hosts contenidos en los roles.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Tareas con parametros}
+  \begin{frame}[containsverbatim]
+    \frametitle{Tareas con parametros}
     \begin{itemize}
       \item Las tareas pueden recibir parametros.
-      \item 
-      \item 
-      \item 
+      \item El paso de parametros sigue el siguiente modelos \verb+fab <tarea>:<parm1>,<parm2>,<parm_name>=<parm_value>+
+      \item El parametro hosts permite definir los hosts sobre los que ejecutar.
+      \item Si se encuentra el parametro hosts se extrae de la lista de parametros de la tarea.
     \end{itemize}
   \end{frame}
   
   \subsection*{La API de Fabric}
   \begin{frame}{Core}
     \begin{itemize}
-      \item 
-      \item 
-      \item 
-      \item 
+      \item colors (blue, cyan, green, magenta, red, white, yellow)
+      \item context\_managers (cd, hide, lcd, path, prefix, settings, show)
+      \item decorators (hosts, roles, runs\_once)
+      \item network (disconnect\_all)
+      \item operations (get, open\_shell, put, reboot, run, sudo, local, prompt, require)
+      \item utils (abort, fastprint, indent, puts, warn)
     \end{itemize}
   \end{frame}
 
   \begin{frame}{Contrib}
     \begin{itemize}
-      \item 
-      \item 
-      \item 
-      \item 
+      \item contrib.console (confirm)
+      \item contrib.django (project, settings\_module)
+      \item contrib.files (append, comment, contains, exists, first, sed, uncomment, upload\_template)
+      \item contrib.project (rsync\_project, upload\_project)
     \end{itemize}
   \end{frame}
   
   \subsection*{Ejemplos}
-  \begin{frame}{}
+  \begin{frame}{Ejemplos}
     \begin{itemize}
-      \item 
-      \item 
-      \item 
-      \item 
+      \item Despliegue de aplicacion web distribuida.
+      \item Despliegue de otra aplicacion web distribuida.
+      \item Despliegue de aplicacion web compleja.
+      \item Constructor de software.
+      \item Script de administración.
     \end{itemize}
   \end{frame}
 
