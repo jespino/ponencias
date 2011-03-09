@@ -1,7 +1,7 @@
-from fabric.api import run, put, env, local
+from fabric.api import run, put, env, local, sudo
 from fabric.decorators import roles
 
-env.rolesdefs = {
+env.roledefs = {
     'db': [ "db1.myserver.com", "db2.myserver.com", "db3.myserver.com" ],
     'dns': [ "dns1.myserver.com", "dns2.myserver.com" ],
     'www': [ "www1.myserver.com", "www2.myserver.com", "www3.myserver.com" ]
@@ -15,7 +15,8 @@ def deploy_db():
 
 @roles('dns')
 def deploy_dns():
-    sudo("bash /usr/local/bin/update-dns.sh")
+    #sudo("bash /usr/local/bin/update-dns.sh")
+    sudo("true")
 
 @roles('www')
 def deploy_www():

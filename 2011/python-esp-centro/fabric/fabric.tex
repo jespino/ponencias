@@ -54,11 +54,11 @@
   
   \begin{frame}{¿Para qué sirve Fabric?}
     \begin{itemize}
-      \item Despligue de aplicaciones en entornos complejos.
-      \item Despligue de aplicaciones en entornos distribuidos.
-      \item Ejecucion de tareas administrativas habituales.
+      \item Despliegue de aplicaciones en entornos complejos.
+      \item Despliegue de aplicaciones en entornos distribuidos.
+      \item Ejecución de tareas administrativas habituales.
       \item Ejecución de tareas administrativas en entornos distribuidos.
-      \item Scripts de construccion.
+      \item Scripts de construcción.
       \item \dots{}
     \end{itemize}
   \end{frame}
@@ -67,8 +67,8 @@
     \begin{itemize}
       \item Nos evita errores.
       \item Nos evita inconsistencias.
-      \item Nos facilita las tareas periodicas.
-      \item Disminuye los tiempos despligue.
+      \item Nos facilita las tareas periódicas.
+      \item Disminuye los tiempos despliegue.
       \item Es Python!!
     \end{itemize}
   \end{frame}
@@ -78,7 +78,7 @@
     \begin{itemize}
       \item Se escribe un fichero \verb+fabfile.py+.
       \item En este fichero se definen una serie de funciones (tareas).
-      \item Se ejecuta la aplicacion \verb+fab <tarea>+.
+      \item Se ejecuta la aplicación \verb+fab <tarea>+.
     \end{itemize}
   \end{frame}
   
@@ -94,7 +94,7 @@
         \item user: Usuario para las conexiones SSH
         \item password: Password para las conexiones SSH
         \item warn\_only: No detener en caso de error
-        \item rolesdefs: Definición de roles (grupos de hosts)
+        \item roledefs: Definición de roles (grupos de hosts)
         \item roles: Roles sobre los que ejecutar las tareas.
         \item fabfile: Fichero a ejecutar en vez de fabfile.py.
       \end{itemize}
@@ -103,7 +103,7 @@
 
   \begin{frame}{fabricrc}
     \begin{itemize}
-      \item El fichero ~/.fabricrc nos permite configuraciónes generales.
+      \item El fichero $\sim$/.fabricrc nos permite configuraciones generales.
       \item Este fichero afecta a todas las ejecuciones de fabric.
       \item Contiene un serie de parejas clave/valor.
       \item Las parejas clave valor rellenan el entorno.
@@ -124,7 +124,7 @@
     \begin{itemize}
       \item Fabric extrae las tareas del fichero \verb+fabfile.py+ (Normalmente).
       \item Considera tarea todo objeto ''Callable'' que haya al importar el \verb+fabfile.py+.
-      \item No se consideran tareas las funciones/metodos del propio fabric.
+      \item No se consideran tareas las funciones/métodos del propio fabric.
       \item No se consideran tareas los objetos que su nombre empieza por \_.
       \item Se pueden listar las tareas ejecutando \verb+fab --list+.
     \end{itemize}
@@ -134,21 +134,21 @@
     \begin{itemize}
       \item La lista de hosts se extrae del entorno.
       \item Si la tarea tiene un decorador de hosts sobreescribe los hosts del entorno.
-      \item Si se le pasa como parametro los hosts sobreescribe los hosts del entorno y decorador.
+      \item Si se le pasa como parámetro los hosts sobreescribe los hosts del entorno y decorador.
       \item Se extrae la lista de roles del entorno.
       \item Si la tarea tiene un decorador de roles se sobreescriben los roles del entorno.
-      \item Si se le pasa como parametro los roles sobreescribe los roles del entorno y decorador.
+      \item Si se le pasa como parámetro los roles sobreescribe los roles del entorno y decorador.
       \item Se hace la union de los hosts y de los hosts contenidos en los roles.
     \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Tareas con parametros}
+    \frametitle{Tareas con parámetros}
     \begin{itemize}
-      \item Las tareas pueden recibir parametros.
-      \item El paso de parametros sigue el siguiente modelos \verb+fab <tarea>:<parm1>,<parm2>,<parm_name>=<parm_value>+
-      \item El parametro hosts permite definir los hosts sobre los que ejecutar.
-      \item Si se encuentra el parametro hosts se extrae de la lista de parametros de la tarea.
+      \item Las tareas pueden recibir parámetros.
+      \item El paso de parámetros sigue el siguiente modelos \verb+fab <tarea>:<parm1>,<parm2>,<parm_name>=<parm_value>+
+      \item El parámetro hosts permite definir los hosts sobre los que ejecutar.
+      \item Si se encuentra el parámetro hosts se extrae de la lista de parámetros de la tarea.
     \end{itemize}
   \end{frame}
   
@@ -176,9 +176,9 @@
   \subsection*{Ejemplos}
   \begin{frame}{Ejemplos}
     \begin{itemize}
-      \item Despliegue de aplicacion web distribuida.
-      \item Despliegue de otra aplicacion web distribuida.
-      \item Despliegue de aplicacion web compleja.
+      \item Despliegue de aplicación web distribuida.
+      \item Despliegue de otra aplicación web distribuida.
+      \item Despliegue de aplicación web compleja.
       \item Constructor de software.
       \item Script de administración.
     \end{itemize}
