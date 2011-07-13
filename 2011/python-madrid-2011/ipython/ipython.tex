@@ -1,0 +1,120 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Introducción a IPython}
+\author{Jesús Espino García}
+\date{15 de Julio de 2011}
+\subject{Introducción a IPython}
+
+\institute[Python Madrid 2011]{Kaleidos\\Python Madrid 2011}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+
+  \section*{Introducción}
+  \begin{frame}{¿Qué es IPython?}
+    \begin{itemize}
+      \item Interprete de python con esteroides.
+      \item Entorno pensado para la programación interactiva.
+      \item Entorno pensado para la programación exploratoria.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{¿Para qué sirve IPython?}
+    \begin{itemize}
+      \item Depuración.
+      \item Profiling.
+      \item Micro prototipos.
+      \item Pruebas de bibliotecas.
+      \item \dots{}
+    \end{itemize}
+  \end{frame}
+  
+  \section*{Principales funcionalidades}
+  \begin{frame}{Tab completion}
+    \begin{itemize}
+      \item Autocompletado con tabulador.
+      \item Lista los atributos de un objeto.
+      \item Tambien autocompleta nombres de fichero.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Exploración de objetos}
+    \begin{itemize}
+      \item IPython define macros para la exploración de objetos.
+      \item \%pdoc muestra el docstring de un objeto.
+      \item \%pdef muestra la definición de un objeto (metodo, clase).
+      \item \%psource muestra la implementación de un objeto (metodo, clase).
+      \item \%pfile muestra el codigo de todo el fichero donde se define un objeto (metodo, clase).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Ejecución de archivos}
+    \begin{itemize}
+      \item IPython define una macro \%run para ejecutar el contenido de un fichero.
+      \item Cada \%run lee y ejecuta todo el fichero (no es un import).
+      \item El comando \%run tiene 3 flags importantes.
+      \begin{itemize}
+        \item -t mide el tiempo de ejecucion.
+        \item -d ejecuta el codigo bajo pdb (en realidad ipdb).
+        \item -p ejecuta el codigo bajo un profiler.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Input/Output caches}
+    \begin{itemize}
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Perfiles}
+    \begin{itemize}
+      \item 
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Macros}
+    \begin{itemize}
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \section*{Para terminar}
+
+  \begin{frame}{Dudas}
+    \begin{center}
+      \dots
+    \end{center}
+  \end{frame}
+
+\end{document}

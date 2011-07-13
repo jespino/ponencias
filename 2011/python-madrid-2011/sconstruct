@@ -1,0 +1,3 @@
+SConscript('pygtk/sconstruct')
+SConscript('pyunit/sconstruct')
+SConscript('ipython/sconstruct')

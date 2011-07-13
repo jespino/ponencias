@@ -1,0 +1,192 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+
+\title{Pruebas unitarias con Python Unit}
+\author{Jesús Espino García}
+\date{15 de Julio de 2011}
+\subject{Pruebas unitarias con Python Unit}
+
+\institute[Python Madrid 2011]{Kaleidos\\Python Madrid 2011}
+
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+
+  \section*{Introducción}
+  \begin{frame}{¿Qué es Fabric?}
+    \begin{itemize}
+      \item Herramienta de despliegue.
+      \item Herramienta ejecución de tareas.
+      \item Herramienta para ejecución remota.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{¿Para qué sirve Fabric?}
+    \begin{itemize}
+      \item Despliegue de aplicaciones en entornos complejos.
+      \item Despliegue de aplicaciones en entornos distribuidos.
+      \item Ejecución de tareas administrativas habituales.
+      \item Ejecución de tareas administrativas en entornos distribuidos.
+      \item Scripts de construcción.
+      \item \dots{}
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{¿Por qué usar Fabric?}
+    \begin{itemize}
+      \item Nos evita errores.
+      \item Nos evita inconsistencias.
+      \item Nos facilita las tareas periódicas.
+      \item Disminuye los tiempos despliegue.
+      \item Es Python!!
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{¿Como funciona Fabric?}
+    \begin{itemize}
+      \item Se escribe un fichero \verb+fabfile.py+.
+      \item En este fichero se definen una serie de funciones (tareas).
+      \item Se ejecuta la aplicación \verb+fab <tarea>+.
+    \end{itemize}
+  \end{frame}
+  
+  \section*{Entendiendo Fabric}
+  \begin{frame}{Entorno}
+    \begin{itemize}
+      \item La ejecución de fabric depende del entorno definido.
+      \item El entorno es un objeto diccionario.
+      \item Para cambiar el comportamiento modificamos el entorno.
+      \item Cambios más habituales:
+      \begin{itemize}
+        \item hosts: Host en los que ejecutar las tareas.
+        \item user: Usuario para las conexiones SSH
+        \item password: Password para las conexiones SSH
+        \item warn\_only: No detener en caso de error
+        \item roledefs: Definición de roles (grupos de hosts)
+        \item roles: Roles sobre los que ejecutar las tareas.
+        \item fabfile: Fichero a ejecutar en vez de fabfile.py.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{fabricrc}
+    \begin{itemize}
+      \item El fichero $\sim$/.fabricrc nos permite configuraciones generales.
+      \item Este fichero afecta a todas las ejecuciones de fabric.
+      \item Contiene un serie de parejas clave/valor.
+      \item Las parejas clave valor rellenan el entorno.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Modelo de ejecución}
+    \begin{itemize}
+      \item Construcción de una lista de tareas.
+      \item Construcción de una lista de hosts.
+      \item Se recorre la lista de tareas.
+      \item Para cada hosts se ejecuta la tarea actual.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Lista de tareas}
+    \begin{itemize}
+      \item Fabric extrae las tareas del fichero \verb+fabfile.py+ (Normalmente).
+      \item Considera tarea todo objeto ''Callable'' que haya al importar el \verb+fabfile.py+.
+      \item No se consideran tareas las funciones/métodos del propio fabric.
+      \item No se consideran tareas los objetos que su nombre empieza por \_.
+      \item Se pueden listar las tareas ejecutando \verb+fab --list+.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Lista de hosts}
+    \begin{itemize}
+      \item La lista de hosts se extrae del entorno.
+      \item Si la tarea tiene un decorador de hosts sobreescribe los hosts del entorno.
+      \item Si se le pasa como parámetro los hosts sobreescribe los hosts del entorno y decorador.
+      \item Se extrae la lista de roles del entorno.
+      \item Si la tarea tiene un decorador de roles se sobreescriben los roles del entorno.
+      \item Si se le pasa como parámetro los roles sobreescribe los roles del entorno y decorador.
+      \item Se hace la union de los hosts y de los hosts contenidos en los roles.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Tareas con parámetros}
+    \begin{itemize}
+      \item Las tareas pueden recibir parámetros.
+      \item El paso de parámetros sigue el siguiente modelos \verb+fab <tarea>:<parm1>,<parm2>,<parm_name>=<parm_value>+
+      \item El parámetro hosts permite definir los hosts sobre los que ejecutar.
+      \item Si se encuentra el parámetro hosts se extrae de la lista de parámetros de la tarea.
+    \end{itemize}
+  \end{frame}
+  
+  \subsection*{La API de Fabric}
+  \begin{frame}{Core}
+    \begin{itemize}
+      \item colors (blue, cyan, green, magenta, red, white, yellow)
+      \item context\_managers (cd, hide, lcd, path, prefix, settings, show)
+      \item decorators (hosts, roles, runs\_once)
+      \item network (disconnect\_all)
+      \item operations (get, open\_shell, put, reboot, run, sudo, local, prompt, require)
+      \item utils (abort, fastprint, indent, puts, warn)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Contrib}
+    \begin{itemize}
+      \item contrib.console (confirm)
+      \item contrib.django (project, settings\_module)
+      \item contrib.files (append, comment, contains, exists, first, sed, uncomment, upload\_template)
+      \item contrib.project (rsync\_project, upload\_project)
+    \end{itemize}
+  \end{frame}
+  
+  \subsection*{Ejemplos}
+  \begin{frame}{Ejemplos}
+    \begin{itemize}
+      \item Despliegue de aplicación web distribuida.
+      \item Despliegue de otra aplicación web distribuida.
+      \item Despliegue de aplicación web compleja.
+      \item Constructor de software.
+      \item Script de administración.
+    \end{itemize}
+  \end{frame}
+
+  \section*{Para terminar}
+
+  \begin{frame}{Dudas}
+    \begin{center}
+      \dots
+    \end{center}
+  \end{frame}
+
+\end{document}
