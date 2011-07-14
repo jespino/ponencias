@@ -209,7 +209,8 @@ def boton_clickeado(widget):
     \frametitle{Importar un interfaz generado}
     \begin{verbatim}
 ...
-xml = gtk.glade.XML("ruta/archivo.glade")
+builder = gtk.Builder()
+builder.add_from_file("ruta/archivo.glade")
 ...
     \end{verbatim}
   \end{frame}
@@ -218,7 +219,7 @@ xml = gtk.glade.XML("ruta/archivo.glade")
     \frametitle{Conectar las señales}
     \begin{verbatim}
 ...
-xml.signal_autoconnect(locals())
+builder.connect_signals(locals())
 ...
     \end{verbatim}
   \end{frame}
@@ -268,9 +269,6 @@ xml.signal_autoconnect(locals())
 
   \begin{frame}
     \frametitle{\begin{center}Fin\end{center}}
-    \begin{center}
-      \includegraphics[height=3cm]{gul}
-    \end{center}
   \end{frame}
 
 \end{document}
