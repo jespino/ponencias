@@ -51,7 +51,7 @@
       \item Lo aprendido sirve para otros lenguajes.
       \item Es bonito.
       \item Es multi plataforma (Python y GTK)
-      \item Si usamos glade, separación de la interfaz del código
+      \item Si usamos gtkbuilder, separación de la interfaz del código
     \end{itemize}
   \end{frame}
   
@@ -70,7 +70,7 @@
   
     \begin{itemize}
       \item \verb+python+: Interprete de python.
-      \item \verb+python-gtk+: Libreria de python GTK.
+      \item \verb+python-gtk+: Biblioteca de python GTK.
       \item \verb+glade+: Aplicación de diseño de interfaces GTK.
       \item \verb+devhelp+: Con el libro de GTK+ una buena referencia.
     \end{itemize}
@@ -80,7 +80,7 @@
   \begin{frame}[containsverbatim]
     \frametitle{Widgets}
   
-    Los objetos con los que trabajeremos en GTK
+    Los objetos con los que trabajaremos en GTK
     \begin{itemize}
       \item Ventanas.
       \item Cajas.
@@ -96,7 +96,7 @@
   \begin{frame}[containsverbatim]
     \frametitle{Contenedores}
   
-    Widgets que cotienen otros widgets
+    Widgets que contienen otros widgets
     \begin{itemize}
       \item Ventana.
       \item Cajas.
@@ -113,9 +113,9 @@
       \item Clicks.
       \item Pulsado de tecla.
       \item Destruir.
-      \item Entrar en el area del widget.
-      \item Salir de area del widget.
-      \item Moviemiento de raton.
+      \item Entrar en el área del widget.
+      \item Salir de área del widget.
+      \item Movimiento de ratón.
       \item Otros...
     \end{itemize}
   \end{frame}
@@ -123,8 +123,8 @@
   \begin{frame}[containsverbatim]
     \frametitle{Manejadores}
   
-    Funciones o metodos que gestionan una señal, es decir, cualquier función o
-    metodo definido que se enlaza a la señal de un objeto.
+    Funciones o métodos que gestionan una señal, es decir, cualquier función o
+    método definido que se enlaza a la señal de un objeto.
   \end{frame}
 
   \section{Interfaces}
@@ -135,7 +135,7 @@
     Interfaz de diseño de interfaces.
     \begin{itemize}
       \item Es XML.
-      \item Es Grafico.
+      \item Es Gráfico.
       \item Es GTK.
       \item No pierdes control.
     \end{itemize}
@@ -181,7 +181,7 @@ window.add(button)
     \frametitle{Cambiando información de un widget.}
     \begin{verbatim}
 ...
-button.set_label("Pulse Aqui")
+button.set_label("Pulse Aquí")
 ...
     \end{verbatim}
   \end{frame}
@@ -227,8 +227,8 @@ builder.connect_signals(locals())
   \section{Ejemplos}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Mozilla en 30 lineas}
-    Ejemplo de insertar un gecko en una aplicación GTK
+    \frametitle{Chrome en 30 lineas}
+    Ejemplo de insertar un webkit en una aplicación GTK
   \end{frame}
 
   \begin{frame}[containsverbatim]
@@ -247,9 +247,8 @@ builder.connect_signals(locals())
         \end{itemize}
       \item ¿Dónde preguntar?
         \begin{itemize}
-	  \item Lista de correo de pygtk.
-	  \item Lista de correo de python.
-	  \item Listas de distribución de grupos de usuarios de Linux.
+	  \item Lista de correo de python-es: python-es@python.org
+	  \item Listas de distribución de grupos de usuarios de Linux: gul@gul.uc3m.es
         \end{itemize}
     \end{itemize}
   \end{frame}
@@ -259,14 +258,6 @@ builder.connect_signals(locals())
     \dots
   \end{frame}
   
-  \begin{frame}
-    \frametitle{Agradecimientos}
-    \begin{itemize}
-      \item Gracias a Pablo Barrera por la charla de Python GTK con la que empecé con esto.
-      \item Gracias al equipo de LUC3M por permitirme trabajar en un proyecto tan interesante.
-    \end{itemize}
-  \end{frame}
-
   \begin{frame}
     \frametitle{\begin{center}Fin\end{center}}
   \end{frame}
