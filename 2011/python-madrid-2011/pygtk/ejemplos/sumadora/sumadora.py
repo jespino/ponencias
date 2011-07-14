@@ -5,14 +5,16 @@ def gtk_main_quit(widget):
 	gtk.main_quit()
 
 def plus_clicked(widget):
-	entry1 = xml.get_widget("entry1")
-	entry2 = xml.get_widget("entry2")
-	label1 = xml.get_widget("label1")
+	entry1 = builder.get_object("entry1")
+	entry2 = builder.get_object("entry2")
+	label1 = builder.get_object("label1")
 
 	label1.set_text(str(int(entry1.get_text())+int(entry2.get_text())))
 
 builder = Builder()
 builder.add_from_file("sumadora.glade")
-builder.signal_autoconnect(locals())
+builder.connect_signals(locals())
+window = builder.get_object("window1")
+window.show()
 
 gtk.main()
