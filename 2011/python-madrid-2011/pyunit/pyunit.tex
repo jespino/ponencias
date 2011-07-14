@@ -48,17 +48,17 @@
       \item Consiste en muchos casos de prueba
       \begin{itemize}
         \item Cada uno de ellos prueba un aspecto determinado
-        \item Para probar un metodo hacen falta varios casos de prueba
+        \item Para probar un método hacen falta varios casos de prueba
       \end{itemize}
     \end{itemize}
   \end{frame}
   
   \begin{frame}{¿Por qué hacer pruebas?}
     \begin{itemize}
-      \item Un programa no es aceptable si no comple su especificación.
+      \item Un programa no es aceptable si no cumple su especificación.
       \item Un programa no es aceptable si hace lo que no debe hacer.
       \item Nos da sensación de seguridad y tranquilidad.
-      \item Evita la inclusion recurrente del mismo error.
+      \item Evita la inclusión recurrente del mismo error.
     \end{itemize}
 
     ''Un programador jamás debería entregar un programa sin haberlo probado. Igualmente, quien recibe un programa de otro jamás debería aceptarlo sin haberlo probado. Cualquier funcionalidad de un programa sin una prueba automatizada, simplemente no existe'' (''Extreme Programming Explained'', de Kent Beck)
@@ -69,8 +69,8 @@
     \begin{itemize}
       \item Ninguna: ''Soy tan bueno que todo lo que hago funciona a la primera, sin ningún tipo de bug''
       \item Al final: Voy desarrollando y al final del proyecto me paso una semana probando, o dejo que pruebe el cliente.
-      \item Constante 1: Voy haciendo las pruebas segun desarrollo (Desarrollo -> Prueba).
-      \item Constante 2: Voy haciendo las pruebas segun desarrollo (Prueba -> Desarrollo). TDD
+      \item Constante 1: Voy haciendo las pruebas según desarrollo (Desarrollo -> Prueba).
+      \item Constante 2: Voy haciendo las pruebas según desarrollo (Prueba -> Desarrollo). TDD
       \item Test reactivos: Ante un error, construimos un test que reproduzca el error y lo corregimos.
     \end{itemize}
   \end{frame}
@@ -79,7 +79,7 @@
   \begin{frame}{Introducción}
     \begin{itemize}
       \item Provee de un framework para realizar las pruebas unitarias.
-      \item Forma parte de la distribución base de python desde la version 2.1.
+      \item Forma parte de la distribución base de python desde la versión 2.1.
       \item Inspirado en JUnit.
     \end{itemize}
   \end{frame}
@@ -88,18 +88,18 @@
     Unittest soporta 4 conceptos importantes
     \begin{itemize}
       \item test fixture: Acciones de preparación previas a los test (por ejemplo, poblado de bases de datos).
-      \item test case: Unidad basica de tests, comprueba que el resultado sea el correcto ante unos parametros.
-      \item test suite: Una coleccion de ''test cases'' y/o ''test suites''.
-      \item test runner: Componente encargado de la ejecucción de los tests y la presentación de los resultados.
+      \item test case: Unidad básica de tests, comprueba que el resultado sea el correcto ante unos parámetros.
+      \item test suite: Una colección de ''test cases'' y/o ''test suites''.
+      \item test runner: Componente encargado de la ejecución de los tests y la presentación de los resultados.
     \end{itemize}
   \end{frame}
 
   \begin{frame}{Estructura de un test case}
     \begin{itemize}
       \item Es una clase que hereda de TestCase.
-      \item Tendra una serie de metodos que empiecen por ''test\_'' que seran ejecutados automaticamente.
-      \item Los metodos ''test\_'' deben ejecutar el codigo que desean probar y luego ''afirmar un estado''.
-      \item Los metodos ''test\_'' no devuelven ningun valor, se consideran validos aquellos que haya terminado su ejecuccion.
+      \item Tendrá una serie de métodos que empiecen por ''test\_'' que serán ejecutados automáticamente.
+      \item Los métodos ''test\_'' deben ejecutar el código que desean probar y luego ''afirmar un estado''.
+      \item Los métodos ''test\_'' no devuelven ningún valor, se consideran validos aquellos que haya terminado su ejecución.
     \end{itemize}
   \end{frame}
 
@@ -122,12 +122,12 @@
         \item assertNotIsInstance
         \item assertRaise
       \end{itemize}
-      \item Pueden ver un listado mas exaustivo de las aserciones en http://docs.python.org/library/unittest.html.
+      \item Pueden ver un listado más exhaustivo de las aserciones en http://docs.python.org/library/unittest.html.
     \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Ejemplo de metodo de test}
+    \frametitle{Ejemplo de método de test}
     \begin{verbatim}
 def test_suma(self):
     resultado = 1+1
@@ -146,10 +146,10 @@ import unittest
 class TestSuma(unittest.TestCase):
     def test_suma(self):
         resultado = 1+1
-        assertEqual(rsultado,2)
+        assertEqual(resultado,2)
     
         resultado = 1+8
-        assertEqual(rsultado,9)
+        assertEqual(resultado,9)
         \end{verbatim}
   \end{frame}
 
@@ -157,11 +157,11 @@ class TestSuma(unittest.TestCase):
   \begin{frame}{Inicialización de los datos}
     \begin{itemize}
       \item Unittest nos permite definir un ''test fixture''.
-      \item Para esto definimos los metodos setUp y tearDown.
-      \item setUp se ejecuta justo antes de cada metodo test.
-      \item tearDown se ejecuta justo despues de cada metodo test.
-      \item Nos serviran para inicializar y limpiar los datos de prueba.
-      \item Ademas tenemos setUpClass y tearDownClass.
+      \item Para esto definimos los métodos setUp y tearDown.
+      \item setUp se ejecuta justo antes de cada método test.
+      \item tearDown se ejecuta justo después de cada método test.
+      \item Nos servirán para inicializar y limpiar los datos de prueba.
+      \item Además tenemos setUpClass y tearDownClass.
       \item Y setUpModule y tearDownModule.
     \end{itemize}
   \end{frame}
@@ -169,11 +169,11 @@ class TestSuma(unittest.TestCase):
   \begin{frame}{Test Suite}
     \begin{itemize}
       \item Unittest nos permite agrupar tests.
-      \item Es util para estructurar los test de diferentes maneras.
+      \item Es útil para estructurar los test de diferentes maneras.
       \begin{itemize}
         \item Por funcionalidad.
         \item Por casos de uso.
-        \item Por situación en la intefaz.
+        \item Por situación en la interfaz.
         \item Por proximidad de los datos.
         \item \dots
       \end{itemize}
@@ -183,9 +183,9 @@ class TestSuma(unittest.TestCase):
   \begin{frame}{Test Runner}
     \begin{itemize}
       \item Encargado de ejecutar los tests.
-      \item Una clase con un metodo run, que recibe un TestCase o un TestSuite.
+      \item Una clase con un método run, que recibe un TestCase o un TestSuite.
       \item Unittest viene solo con el TextTestRunner.
-      \item Poemos implementar nuestros propios TestRunners.
+      \item Podemos implementar nuestros propios TestRunners.
     \end{itemize}
   \end{frame}
 

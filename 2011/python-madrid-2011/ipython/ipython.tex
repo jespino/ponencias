@@ -63,7 +63,7 @@
     \begin{itemize}
       \item Autocompletado con tabulador.
       \item Lista los atributos de un objeto.
-      \item Tambien autocompleta nombres de fichero.
+      \item También autocompleta nombres de fichero.
     \end{itemize}
   \end{frame}
 
@@ -71,12 +71,12 @@
     \begin{itemize}
       \item IPython define macros para la exploración de objetos.
       \item \%pdoc muestra el docstring de un objeto.
-      \item \%pdef muestra la definición de un objeto (metodo, clase).
-      \item \%psource muestra la implementación de un objeto (metodo, clase).
-      \item \%pfile muestra el codigo de todo el fichero donde se define un objeto (metodo, clase).
-      \item \%psearch busca objetos que corresponda con un patron.
-      \item obj? o obj?? muestra la informacion, o mas información sobre un objeto.
-      \item \%pdef? nos mostraria la información sobre pdef.
+      \item \%pdef muestra la definición de un objeto (método, clase).
+      \item \%psource muestra la implementación de un objeto (método, clase).
+      \item \%pfile muestra el código de todo el fichero donde se define un objeto (método, clase).
+      \item \%psearch busca objetos que corresponda con un patrón.
+      \item obj? o obj?? muestra la información, o mas información sobre un objeto.
+      \item \%pdef? nos mostraría la información sobre pdef.
     \end{itemize}
   \end{frame}
 
@@ -86,9 +86,9 @@
       \item Cada \%run lee y ejecuta todo el fichero (no es un import).
       \item El comando \%run tiene 3 flags importantes.
       \begin{itemize}
-        \item -t mide el tiempo de ejecucion.
-        \item -d ejecuta el codigo bajo pdb (en realidad ipdb).
-        \item -p ejecuta el codigo bajo un profiler.
+        \item -t mide el tiempo de ejecución.
+        \item -d ejecuta el código bajo pdb (en realidad ipdb).
+        \item -p ejecuta el código bajo un profiler.
       \end{itemize}
       \item \%pycat nos muestra el contenido de un fichero con resaltado de sintaxis
     \end{itemize}
@@ -98,7 +98,7 @@
     \begin{itemize}
       \item IPython tiene autocompletado de nombres de ficheros y directorios.
       \item Cada \%run lee y ejecuta todo el fichero (no es un import).
-      \item Tambien tiene algunos comandos utiles tipicos de una shell
+      \item Tambien tiene algunos comandos útiles típicos de una shell
       \begin{itemize}
         \item \%alias/\%unalias define un alias para un comando
         \item \%ls lista los ficheros
@@ -108,10 +108,10 @@
         \item \%pushd me mueve a un directorio y guarda el anterior en una pila
         \item \%popd saca un directorio de la pila y me mueve a el
         \item \%dirs me muestra la pila de directorios
-        \item \%dhist historico de directorios
+        \item \%dhist histórico de directorios
         \item !command ejecuta system(command)
         \item !!command ejecuta el comando y me devuelve un objeto SList
-        \item \%bg ejecuta una funcion en segundo plano
+        \item \%bg ejecuta una función en segundo plano
         \item \%bookmark añadir directorios a un lista de favoritos
       \end{itemize}
     \end{itemize}
@@ -120,28 +120,28 @@
   \begin{frame}
     \frametitle{Profiling}
     \begin{itemize}
-      \item \%time ejecuta una funcion y dice el tiempo que ha tardado en ejecutar
-      \item \%prun ejecuta una funcion a traves del profiler
-      \item \%timeit ejecuta una funcion N veces y dice el tiempo que ha tardado en ejecutar
+      \item \%time ejecuta una función y dice el tiempo que ha tardado en ejecutar
+      \item \%prun ejecuta una función a través del profiler
+      \item \%timeit ejecuta una función N veces y dice el tiempo que ha tardado en ejecutar
     \end{itemize}
   \end{frame}
   
   \begin{frame}{Input/Output caches}
     Cache de Salida
     \begin{itemize}
-      \item Todo resultado de ejecucción es guardado en la cache de salida Out.
+      \item Todo resultado de ejecución es guardado en la cache de salida Out.
       \item El objeto Out es una lista donde el id es el numero de linea que se ejecuto.
-      \item Tambien existe un alias \_N ara cada entrada en la cache de salida.
-      \item Tambien existen tres alias \_, \_\_ y \_\_\_  que se refieren a las tres ultimas lineas ejecutadas.
+      \item También existe un alias \_N ara cada entrada en la cache de salida.
+      \item También existen tres alias \_, \_\_ y \_\_\_  que se refieren a las tres ultimas lineas ejecutadas.
     \end{itemize}
 
     Cache de Entrada
     \begin{itemize}
-      \item Todo ejecucion de lineas se almacena en la cache de entrada In
+      \item Todo ejecución de lineas se almacena en la cache de entrada In
       \item Es una lista de strings.
       \item Si queremos volver a ejecutar una serie de lineas podemos usar ''exec In[23:27]+In[5:11]''
-      \item Tambien existe un alias \_iN ara cada entrada en la cache de salida.
-      \item Tambien existen tres alias \_i, \_ii y \_iii  que se refieren a las tres ultimas lineas ejecutadas.
+      \item También existe un alias \_iN ara cada entrada en la cache de salida.
+      \item También existen tres alias \_i, \_ii y \_iii  que se refieren a las tres ultimas lineas ejecutadas.
     \end{itemize}
   \end{frame}
 
@@ -159,7 +159,7 @@
     \begin{itemize}
       \item Existe una configuración de IPython para el usuario.
       \item IPython permite definir perfiles de configuración para tareas concretas.
-      \item Por ejemplo podemos definir un perfil para matematicas, o interaccion con bbdd.
+      \item Por ejemplo podemos definir un perfil para matemáticas, o interacción con bbdd.
     \end{itemize}
   \end{frame}
 
@@ -169,7 +169,7 @@
     \begin{itemize}
       \item Proyecto ipython: http://ipython.org.
       \item Documentación de ipython: http://ipython.org/ipython-doc/stable/html/index.html.
-      \item Introduccion a IPython: ? (En el interprete de ipython).
+      \item Introducción a IPython: ? (En el interprete de ipython).
       \item Repositorio Git: https://github.com/ipython
       \item Python-ES: python-es@python.org
     \end{itemize}
