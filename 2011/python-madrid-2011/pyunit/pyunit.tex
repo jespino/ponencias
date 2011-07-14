@@ -41,147 +41,174 @@
 
 
   \section*{Introducción}
-  \begin{frame}{¿Qué es Fabric?}
+  \begin{frame}{¿Que son las pruebas unitarias?}
     \begin{itemize}
-      \item Herramienta de despliegue.
-      \item Herramienta ejecución de tareas.
-      \item Herramienta para ejecución remota.
+      \item Son pruebas individuales de métodos o clases.
+      \item Son pruebas automáticas (no por definición, sino por practicidad)
+      \item Consiste en muchos casos de prueba
+      \begin{itemize}
+        \item Cada uno de ellos prueba un aspecto determinado
+        \item Para probar un metodo hacen falta varios casos de prueba
+      \end{itemize}
     \end{itemize}
   \end{frame}
   
-  \begin{frame}{¿Para qué sirve Fabric?}
+  \begin{frame}{¿Por qué hacer pruebas?}
     \begin{itemize}
-      \item Despliegue de aplicaciones en entornos complejos.
-      \item Despliegue de aplicaciones en entornos distribuidos.
-      \item Ejecución de tareas administrativas habituales.
-      \item Ejecución de tareas administrativas en entornos distribuidos.
-      \item Scripts de construcción.
-      \item \dots{}
+      \item Un programa no es aceptable si no comple su especificación.
+      \item Un programa no es aceptable si hace lo que no debe hacer.
+      \item Nos da sensación de seguridad y tranquilidad.
+      \item Evita la inclusion recurrente del mismo error.
+    \end{itemize}
+
+    ''Un programador jamás debería entregar un programa sin haberlo probado. Igualmente, quien recibe un programa de otro jamás debería aceptarlo sin haberlo probado. Cualquier funcionalidad de un programa sin una prueba automatizada, simplemente no existe'' (''Extreme Programming Explained'', de Kent Beck)
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Estrategias de pruebas}
+    \begin{itemize}
+      \item Ninguna: ''Soy tan bueno que todo lo que hago funciona a la primera, sin ningún tipo de bug''
+      \item Al final: Voy desarrollando y al final del proyecto me paso una semana probando, o dejo que pruebe el cliente.
+      \item Constante 1: Voy haciendo las pruebas segun desarrollo (Desarrollo -> Prueba).
+      \item Constante 2: Voy haciendo las pruebas segun desarrollo (Prueba -> Desarrollo). TDD
+      \item Test reactivos: Ante un error, construimos un test que reproduzca el error y lo corregimos.
     \end{itemize}
   \end{frame}
   
-  \begin{frame}{¿Por qué usar Fabric?}
+  \section*{Modulo unittest de Python}
+  \begin{frame}{Introducción}
     \begin{itemize}
-      \item Nos evita errores.
-      \item Nos evita inconsistencias.
-      \item Nos facilita las tareas periódicas.
-      \item Disminuye los tiempos despliegue.
-      \item Es Python!!
+      \item Provee de un framework para realizar las pruebas unitarias.
+      \item Forma parte de la distribución base de python desde la version 2.1.
+      \item Inspirado en JUnit.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Conceptos}
+    Unittest soporta 4 conceptos importantes
+    \begin{itemize}
+      \item test fixture: Acciones de preparación previas a los test (por ejemplo, poblado de bases de datos).
+      \item test case: Unidad basica de tests, comprueba que el resultado sea el correcto ante unos parametros.
+      \item test suite: Una coleccion de ''test cases'' y/o ''test suites''.
+      \item test runner: Componente encargado de la ejecucción de los tests y la presentación de los resultados.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Estructura de un test case}
+    \begin{itemize}
+      \item Es una clase que hereda de TestCase.
+      \item Tendra una serie de metodos que empiecen por ''test\_'' que seran ejecutados automaticamente.
+      \item Los metodos ''test\_'' deben ejecutar el codigo que desean probar y luego ''afirmar un estado''.
+      \item Los metodos ''test\_'' no devuelven ningun valor, se consideran validos aquellos que haya terminado su ejecuccion.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Afirmando un estado}
+    \begin{itemize}
+      \item Para afirmar los estados usamos ''aserciones''.
+      \item Unittest nos provee de una serie de aserciones, las mas habituales son:
+      \begin{itemize}
+        \item assertEqual
+        \item assertNotEqual
+        \item assertTrue
+        \item assertFalse
+        \item assertIs
+        \item assertIsNot
+        \item assertIsNone
+        \item assertIsNotNone
+        \item assertIn
+        \item assertNotIn
+        \item assertIsInstance
+        \item assertNotIsInstance
+        \item assertRaise
+      \end{itemize}
+      \item Pueden ver un listado mas exaustivo de las aserciones en http://docs.python.org/library/unittest.html.
     \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{¿Como funciona Fabric?}
+    \frametitle{Ejemplo de metodo de test}
+    \begin{verbatim}
+def test_suma(self):
+    resultado = 1+1
+    assertEqual(rsultado,2)
+
+    resultado = 1+8
+    assertEqual(rsultado,9)
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Ejemplo fichero de test}
+    \begin{verbatim}
+import unittest
+
+class TestSuma(unittest.TestCase):
+    def test_suma(self):
+        resultado = 1+1
+        assertEqual(rsultado,2)
+    
+        resultado = 1+8
+        assertEqual(rsultado,9)
+        \end{verbatim}
+  \end{frame}
+
+
+  \begin{frame}{Inicialización de los datos}
     \begin{itemize}
-      \item Se escribe un fichero \verb+fabfile.py+.
-      \item En este fichero se definen una serie de funciones (tareas).
-      \item Se ejecuta la aplicación \verb+fab <tarea>+.
+      \item Unittest nos permite definir un ''test fixture''.
+      \item Para esto definimos los metodos setUp y tearDown.
+      \item setUp se ejecuta justo antes de cada metodo test.
+      \item tearDown se ejecuta justo despues de cada metodo test.
+      \item Nos serviran para inicializar y limpiar los datos de prueba.
+      \item Ademas tenemos setUpClass y tearDownClass.
+      \item Y setUpModule y tearDownModule.
     \end{itemize}
   \end{frame}
-  
-  \section*{Entendiendo Fabric}
-  \begin{frame}{Entorno}
+
+  \begin{frame}{Test Suite}
     \begin{itemize}
-      \item La ejecución de fabric depende del entorno definido.
-      \item El entorno es un objeto diccionario.
-      \item Para cambiar el comportamiento modificamos el entorno.
-      \item Cambios más habituales:
+      \item Unittest nos permite agrupar tests.
+      \item Es util para estructurar los test de diferentes maneras.
       \begin{itemize}
-        \item hosts: Host en los que ejecutar las tareas.
-        \item user: Usuario para las conexiones SSH
-        \item password: Password para las conexiones SSH
-        \item warn\_only: No detener en caso de error
-        \item roledefs: Definición de roles (grupos de hosts)
-        \item roles: Roles sobre los que ejecutar las tareas.
-        \item fabfile: Fichero a ejecutar en vez de fabfile.py.
+        \item Por funcionalidad.
+        \item Por casos de uso.
+        \item Por situación en la intefaz.
+        \item Por proximidad de los datos.
+        \item \dots
       \end{itemize}
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{fabricrc}
+  \begin{frame}{Test Runner}
     \begin{itemize}
-      \item El fichero $\sim$/.fabricrc nos permite configuraciones generales.
-      \item Este fichero afecta a todas las ejecuciones de fabric.
-      \item Contiene un serie de parejas clave/valor.
-      \item Las parejas clave valor rellenan el entorno.
+      \item Encargado de ejecutar los tests.
+      \item Una clase con un metodo run, que recibe un TestCase o un TestSuite.
+      \item Unittest viene solo con el TextTestRunner.
+      \item Poemos implementar nuestros propios TestRunners.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Modelo de ejecución}
-    \begin{itemize}
-      \item Construcción de una lista de tareas.
-      \item Construcción de una lista de hosts.
-      \item Se recorre la lista de tareas.
-      \item Para cada hosts se ejecuta la tarea actual.
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}[containsverbatim]
-    \frametitle{Lista de tareas}
-    \begin{itemize}
-      \item Fabric extrae las tareas del fichero \verb+fabfile.py+ (Normalmente).
-      \item Considera tarea todo objeto ''Callable'' que haya al importar el \verb+fabfile.py+.
-      \item No se consideran tareas las funciones/métodos del propio fabric.
-      \item No se consideran tareas los objetos que su nombre empieza por \_.
-      \item Se pueden listar las tareas ejecutando \verb+fab --list+.
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}{Lista de hosts}
-    \begin{itemize}
-      \item La lista de hosts se extrae del entorno.
-      \item Si la tarea tiene un decorador de hosts sobreescribe los hosts del entorno.
-      \item Si se le pasa como parámetro los hosts sobreescribe los hosts del entorno y decorador.
-      \item Se extrae la lista de roles del entorno.
-      \item Si la tarea tiene un decorador de roles se sobreescriben los roles del entorno.
-      \item Si se le pasa como parámetro los roles sobreescribe los roles del entorno y decorador.
-      \item Se hace la union de los hosts y de los hosts contenidos en los roles.
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}[containsverbatim]
-    \frametitle{Tareas con parámetros}
-    \begin{itemize}
-      \item Las tareas pueden recibir parámetros.
-      \item El paso de parámetros sigue el siguiente modelos \verb+fab <tarea>:<parm1>,<parm2>,<parm_name>=<parm_value>+
-      \item El parámetro hosts permite definir los hosts sobre los que ejecutar.
-      \item Si se encuentra el parámetro hosts se extrae de la lista de parámetros de la tarea.
-    \end{itemize}
-  \end{frame}
-  
-  \subsection*{La API de Fabric}
-  \begin{frame}{Core}
-    \begin{itemize}
-      \item colors (blue, cyan, green, magenta, red, white, yellow)
-      \item context\_managers (cd, hide, lcd, path, prefix, settings, show)
-      \item decorators (hosts, roles, runs\_once)
-      \item network (disconnect\_all)
-      \item operations (get, open\_shell, put, reboot, run, sudo, local, prompt, require)
-      \item utils (abort, fastprint, indent, puts, warn)
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}{Contrib}
-    \begin{itemize}
-      \item contrib.console (confirm)
-      \item contrib.django (project, settings\_module)
-      \item contrib.files (append, comment, contains, exists, first, sed, uncomment, upload\_template)
-      \item contrib.project (rsync\_project, upload\_project)
-    \end{itemize}
-  \end{frame}
-  
   \subsection*{Ejemplos}
   \begin{frame}{Ejemplos}
     \begin{itemize}
-      \item Despliegue de aplicación web distribuida.
-      \item Despliegue de otra aplicación web distribuida.
-      \item Despliegue de aplicación web compleja.
-      \item Constructor de software.
-      \item Script de administración.
+      \item Test unitario simple.
+      \item Ejemplo de setUp, tearDown.
+      \item Ejemplo de testSuite.
+      \item Ejemplo de test ejecutable.
+      \item Ejemplo de test con TestRunner.
     \end{itemize}
   \end{frame}
-
-  \section*{Para terminar}
+  
+  \subsection*{Para terminar}
+  \begin{frame}{Referencias}
+    \begin{itemize}
+      \item Documentación de unittest: http://docs.python.org/library/unittest.html.
+      \item TDD: http://en.wikipedia.org/wiki/Test-driven\_development.
+      \item Pruebas Unitarias: http://en.wikipedia.org/wiki/Unit\_testing
+      \item Python-ES: python-es@python.org
+    \end{itemize}
+  \end{frame}
 
   \begin{frame}{Dudas}
     \begin{center}
