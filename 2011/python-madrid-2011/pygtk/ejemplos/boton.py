@@ -1,7 +1,7 @@
 import gtk
 
 def boton_clickeado(widget):
-	print "hola mundo"
+	widget.set_label("hola mundo")
 
 window = gtk.Window()
 
@@ -10,6 +10,7 @@ button.show()
 window.add(button)
 button.set_label("Pulse Aqui")
 button.connect("clicked",boton_clickeado)
+window.connect("destroy",gtk.main_quit)
 
 window.show()
 
