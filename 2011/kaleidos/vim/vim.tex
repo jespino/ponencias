@@ -1,0 +1,436 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Introducción a Vim}
+\author{Jesús Espino García}
+\date{1 de Agosto de 2011}
+\subject{Introducción a Vim}
+
+\institute[Kaleidos]{Kaleidos}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \begin{frame}
+    \frametitle{\begin{center}Introducción.\end{center}}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{¿Que es Vim?}
+    \begin{itemize}
+      \item Vim ("VI IMproved").
+      \item Es un editor de textos.
+      \item Desarrollado por Bram Moolenaar.
+      \item Basado en el vi.
+      \item Licencia GPL.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ventajas}
+  
+    \begin{itemize}
+      \item Es Open Source.
+      \item Es muy configurable.
+      \item Tiene resaltado para el codigo.
+      \item Es charity-ware.
+      \item No ocupa demasiado espacio.
+      \item Uso muy similar al vi.
+      \item Permite muchos cambios con pocas combinaciones de teclas.
+      \item Comodo de usar una ves se conoce.
+      \item Existen versiones para muchos sistemas operativos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Historia}
+    \begin{itemize}
+      \item 1988 - Vim 1.0 - Vi IMitation para Amiga.
+      \item 1991 - Vim 1.14 - Primera versión pública.
+      \item 1992 - Vim 1.22 - Portado a Unix y renombrado a Vi IMproved.
+      \item 1994 - Vim 3.0 - Múltiples ventanas.
+      \item 1996 - Vim 4.0 - Interfaz gráfico.
+      \item 1998 - Vim 5.0 - Resaltado de sintaxsis.
+      \item 2000 - Vim 6.0 - Plegado y Multilingue.
+      \item 2000 - Vim 7.0 - Pestañas, corrector ortografico, omnicompletion.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Conceptos Básicos.\end{center}}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Modos}
+  
+    Existen 3 modos:
+    \begin{itemize}
+      \item Comandos: Es el básico, a partir de aquí se ejecuta todo.
+      \item Insertar: Es el modo que nos permite insertar texto.
+      \item Visual: Este modo nos permite hacer selecciones de texto (por caracter, linea o bloques) y realizar operaciones sobre el.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Buffers}
+  
+    \begin{itemize}
+      \item Un contexto de edicción.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Opciones}
+  
+    \begin{itemize}
+      \item Vim tiene muchas opciones.
+      \item set/unset: gestion de las opciones de vim.
+      \item \verb+:set all+: Muestra todas las configuraciones.
+      \item \verb+:set nu/nonu+: Muestra el numero de linea.
+      \item \verb+:set hlsearch/nohlsearch+: Añade o quita remarcado a las búsquedas.
+      \item \verb+:set filetype=<tipo>+: Especifica el tipo de fichero que se esta editando.
+      \item \verb+:set textwidth=n+: Especifica el ancho del documento.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ayuda}
+  
+    \begin{itemize}
+      \item :help <seccion o comando>
+      \item :help intro
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Comandos Básicos.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    Existen muchísimos comandos, pero los mas básicos serian los siguientes:
+    \begin{itemize}
+      \item Movimientos
+      \item Edición
+      \item Búsquedas
+      \item Otros
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Movimientos}
+    \begin{itemize}
+      \item \verb+h j k l+: Mueve el cursor un caracter.
+      \item \verb+w b e+: Mueve el cursor una palabra.
+      \item \verb#0 | <n>| ^ $ - +#: Mueve el cursor por lineas.
+      \item \verb+% ( ) { } [[ ]]+: Mueve el cursor por bloques.
+      \item \verb+H <n>H L <n>L+: Mueve el cursor por la pantalla.
+      \item \verb+^B ^U ^D ^F ^Y ^E+: Mueve la pantalla.
+      \item \verb+1G <n>G G+: Movimiento del cursor por todo el fichero.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Edición}
+    \begin{itemize}
+      \item \verb+I i a A o O r R+: Entra en modo inserción.
+      \item \verb+X nX x nx dd ndd+: Borra caracteres
+      \item \verb+Y yy yny+: Copia.
+      \item \verb+p P+: Pega.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Busquedas}
+    \begin{itemize}
+      \item \verb+/<cadena>+: Busca la cadena hacia adelante.
+      \item \verb+?<cadena>+: Busca la cadena hacia detrás.
+      \item \verb+n+: Repite la ultima búsqueda.
+      \item \verb+N+: Repite la búsqueda invirtiendo el sentido.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Otros}
+    \begin{itemize}
+      \item \verb+ZZ+: Sale y guarda el fichero.
+      \item \verb+:wq+: Sale y guarda el fichero.
+      \item \verb+:x+: Sale y guarda el fichero.
+      \item \verb+:view <file>+: Abre un fichero para solo lectura.
+      \item \verb+:w+: Escribe el fichero.
+      \item \verb+:q!+: Sale del programa.
+      \item \verb+u+: Deshace la última operación.
+      \item \verb+^r+: Rehace el último deshacer.
+      \item \verb+J+: Une dos lineas.
+      \item \verb+.+: Repite la última operación realizada.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Otras funcionalidades.\end{center}}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{Otros comandos}
+    \begin{itemize}
+      \item Sustituciones
+      \item Abreviaturas
+      \item Macros
+      \item Marcas
+      \item Plegado
+      \item Grabación de comandos
+      \item Comandos del sistema
+      \item Configuraciones
+      \item Combinaciones
+      \item Ventanas
+      \item Pestañas
+      \item Correción ortografica
+      \item Plugins
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Sustituciones}
+    \begin{itemize}
+      \item \verb+:%s/<regexp>/<cadena>/+: Sustitulle la primera vez que encuentre la expresion regular en una linea, por la cadena.
+      \item \verb+:%s/<regexp>/<cadena>/g+: Sustitulle todas las veces que encuentre la expresion regular por la cadena.
+      \item \verb+:<rango>s/<regexp>/<cadena>/+: Sustituye todas las veces que encuentre la expresión regular dentro del rango, por la cadena.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Abreviaturas}
+    Son practicas para escritura rápida y para predefinirlas en un fichero dependiendo el documento que vayas a editar.
+    \begin{itemize}
+      \item \verb+:abbreviate <cadena1> <cadena2>+: Abrevia la cadena 2 como la cadena 1.
+      \item \verb+:abbreviate+: Muestra las abreviaturas actuales.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Macros}
+    Las macros son secuencias de comandos que se asignan a un caracter.
+    \begin{itemize}
+      \item \verb+:map C <cadena>+: define un macro.
+      \item \verb+C+: ejecuta el macro definido en C.
+    \end{itemize}
+    ejemplo: \verb+:map <F5> icadena de prueba <ESC>+
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Marcas}
+    Las marcas se utilizan para memorizar posiciones dentro del fichero.
+    \begin{itemize}
+      \item \verb+mC+: Marca una posición con el caracter C.
+      \item \verb+'C+: Va a la posición marcada con C.
+    \end{itemize}
+    Las marcas se pueden usar también en el rango.
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Plegado}
+    El plegado se utiliza para ocultar parte del texto del archivo que no queremos ver. 
+    \begin{itemize}
+      \item \verb+:<rango> fold+: Pliega el rango.
+      \item \verb+:<rango> folddoopen <comando>+: Ejecuta el comando sobre todo lo que no esté dentro de un pliegue cerrado.
+      \item \verb+:<rango> folddoclosed <comando>+: Ejecuta el comando sobre todo lo que esté dentro de un pliegue cerrado.
+      \item \verb+:<rango> foldopen[!]+: Abre los pliegues en el rango.
+      \item \verb+:<rango> foldclosed[!]+: Cierra los pliegues en el rango.
+      \item Para \verb+foldopen+ y \verb+foldclose+ el \verb+!+ sirve para abrir también pliegues anidados.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Plegado II}
+    Algunos comandos utiles para el plegado.
+    \begin{itemize}
+      \item \verb+zd+: Borra el pliegue sobre el que se encuentre.
+      \item \verb+zD+: Borra el pliegue sobre el que se encuentre y todos los anidados.
+      \item \verb+zE+: Borra todos los pliegues del archivo.
+      \item \verb+zo+: Abre el pliegue sobre el que se encuentre.
+      \item \verb+zO+: Abre el pliegue sobre el que se encuentre y todos los anidados.
+      \item \verb+zc+: Cierra el pliegue sobre el que se encuentre.
+      \item \verb+zC+: Cierra el pliegue sobre el que se encuentre y todos los anidados.
+      \item \verb+za+: Cambia de estado (cerrado/abierto) del pliegue sobre el que se encuentre.
+      \item \verb+zA+: Cambia de estado (cerrado/abierto) del pliegue sobre el que se encuentre y todos los anidados.
+      \item \verb+zj+: Mueve el cursor hasta un pliegue más abajo.
+      \item \verb+zk+: Mueve el cursor hasta un pliegue más arriba.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Grabacion de comandos}
+    La grabación de comandos nos permite grabar una secuencia de comandos que
+    ejecutamos para repetirla posteriormente con una sencilla combinación de
+    teclas.
+    \begin{itemize}
+      \item \verb+qC+: Empieza a grabar una sucesión de comandos que ejecutes.
+      \item \verb+q+: Termina de grabar.
+      \item \verb+@C+: Ejecuta de nuevo la misma sucesión de comandos.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Comandos del sistema}
+
+    \begin{itemize}
+      \item \verb+:<rango>!<comando>+: Ejecuta el comando con entrada estándar
+      el rango que se le ha especificado y lo sustituye por la salida del
+      comando.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Combinaciones}
+    Existen algunas combinaciones simples que se usan con cierta frecuencia.
+    \begin{itemize}
+      \item \verb+xp+: Cambia de orden dos caracteres.
+      \item \verb+ddp+: Cambia de orden dos lineas.
+      \item \verb+gqq+: Reformatea una linea a 80 caracteres.
+      \item \verb+gq}+: Reformatea un parrafo a 80 caracteres.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Ventanas}
+    \begin{itemize}
+      \item \verb+:split+: Abre una nueva ventana.
+      \item \verb+:split <file>+: Abre el fichero en una nueva ventana.
+      \item \verb+:n split+: Abre una ventana de tamaño n.
+      \item \verb+:sview+: Combinación entre :split y :view.
+      \item \verb#^W <w|j|k|-|+|=>#: Moverse por las ventanas.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Pestañas}
+    \begin{itemize}
+      \item \verb+:tabnew [<file>]+: Abre una nueva pestaña.
+      \item \verb+:tabclose+: Cierra la pestaña.
+      \item \verb+gt gT <n>gt+: Cambia de pestaña.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Correción ortográfica}
+    \begin{itemize}
+      \item \verb+]s [s+: Proxima y anterior palabra mal.
+      \item \verb+zg zw+: Añade y elimina palabras del diccionario.
+      \item \verb+zG zW+: Añade y elimina palabras a un diccionario temporal.
+      \item \verb+z=+: Sugiere palabras.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Plugins}
+    \begin{itemize}
+      \item vim-addon-manager
+      \item http://www.vim.org
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Para programadores.\end{center}}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Para programadores}
+    \begin{itemize}
+      \item Configuraciones.
+      \item Make.
+      \item Ctags.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Configuraciones}
+    \begin{itemize}
+      \item \verb+:syntax on/off+: Activa o desactiva el reconocimiento de sintaxis.
+      \item \verb+:set autoindent/noautoindent+: Activa o desactiva el auto indentado.
+      \item \verb+:set cindent/smartindent/autoindent+: Selecciona el tipo de auto indentado que se usa.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Make I}
+    \begin{itemize}
+      \item \verb+:make <argumentos>+: Ejecuta el make con los argumentos que se le pasen.
+      \item \verb+:cnext+: Mueve el cursor a la posición del error siguiente (linea y fichero).
+      \item \verb+:cprevious+: Mueve el cursor a la posición del error anterior (linea y fichero).
+      \item \verb+:clast+: Mueve al ultimo error.
+      \item \verb+:crewind+: Mueve al primer error.
+      \item \verb+:cnfile+: Mueve al primer error del próximo fichero.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{Make II}
+    \begin{itemize}
+      \item \verb+:cc+: Muestra el error actual.
+      \item \verb+:clist+: Muestra la lista de errores.
+      \item \verb+:clist <rango>+: muestra el rango de errores pedido.
+      \item \verb+:clist!+: muestra también los mensajes de informativos del compilador.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]
+    \frametitle{ctags}
+    búsqueda de definición de las funciones con ctags.
+    \begin{itemize}
+      \item \verb+^]+: va a la definición de la función.
+      \item \verb+^t+: vuelve a la posición donde estaba.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\begin{center}Para terminar.\end{center}}
+  \end{frame}
+ 
+  \begin{frame}
+    \frametitle{¿Qué se queda en el tintero?}
+    \begin{itemize}
+      \item Scripting en vim.
+      \item Scripting en vim con python.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{itemize}
+      \item \small{http://www.vim.org - Web ofcial de vim.}
+      \item \small{http://www.truth.sk/vim/vimbook-OPL.pdf - Libro de vim.}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}
