@@ -59,12 +59,12 @@
     \begin{itemize}
       \item Es Open Source.
       \item Es muy configurable.
-      \item Tiene resaltado para el codigo.
+      \item Tiene resaltado para el código.
       \item Es charity-ware.
       \item No ocupa demasiado espacio.
       \item Uso muy similar al vi.
       \item Permite muchos cambios con pocas combinaciones de teclas.
-      \item Comodo de usar una ves se conoce.
+      \item Cómodo de usar una ves se conoce.
       \item Existen versiones para muchos sistemas operativos.
     \end{itemize}
   \end{frame}
@@ -77,9 +77,9 @@
       \item 1992 - Vim 1.22 - Portado a Unix y renombrado a Vi IMproved.
       \item 1994 - Vim 3.0 - Múltiples ventanas.
       \item 1996 - Vim 4.0 - Interfaz gráfico.
-      \item 1998 - Vim 5.0 - Resaltado de sintaxsis.
-      \item 2000 - Vim 6.0 - Plegado y Multilingue.
-      \item 2000 - Vim 7.0 - Pestañas, corrector ortografico, omnicompletion.
+      \item 1998 - Vim 5.0 - Resaltado de sintaxis.
+      \item 2000 - Vim 6.0 - Plegado y multilingue.
+      \item 2000 - Vim 7.0 - Pestañas, corrector ortográfico, omnicompletion.
     \end{itemize}
   \end{frame}
 
@@ -102,7 +102,7 @@
     \frametitle{Buffers}
   
     \begin{itemize}
-      \item Un contexto de edicción.
+      \item Un contexto de edición.
     \end{itemize}
   \end{frame}
 
@@ -111,7 +111,7 @@
   
     \begin{itemize}
       \item Vim tiene muchas opciones.
-      \item set/unset: gestion de las opciones de vim.
+      \item set/unset: gestión de las opciones de vim.
       \item \verb+:set all+: Muestra todas las configuraciones.
       \item \verb+:set nu/nonu+: Muestra el numero de linea.
       \item \verb+:set hlsearch/nohlsearch+: Añade o quita remarcado a las búsquedas.
@@ -124,8 +124,8 @@
     \frametitle{Ayuda}
   
     \begin{itemize}
-      \item :help <seccion o comando>
-      \item :help intro
+      \item :help <sección o comando>
+      \item :help
     \end{itemize}
   \end{frame}
   
@@ -167,7 +167,7 @@
   \end{frame}
   
   \begin{frame}[containsverbatim]
-    \frametitle{Busquedas}
+    \frametitle{Búsquedas}
     \begin{itemize}
       \item \verb+/<cadena>+: Busca la cadena hacia adelante.
       \item \verb+?<cadena>+: Busca la cadena hacia detrás.
@@ -210,7 +210,7 @@
       \item Combinaciones
       \item Ventanas
       \item Pestañas
-      \item Correción ortografica
+      \item Corrección ortográfica
       \item Plugins
     \end{itemize}
   \end{frame}
@@ -218,8 +218,8 @@
   \begin{frame}[containsverbatim]
     \frametitle{Sustituciones}
     \begin{itemize}
-      \item \verb+:%s/<regexp>/<cadena>/+: Sustitulle la primera vez que encuentre la expresion regular en una linea, por la cadena.
-      \item \verb+:%s/<regexp>/<cadena>/g+: Sustitulle todas las veces que encuentre la expresion regular por la cadena.
+      \item \verb+:%s/<regexp>/<cadena>/+: Sustituye la primera vez que encuentre la expresión regular en una linea, por la cadena.
+      \item \verb+:%s/<regexp>/<cadena>/g+: Sustituye todas las veces que encuentre la expresión regular por la cadena.
       \item \verb+:<rango>s/<regexp>/<cadena>/+: Sustituye todas las veces que encuentre la expresión regular dentro del rango, por la cadena.
     \end{itemize}
   \end{frame}
@@ -268,7 +268,7 @@
   
   \begin{frame}[containsverbatim]
     \frametitle{Plegado II}
-    Algunos comandos utiles para el plegado.
+    Algunos comandos útiles para el plegado.
     \begin{itemize}
       \item \verb+zd+: Borra el pliegue sobre el que se encuentre.
       \item \verb+zD+: Borra el pliegue sobre el que se encuentre y todos los anidados.
@@ -285,7 +285,7 @@
   \end{frame}
   
   \begin{frame}[containsverbatim]
-    \frametitle{Grabacion de comandos}
+    \frametitle{Grabación de comandos}
     La grabación de comandos nos permite grabar una secuencia de comandos que
     ejecutamos para repetirla posteriormente con una sencilla combinación de
     teclas.
@@ -312,8 +312,8 @@
     \begin{itemize}
       \item \verb+xp+: Cambia de orden dos caracteres.
       \item \verb+ddp+: Cambia de orden dos lineas.
-      \item \verb+gqq+: Reformatea una linea a 80 caracteres.
-      \item \verb+gq}+: Reformatea un parrafo a 80 caracteres.
+      \item \verb+gqq+: Reformatéa una linea a 80 caracteres.
+      \item \verb+gq}+: Reformatéa un párrafo a 80 caracteres.
     \end{itemize}
   \end{frame}
 
@@ -338,9 +338,9 @@
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Correción ortográfica}
+    \frametitle{Corrección ortográfica}
     \begin{itemize}
-      \item \verb+]s [s+: Proxima y anterior palabra mal.
+      \item \verb+]s [s+: Próxima y anterior palabra mal.
       \item \verb+zg zw+: Añade y elimina palabras del diccionario.
       \item \verb+zG zW+: Añade y elimina palabras a un diccionario temporal.
       \item \verb+z=+: Sugiere palabras.
@@ -352,6 +352,16 @@
     \begin{itemize}
       \item vim-addon-manager
       \item http://www.vim.org
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Algunos Plugins interesantes}
+    \begin{itemize}
+      \item pythoncomplete
+      \item project
+      \item supertab
+      \item snippetsEmu
     \end{itemize}
   \end{frame}
   
@@ -423,7 +433,7 @@
   \begin{frame}
     \frametitle{Referencias}
     \begin{itemize}
-      \item \small{http://www.vim.org - Web ofcial de vim.}
+      \item \small{http://www.vim.org - Web oficial de vim.}
       \item \small{http://www.truth.sk/vim/vimbook-OPL.pdf - Libro de vim.}
     \end{itemize}
   \end{frame}
