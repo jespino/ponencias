@@ -1,0 +1,323 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Python (un poco más) avanzado}
+\author{Jesús Espino García}
+\date{7 de Noviembre de 2011}
+\subject{Python (un poco más) avanzado}
+
+\institute[Gul UC3M]{Gul UC3M Nov 2011\\
+    \includegraphics[height=1.5cm]{kaleidos.png}
+}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \section{Las bibliotecas de Python}
+  \begin{frame}{\dots{}}
+    \begin{itemize}
+      \item http://docs.python.org/library/index.html
+      \item http://pypi.python.org
+    \end{itemize}
+  \end{frame}
+  
+  \section{Usando python}
+  \begin{frame}[containsverbatim]
+    \frametitle{Comprehensions}
+    \begin{verbatim}
+>>> [ x*10 for x in range(1,10) if x%2==0 ]
+[20, 40, 60, 80]
+
+>>> [ [y for y in range(1,x)] for x in range(1,10) ]
+[[],
+ [1],
+ [1, 2],
+ [1, 2, 3],
+ [1, 2, 3, 4],
+ [1, 2, 3, 4, 5],
+ [1, 2, 3, 4, 5, 6],
+ [1, 2, 3, 4, 5, 6, 7],
+ [1, 2, 3, 4, 5, 6, 7, 8]]
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Comprehensions}
+    \begin{verbatim}
+# A partir de 2.7
+>>> { x:x*10 for x in range(1,10) } 
+{1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60, 7: 70, 8: 80, 9: 90}
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Funciones lambda}
+    \begin{verbatim}
+def pow(x):
+    return x*x
+    \end{verbatim}
+    Es equivalente a:
+    \begin{verbatim}
+pow = lambda x: x*x
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Closures}
+Funciones que se aplican a una lista de elementos:
+    \begin{verbatim}
+>>> filter(lambda x: x>5, range(1,10))
+[6, 7, 8, 9]
+
+>>> map(lambda x: x*x, range(1,10))
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+>>> reduce(lambda x,y: x+y, range(1,10))
+45
+
+>>> sorted([7,4,5,9,1,3,2,6,8], lambda x,y: cmp(y,x))
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Herencia multiple}
+    \begin{verbatim}
+# Estilo nuevo (de manera directa o indirecta
+# hereda de object)
+class ClaseDerivada(Base1, Base2, Base3):
+    def metodo(self):
+        super(ClaseDerivada, self).metodo()
+
+# Estilo antiguo (no hereda de object)
+class ClaseDerivada(Base1, Base2, Base3):
+    def metodo(self):
+        Base1.metodo()
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Context managers}
+    \begin{verbatim}
+from contextlib import closing
+
+with closing(file('fichero.txt','r')) as fichero:
+    for line in fichero:
+        print line
+    \end{verbatim}
+  \end{frame}
+
+  \section{Extendiendo python}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Context managers}
+    \begin{verbatim}
+class MyManager():
+    def __enter__(self):
+        print "Entrando en el contexto"
+    def __exit__(self, *args):
+        print "Saliendo del contexto"
+
+with MyManager:
+    print "Dentro del contexto"
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Generadores e iteradores}
+    \begin{verbatim}
+def generador():
+    for x in range(1,10):
+        yield x
+class Iterador:
+    def __iter__(self):
+        for x in range(1,10):
+            yield x
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Generadores e iteradores}
+    \begin{verbatim}
+class Iterador2:
+    def __init__(self):
+        self.max = 10
+        self.counter = 0
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.counter += 1
+        if self.counter<self.max:
+            return self.counter
+        else:
+            raise StopIteration
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Metaclases}
+    Sirven para definir nuestros propios tipos
+    \begin{verbatim}
+class Meta(type):
+   def __getattribute__(*args):
+      print "Metaclass getattribute invoked"
+      return type.__getattribute__(*args)
+
+class C(object):
+    __metaclass__ = Meta
+    def __len__(self):
+        return 10
+    def __getattribute__(*args):
+        print "Class getattribute invoked"
+        return object.__getattribute__(*args)
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Metaclases}
+    \begin{verbatim}
+>>> c = C()
+>>> c.__len__()                 # Explicit lookup via instance
+Class getattribute invoked
+10
+>>> type(c).__len__(c)          # Explicit lookup via type
+Metaclass getattribute invoked
+10
+>>> len(c)                      # Implicit lookup
+10
+    \end{verbatim}
+  \end{frame}
+
+  \section{El ecosistema python}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Gestionar software}
+    \begin{verbatim}
+$ pip search django
+$ pip install Django
+$ pip uninstall Django
+$ pip install Django==1.3
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Entornos virtuales}
+    \begin{verbatim}
+$ mkvirtualenv mi_directorio
+$ cd mi_directorio
+$ source bin/activate
+$ pip install Django==1.3
+$ cd ..
+$ mkvirtualenv otro_directorio
+$ cd otro_directorio
+$ source bin/activate
+$ pip install Django==1.2
+$ deactivate
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    El sistema de empaquetado de python se basa en un fichero setup.py
+    \frametitle{Empaquetar bibliotecas}
+    \begin{verbatim}
+#!/usr/bin/env python
+
+from distutils.core import setup
+
+setup(name='MiBiblioteca',
+      version='1.0',
+      description='Da charlas para que yo me pueda quedar tomando unas cervezas',
+      author='Jesús Espino',
+      author_email='jesus.espino@kaleidos.net',
+      url='http://www.kaleidos.net',
+      packages=['mibiblioteca'],
+     )
+    \end{verbatim}
+http://docs.python.org/distutils/setupscript.html
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Debugging (PDB)}
+    \begin{verbatim}
+import pdb; pdb.set_trace()
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{IPython y IPDB}
+    Interpretes ricos de python y pdb.
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Profiling}
+    Desde el codigo:
+    \begin{verbatim}
+import cProfile
+cProfile.run('foo()')
+    \end{verbatim}
+    Desde el interprete:
+    \begin{verbatim}
+$ python -m cProfile myscript.py
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Cython}
+    \begin{verbatim}
+from libc.math cimport sin
+
+cdef double f(double x):
+    return sin(x*x)
+
+    def hellocython(x):
+        return "Hola cython %f" % (f(x))
+    return sin(x*x)
+    \end{verbatim}
+  \end{frame}
+
+  \section{Para terminar}
+  
+  \begin{frame}{Referencias}
+    \begin{itemize}
+      \item Proyecto python: http://www.python.org.
+      \item Documentación de python: http://docs.python.org.
+      \item Python-ES: python-es@python.org
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Dudas}
+    \begin{center}
+      \dots
+    \end{center}
+  \end{frame}
+
+\end{document}

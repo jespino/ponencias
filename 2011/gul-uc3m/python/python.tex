@@ -323,6 +323,7 @@ fichero2.close()
   \begin{frame}[containsverbatim]
     \frametitle{Clases}
     \begin{verbatim}
+# Estilo nuevo, hereda de object
 class MiClase(object):
     dato = None
 
@@ -343,6 +344,14 @@ class MiClase(object):
 class OtraClase(MiClase):
     def display(self):
         print "El valor actual es %s" % (self.dato)
+
+    def get_dato(self):
+        return super(OtraClase, self).get_dato(self) + 1
+
+# Con estilo antiguo
+class OtraClase(MiClase):
+    def get_dato(self):
+        return MiClase.get_dato(self) + 1
     \end{verbatim}
   \end{frame}
 
