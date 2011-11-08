@@ -4,7 +4,7 @@ with closing(file('fichero.txt','r')) as fichero:
     for line in fichero:
         print line
 
-class MyManager():
+class MyManager(object):
     def __enter__(self):
         print "Entrando en el contexto"
 

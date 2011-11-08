@@ -19,7 +19,7 @@
 \setbeamercovered{transparent}
 
 \title{Python (un poco más) avanzado}
-\author{Jesús Espino García}
+\author{Jesús Espino García\\jespinog@gmail.com\\@jespinog}
 \date{7 de Noviembre de 2011}
 \subject{Python (un poco más) avanzado}
 
@@ -139,13 +139,13 @@ with closing(file('fichero.txt','r')) as fichero:
   \begin{frame}[containsverbatim]
     \frametitle{Context managers}
     \begin{verbatim}
-class MyManager():
+class MyManager(object):
     def __enter__(self):
         print "Entrando en el contexto"
     def __exit__(self, *args):
         print "Saliendo del contexto"
 
-with MyManager:
+with MyManager():
     print "Dentro del contexto"
     \end{verbatim}
   \end{frame}
@@ -156,7 +156,7 @@ with MyManager:
 def generador():
     for x in range(1,10):
         yield x
-class Iterador:
+class Iterador(object):
     def __iter__(self):
         for x in range(1,10):
             yield x
@@ -166,7 +166,7 @@ class Iterador:
   \begin{frame}[containsverbatim]
     \frametitle{Generadores e iteradores}
     \begin{verbatim}
-class Iterador2:
+class Iterador2(object):
     def __init__(self):
         self.max = 10
         self.counter = 0

@@ -2,12 +2,12 @@ def generador():
     for x in range(1,10):
         yield x
 
-class Iterador:
+class Iterador(object):
     def __iter__(self):
         for x in range(1,10):
             yield x
 
-class Iterador2:
+class Iterador2(object):
     def __init__(self):
         self.max = 10
         self.counter = 0
