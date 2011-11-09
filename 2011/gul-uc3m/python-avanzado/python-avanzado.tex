@@ -103,7 +103,7 @@ Funciones que se aplican a una lista de elementos:
 45
 
 >>> sorted([7,4,5,9,1,3,2,6,8], lambda x,y: cmp(y,x))
-[1, 4, 9, 16, 25, 36, 49, 64, 81]
+[9, 8, 7, 6, 5, 4, 3, 2, 1]
     \end{verbatim}
   \end{frame}
 
@@ -298,9 +298,11 @@ from libc.math cimport sin
 cdef double f(double x):
     return sin(x*x)
 
-    def hellocython(x):
-        return "Hola cython %f" % (f(x))
-    return sin(x*x)
+def hellocython(x):
+    return "Hola cython %f" % (f(x))
+
+def hellocython_direct(x):
+    return "Hola cython %f" % (sin(x*x))
     \end{verbatim}
   \end{frame}
 

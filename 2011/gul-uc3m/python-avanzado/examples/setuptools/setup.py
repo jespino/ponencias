@@ -3,6 +3,8 @@
 
 from distutils.core import setup
 
+import pdb; pdb.set_trace()
+
 setup(name='MiBiblioteca',
       version='1.0',
       description='Da charlas para que yo me pueda quedar tomando unas cervezas',
