@@ -1,0 +1,184 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Introducción a Mercurial}
+\author{Jesús Espino García}
+\date{7 de Noviembre de 2011}
+\subject{Introducción a Mercurial}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos.png}}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \section*{Introducción}
+
+  \begin{frame}
+    \frametitle{¿Que es Mercurial?}
+    \begin{itemize}
+      \item Sistema de control de versiones.
+      \item Distribuido.
+      \item Libre.
+      \item Python!!.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ventajas}
+  
+    \begin{itemize}
+      \item Es Open Source.
+      \item Es rapido.
+      \item Es extensible.
+      \item Es potente.
+      \item Es (relativamente) sencillo.
+      \item Es muy configurable.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Conceptos básicos}
+    \begin{itemize}
+      \item Repositorio: Contenedor de ficheros y el historico de cambios de los mismos.
+      \item Clones: Copias de un determinado repositorio que pueden sincronizarse (o no).
+      \item Changeset: Conjunto de cambios relacionados (unidad lógica de almacenamiento de cambios)
+      \item Commit: Acción de guardar un changeset.
+      \item Pull/Push: Acciones para sincronizar clones (tirar o empujar changesets).
+      \item Working directory: Copia de los ficheros del repositorio sobre los que estamos trabajando.
+      \item Parent: Cada changeset tiene 0, 1 o 2 padres (inicial, normales y merges).
+      \item Rama: Bifurcación del desarrollo (por defecto solo una rama 'default').
+    \end{itemize}
+  \end{frame}
+
+  \section*{Primera sesión de trabajo}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Obtener el repositorio}
+    \begin{itemize}
+      \item Localizo la url del repositorio que quiero clonar (en nuestro caso sera ssh://mercurial.kal/curso-mercurial)
+      \item Me muevo al directorio donde quiero que se me cree la copia.
+      \item Hago un clon del repositorio (para poder trabajar sobre él)
+      \item \verb+hg clone ssh://mercurial.kal/curso-mercurial+
+      \item Esto me crea un directorio curso-mercurial que tiene un clon del repositorio curso-mercurial.
+      \item El directorio contendra los ficheros del último changeset de la rama por defecto y un directorio .hg con todos los datos del repositorio.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Configurar mi mercurial}
+    \begin{itemize}
+      \item Localizo la url del repositorio que quiero clonar (en nuestro caso sera ssh://mercurial.kal/curso-mercurial)
+      \item Me muevo al directorio donde quiero que se me cree la copia.
+      \item Hago un clon del repositorio (para poder trabajar sobre él)
+      \item \verb+hg clone ssh://mercurial.kal/curso-mercurial+
+      \item Esto me crea un directorio curso-mercurial que tiene un clon del repositorio curso-mercurial.
+      \item El directorio contendra los ficheros del último changeset de la rama por defecto y un directorio .hg con todos los datos del repositorio.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Añadir un cambio (commit)}
+    \begin{itemize}
+      \item Localizo la url del repositorio que quiero clonar (en nuestro caso sera ssh://mercurial.kal/curso-mercurial)
+      \item Me muevo al directorio donde quiero que se me cree la copia.
+      \item Hago un clon del repositorio (para poder trabajar sobre él)
+      \item \verb+hg clone ssh://mercurial.kal/curso-mercurial+
+      \item Esto me crea un directorio curso-mercurial que tiene un clon del repositorio curso-mercurial.
+      \item El directorio contendra los ficheros del último changeset de la rama por defecto y un directorio .hg con todos los datos del repositorio.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Enviar un cambio (push)}
+    \begin{itemize}
+      \item Localizo la url del repositorio que quiero clonar (en nuestro caso sera ssh://mercurial.kal/curso-mercurial)
+      \item Me muevo al directorio donde quiero que se me cree la copia.
+      \item Hago un clon del repositorio (para poder trabajar sobre él)
+      \item \verb+hg clone ssh://mercurial.kal/curso-mercurial+
+      \item Esto me crea un directorio curso-mercurial que tiene un clon del repositorio curso-mercurial.
+      \item El directorio contendra los ficheros del último changeset de la rama por defecto y un directorio .hg con todos los datos del repositorio.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Obtener cambios (pull)}
+    \begin{itemize}
+      \item Localizo la url del repositorio que quiero clonar (en nuestro caso sera ssh://mercurial.kal/curso-mercurial)
+      \item Me muevo al directorio donde quiero que se me cree la copia.
+      \item Hago un clon del repositorio (para poder trabajar sobre él)
+      \item \verb+hg clone ssh://mercurial.kal/curso-mercurial+
+      \item Esto me crea un directorio curso-mercurial que tiene un clon del repositorio curso-mercurial.
+      \item El directorio contendra los ficheros del último changeset de la rama por defecto y un directorio .hg con todos los datos del repositorio.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Obtener cambios y mezclar (pull+merge)}
+    \begin{itemize}
+      \item Localizo la url del repositorio que quiero clonar (en nuestro caso sera ssh://mercurial.kal/curso-mercurial)
+      \item Me muevo al directorio donde quiero que se me cree la copia.
+      \item Hago un clon del repositorio (para poder trabajar sobre él)
+      \item \verb+hg clone ssh://mercurial.kal/curso-mercurial+
+      \item Esto me crea un directorio curso-mercurial que tiene un clon del repositorio curso-mercurial.
+      \item El directorio contendra los ficheros del último changeset de la rama por defecto y un directorio .hg con todos los datos del repositorio.
+    \end{itemize}
+  \end{frame}
+
+  \section*{Revisar mi historico (log+diff)}
+  \section*{Crear un repositorio nuevo (init)}
+  \section*{Mezclando cambios (merge)}
+  \section*{Gestionando ficheros (rm+mv+cp+revert)}
+    Que guardar y que no
+  \section*{Ramas (branch)}
+  \section*{Mezclando ramas (merge)}
+  \section*{Ignorando ficheros (.hgingore)}
+  \section*{Deshaciendo cosas}
+  \section*{Hooks (que son)}
+  \section*{Bookmarks}
+  \section*{Subrepositorios}
+  \section*{Extensiones (instalar y configurar)}
+
+  \section*{Para terminar}
+
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{itemize}
+      \item \small{http://mercurial.selenic.com/ - Web oficial de mercurial.}
+      \item \small{http://hgbook.red-bean.com/ - Mercurial: The definitive guide.}
+      \item \small{https://bitbucket.org/ - Bit Bucket}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}
