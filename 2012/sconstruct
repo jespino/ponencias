@@ -1,1 +1,2 @@
 SConscript('kaleidos/sconstruct')
+SConscript('install party jr/sconstruct')

@@ -1,0 +1,236 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Introducción a Mercurial}
+\author{Jesús Espino García}
+\date{28 de Enero de 2012}
+\subject{Introducción a Mercurial}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos.png}}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \section*{Introducción}
+
+  \begin{frame}
+    \frametitle{¿Que es Mercurial?}
+    \begin{itemize}
+      \item Sistema de control de versiones.
+      \item Distribuido.
+      \item Libre.
+      \item Python!!.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ventajas}
+  
+    \begin{itemize}
+      \item Es Open Source.
+      \item Es rapido.
+      \item Es extensible.
+      \item Es potente.
+      \item Es (relativamente) sencillo.
+      \item Es muy configurable.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Conceptos básicos}
+    \begin{itemize}
+      \item Repositorio: Contenedor de ficheros y el historico de cambios de los mismos.
+      \item Clones: Copias de un determinado repositorio que pueden sincronizarse (o no).
+      \item Changeset: Conjunto de cambios relacionados (unidad lógica de almacenamiento de cambios)
+      \item Commit: Acción de guardar un changeset.
+      \item Pull/Push: Acciones para sincronizar clones (tirar o empujar changesets).
+      \item Working directory: Copia de los ficheros del repositorio sobre los que estamos trabajando.
+      \item Parent: Cada changeset tiene 0, 1 o 2 padres (inicial, normales y merges).
+      \item Rama: Bifurcación del desarrollo (por defecto solo una rama 'default').
+    \end{itemize}
+  \end{frame}
+
+  \section*{Primera sesión de trabajo}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Crear un repositorio}
+    \begin{itemize}
+      \item Crear un repositorio (hg init nombre-del-repositorio).
+      \item Entrar en el directorio del repositorio (cd nombre-del-repositorio)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Añadir mis primeros ficheros}
+    \begin{itemize}
+      \item Copiar o crear los ficheros que queramos incluir.
+      \item Añadir los ficheros al control de versiones (hg add *).
+      \item Guardamos los cambios hechos hasta ahora (hg commit).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Añadir un cambio (commit)}
+    \begin{itemize}
+      \item Modificamos los ficheros.
+      \item Guardamos los cambios hechos hasta ahora (hg commit).
+    \end{itemize}
+  \end{frame}
+
+  \section*{Revisar mi historico}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Viendo mi historico}
+    \begin{itemize}
+      \item Ver la historia de mi proyecto (hg log).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Comparando con el pasado}
+    \begin{itemize}
+        \item Que he cambiado desde la ultima vez que guarde (hg diff)
+        \item Que he cambiado desde un determinado momento (hg diff -r XXXXX)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Regreso al pasado}
+    \begin{itemize}
+        \item Volviendo a un momento del proyecto (hg checkout -r XXXXX)
+    \end{itemize}
+  \end{frame}
+
+  \section*{Mercurial distribuido}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Clonar un repositorio}
+    \begin{itemize}
+      \item Buscamos la url del repositorio a clonar.
+      \item Clonamos el repositorio (hg clone URL).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Obtener cambios de un repositorio remoto}
+    \begin{itemize}
+      \item Obtener cambios de un repositorio remoto (hg pull).
+      \item Si tengo cambios mios, mezclarlos con los obtenidos (hg merge + hg commit).
+      \item Si no tengo cambios mios, actualizo mi copia de trabajo (hg update).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Enviar cambios a un repositorio remoto}
+    \begin{itemize}
+      \item Comprobamos si hay cambios en repositorio remoto (hg pull).
+      \item Si hay cambios, los mezclamos (hg merge + hg commit).
+      \item Enviamos los cambios al repositorio remoto (hg push).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Conflictos}
+    \begin{itemize}
+      \item Al mezclar pueden darse conflictos (cambios incompatibles).
+      \item Un cambio será incompatible con otro, si modifican el mismo fichero en las mismas lineas.
+      \item El último en llegar se encarga de arreglar el conflicto.
+      \item Mercurial nos da ciertas ayudas para arreglarlos.
+      \item Una vez arreglados los conflictos hay que marcar los ficheros como resueltos (hg resolve -m fichero).
+      \item Tras esto se guardan los cambios (hg commit).
+    \end{itemize}
+  \end{frame}
+
+  \section*{Ramas}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Creando una rama}
+    \begin{itemize}
+      \item Creamos una rama (hg branch nuevarama)
+      \item Mercurial automaticamente nos cambia a esta rama.
+      \item Los commits se haran en esta rama a partir de ahora.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Cambiando de rama}
+    \begin{itemize}
+      \item Cambiamos de rama (hg update default)
+      \item Los commits se haran en esta rama a partir de ahora.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Mezclando ramas}
+    \begin{itemize}
+      \item Me situo en la rama donde quiero mezclar los cambios (hg update default).
+      \item Mezclo los cambios de otra rama (hg merge nuevarama).
+      \item Tras esto guardo los cambios (hg commit).
+    \end{itemize}
+  \end{frame}
+
+  \section*{Ignorando ficheros}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Ignorando ficheros}
+    \begin{itemize}
+      \item Creamos el fichero .hgignore
+      \item Incluimos lineas que definan que ficheros ignorar (*.txt)
+    \end{itemize}
+  \end{frame}
+
+  \section*{Para terminar}
+
+  \begin{frame}
+    \frametitle{Que se nos queda en el tintero}
+    \begin{itemize}
+      \item Hooks
+      \item Bookmarks
+      \item Subrepositorios
+      \item Queues
+      \item Extensiones
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{itemize}
+      \item \small{http://mercurial.selenic.com/ - Web oficial de mercurial.}
+      \item \small{http://hgbook.red-bean.com/ - Mercurial: The definitive guide.}
+      \item \small{https://bitbucket.org/ - Bit Bucket}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}
