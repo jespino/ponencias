@@ -1,0 +1,143 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Bases de datos Clave/Valor}
+\author{Jesús Espino García}
+\date{13 de Marzo de 2012}
+\subject{Bases de datos Clave/Valor}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos.png}}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \section*{Introducción}
+
+  \begin{frame}
+    \frametitle{¿Que son?}
+    \begin{itemize}
+      \item Bases de datos.
+      \item NoSQL (Pre-Relacional).
+      \item Basadas en dbm (Ken Thompson, 1979).
+      \item Almacenan pares de Clave/Valor.
+      \item Muy rápidas.
+      \item Relativamente poca funcionalidad.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{¿Dónde se usan?}
+    En todas partes, algunos ejemplos:
+    \begin{itemize}
+      \item Postfix
+      \item MySQL
+      \item OpenLDAP
+      \item SpamAssassin
+      \item Subversion
+      \item RPM
+      \item Asterisk
+      \item KDevelop
+      \item ...
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ventajas}
+  
+    \begin{itemize}
+      \item Son más sencillas de entender.
+      \item Se trabaja más a bajo nivel, pudiendo optimizar más.
+      \item Se elimina el overhead de los RDBMS.
+      \item Fácil de usar en modelos de datos sencillos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Inconvenientes}
+  
+    \begin{itemize}
+      \item Menor funcionalidad.
+      \item No hay un sistema de consultas genérico.
+      \item Complicado de usar con modelos de datos complejos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Algunas implementaciones}
+    \begin{itemize}
+      \item DBM: Implementación original.
+      \item BerkeleyDB: La más extendida, mantenida por Oracle.
+      \item JDBM/JDBM2: Implementación Java.
+      \item GDBM: Implementación de GNU.
+      \item QDBM/TokyoCabinet/KyotoCabinet: Implementaciones de Mikio Hirabayashi.
+    \end{itemize}
+  \end{frame}
+
+  \section*{Trabajando con bases de datos}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{Escoger el tipo de base de datos}
+    \begin{itemize}
+      \item Importante elegir bien.
+      \item Depende de las tipos que de mi DBM.
+      \item Normalmente B+Tree o Hash.
+      \item Depende de muchos factores:
+      \begin{itemize}
+        \item balance lecturas/escrituras.
+        \item tipo de consultas (clave, rango).
+        \item tamaño del conjunto de datos.
+        \item implementación concreta del DBM.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ejemplos}
+    \begin{itemize}
+      \item Ejemplos con KyotoCabinet
+    \end{itemize}
+  \end{frame}
+
+  \section*{Para terminar}
+
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{itemize}
+      \item \small{http://http://fallabs.com/ - FAL Labs (QDBM, TokyoCabinet and KyotoCabinet creators)}
+      \item \small{http://www.oracle.com/technetwork/products/berkeleydb/overview/index.html - BerkeleyDB}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}

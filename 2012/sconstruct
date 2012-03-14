@@ -1,2 +1,3 @@
 SConscript('kaleidos/sconstruct')
 SConscript('install party jr/sconstruct')
+SConscript('gul-uc3m/sconstruct')
