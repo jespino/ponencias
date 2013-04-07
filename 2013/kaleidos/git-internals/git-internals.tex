@@ -1,0 +1,251 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+
+\setbeamercovered{transparent}
+
+\title{Git Internals}
+\author{Jesús Espino García}
+\date{7 de Abril de 2013}
+\subject{Git Internals}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos.png}}
+
+\setcounter{tocdepth}{2}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Indice}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+
+  \section*{Introducción}
+
+  \begin{frame}
+    \frametitle{¿Por qué?}
+    \begin{itemize}
+      \item La interfaz de git es de bajo nivel.
+      \item Conocer git bien da mucho poder.
+      \item El poder está ahí aunque no lo conozcamos.
+      \item Un gran poder conlleva una gran responsabilidad.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Conceptos básicos}
+    \begin{itemize}
+        \item Procelain (Porcelana).
+        \item Plumbing (Cañerias).
+        \item Objetos
+        \item Referencias
+        \item Head
+        \item Working copy
+        \item Stage
+        \item Stash
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Contenido de .git}
+    \begin{itemize}
+        \item Ficheros.
+        \begin{itemize}
+            \item HEAD
+            \item index
+            \item config
+        \end{itemize}
+        \item Directorios.
+        \begin{itemize}
+            \item objects
+            \item refs
+            \item hooks
+            \item info
+        \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \section*{Objetos}
+
+  \begin{frame}
+    \frametitle{Objetos}
+    \begin{itemize}
+        \item Bloque de datos almacenado en git
+        \item Referenciado por el sha1 de su contenido
+        \item Almacenados en el directorio .git/objects/ (o en packs).
+        \item Hay 4 tipos de objetos en git (blob, tree, commit, tag).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{blobs}
+    \begin{itemize}
+        \item Será el nodo hoja de nuestros arboles.
+        \item Será equivalente (normalmente) a nuestros ficheros.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{trees}
+    \begin{itemize}
+        \item Es un directorio de referencias a blob y otros trees.
+        \item Almacena referencias (sha1 de objetos) y metadatos.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{diagrama de ejemplo de trees}
+    % TODO
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{commits}
+    \begin{itemize}
+        \item Almacena una referencia a un tree.
+        \item Almacena una referencia a su commit padre.
+        \item Almacena metadatos del commit (autor, fecha, mensaje...)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{diagrama de ejemplo de commits}
+    % TODO
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Objects storage}
+    \begin{itemize}
+        \item Se añade una cabecera con el tipo de objeto y la longitud del mismo.
+        \item Se concatena con los datos que se van a almacenar
+        \item Se calcula su sha1 que se utilizara como nombre del objeto.
+        \item Se comprime con zlib.
+        \item Se almacena en .git/objects/XX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    \end{itemize}
+  \end{frame}
+
+  \section*{Referencias}
+
+  \begin{frame}
+    \frametitle{branchs}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{HEAD}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{tags}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{remotes}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Refspects}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Pushing refspects}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Borrando referencias}
+  \end{frame}
+
+  \section*{Packfiles}
+
+  \section*{Protocolos de transferencia}
+
+  \begin{frame}
+    \frametitle{Dumb protocolo (HTTP)}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Smart protocolo (Git/SSH/File)}
+  \end{frame}
+
+  \section*{Mantenimiento y recuperación de datos}
+
+  \begin{frame}
+    \frametitle{Garbage collector}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Recuperar datos}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Eliminar objetos}
+  \end{frame}
+
+  \section*{Hablemos de algunos comandos}
+
+  \begin{frame}
+    \frametitle{init}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{add}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{commit}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{push}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{fetch}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{reset}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{rebase}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{checkout}
+  \end{frame}
+
+  \section*{Para terminar}
+
+  \begin{frame}
+    \frametitle{Referencias}
+    \begin{itemize}
+      \item \small{http://git-scm.com/ - Web oficial de git.}
+      \item \small{http://git-scm.com/book - ProGit (El libro de Git).}
+      \item \small{http://github.com/ - Servicio de git por excelencia.}
+      \item \small{http://bitbucket.org/ - Servicio de git de repositorios privados gratis.}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}
