@@ -105,6 +105,19 @@
   \end{frame}
 
   \begin{frame}
+    \frametitle{Ejemplos de almacenar blob}
+    \begin{itemize}
+        \item git init repo; cd repo
+        \item echo 'version 1' | git hash-object -w --stdin
+        \item find .git/objects -type f
+        \item git cat-file -p 83baae61804e65cc73a7201a7252750c76066a30
+        \item echo 'version 2' | git hash-object -w --stdin
+        \item find .git/objects -type f
+        \item git cat-file -p 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{trees}
     \begin{itemize}
         \item Es un directorio de referencias a blob y otros trees.
@@ -115,6 +128,17 @@
   \begin{frame}
     \frametitle{diagrama de ejemplo de trees}
     \begin{center}\includegraphics{trees.png}\end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ejemplos de almacenar tree}
+    \begin{itemize}
+        \item git init repo; cd repo
+        \item git update-index --add --cacheinfo 100644 83baae61804e65cc73a7201a7252750c76066a30 test.txt
+        \item git write-tree
+        \item find .git/objects -type f
+        \item git cat-file -p d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+    \end{itemize}
   \end{frame}
 
   \begin{frame}
@@ -132,13 +156,25 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{commits}
+    \frametitle{Ejemplos de commit}
+    \begin{itemize}
+        \item git init repo; cd repo
+        \item echo "Version 1" > fichero.txt; git add fichero.txt
+        \item git commit -m "Version 1"
+        \item find .git/objects -type f
+        \item git cat-file -p HEAD
+        \item git cat-file -p b7c0dba424af1e98a3570f8125476126129e5c32
+        \item git cat-file -p fb8247c7b27ae4cad9e7e3e66ba95126658ea7c2
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{tags}
     \begin{itemize}
         \item Almacena una referencia a un commit.
         \item Almacena metadatos del commit (autor, fecha, nombre...)
     \end{itemize}
   \end{frame}
-
 
   \begin{frame}
     \frametitle{Objects storage}
@@ -151,14 +187,13 @@
     \end{itemize}
   \end{frame}
 
-
   \begin{frame}
-    \frametitle{Ejemplos}
+    \frametitle{Ejemplos de lectura directa}
     \begin{itemize}
         \item git init repo; cd repo
         \item echo "Version 1" > fichero.txt; git add fichero.txt
         \item git commit -m "Version 1"
-        \item ls .git/objects/*/*
+        \item find .git/objects -type f
         \item git cat-file -p HEAD
         \item git cat-file -p b7c0dba424af1e98a3570f8125476126129e5c32
         \item git cat-file -p fb8247c7b27ae4cad9e7e3e66ba95126658ea7c2
@@ -186,7 +221,6 @@
     \begin{itemize}
         \item Están en .git/refs principalmente.
         \item Son punteros a objetos.
-        \item Son ficheros contenidos en el directorio .git/refs
         \item Contienen el id del objeto al que apuntan.
     \end{itemize}
   \end{frame}
