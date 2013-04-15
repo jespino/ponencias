@@ -32,7 +32,7 @@
 
 \AtBeginSubsection[]
 {
-  \begin{frame}<beamer>{Indice}
+  \begin{frame}[containsverbatim]<beamer>{Indice}
     \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
   \end{frame}
 }
@@ -43,7 +43,7 @@
 
   \section*{Introducción}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{¿Por qué?}
     \begin{itemize}
       \item La interfaz de git es de bajo nivel.
@@ -53,7 +53,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Conceptos básicos}
     \begin{itemize}
         \item Procelain (Porcelana).
@@ -65,7 +65,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Contenido de .git}
     \begin{itemize}
         \item Ficheros.
@@ -86,17 +86,17 @@
 
   \section*{Objetos}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Objetos}
     \begin{itemize}
         \item Bloque de datos almacenado en git
         \item Referenciado por el sha1 de su contenido
-        \item Almacenados en el directorio .git/objects/ (o en packs).
+        \item Almacenados en el directorio \verb$.git/objects/$ (o en packs).
         \item Hay 4 tipos de objetos en git (blob, tree, commit, tag).
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{blobs}
     \begin{itemize}
         \item Será el nodo hoja de nuestros arboles.
@@ -104,20 +104,20 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Ejemplos de almacenar blob}
     \begin{itemize}
-        \item git init repo; cd repo
-        \item echo 'version 1' | git hash-object -w --stdin
-        \item find .git/objects -type f
-        \item git cat-file -p 83baae61804e65cc73a7201a7252750c76066a30
-        \item echo 'version 2' | git hash-object -w --stdin
-        \item find .git/objects -type f
-        \item git cat-file -p 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a
+        \item \verb$git init repo; cd repo$
+        \item \verb$echo 'version 1' | git hash-object -w --stdin$
+        \item \verb$find .git/objects -type f$
+        \item \verb$git cat-file -p 83baae61804e65cc73a7201a7252750c76066a30$
+        \item \verb$echo 'version 2' | git hash-object -w --stdin$
+        \item \verb$find .git/objects -type f$
+        \item \verb$git cat-file -p 1f7a7a472abf3dd9643fd615f6da379c4acb3e3a$
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{trees}
     \begin{itemize}
         \item Es un directorio de referencias a blob y otros trees.
@@ -125,23 +125,23 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{diagrama de ejemplo de trees}
     \begin{center}\includegraphics{trees.png}\end{center}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Ejemplos de almacenar tree}
     \begin{itemize}
-        \item git init repo; cd repo
-        \item git update-index --add --cacheinfo 100644 83baae61804e65cc73a7201a7252750c76066a30 test.txt
-        \item git write-tree
-        \item find .git/objects -type f
-        \item git cat-file -p d8329fc1cc938780ffdd9f94e0d364e0ea74f579
+        \item \verb$git init repo; cd repo$
+        \item \verb$git update-index --add --cacheinfo 100644 \$ \verb$83baae61804e65cc73a7201a7252750c76066a30 test.txt$
+        \item \verb$git write-tree$
+        \item \verb$find .git/objects -type f$
+        \item \verb$git cat-file -p d8329fc1cc938780ffdd9f94e0d364e0ea74f579$
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{commits}
     \begin{itemize}
         \item Almacena una referencia a un tree.
@@ -150,25 +150,25 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{diagrama de ejemplo de commits}
     \begin{center}\includegraphics{commits.png}\end{center}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Ejemplos de commit}
     \begin{itemize}
-        \item git init repo; cd repo
-        \item echo "Version 1" > fichero.txt; git add fichero.txt
-        \item git commit -m "Version 1"
-        \item find .git/objects -type f
-        \item git cat-file -p HEAD
-        \item git cat-file -p b7c0dba424af1e98a3570f8125476126129e5c32
-        \item git cat-file -p fb8247c7b27ae4cad9e7e3e66ba95126658ea7c2
+        \item \verb$git init repo; cd repo$
+        \item \verb$echo "Version 1" > fichero.txt; git add fichero.txt$
+        \item \verb$git commit -m "Version 1"$
+        \item \verb$find .git/objects -type f$
+        \item \verb$git cat-file -p HEAD$
+        \item \verb$git cat-file -p b7c0dba424af1e98a3570f8125476126129e5c32$
+        \item \verb$git cat-file -p fb8247c7b27ae4cad9e7e3e66ba95126658ea7c2$
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{tags}
     \begin{itemize}
         \item Almacena una referencia a un commit.
@@ -176,128 +176,128 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Objects storage}
     \begin{itemize}
         \item Se añade una cabecera con el tipo de objeto y la longitud del mismo.
         \item Se concatena con los datos que se van a almacenar
         \item Se calcula su sha1 que se utilizara como nombre del objeto.
         \item Se comprime con zlib.
-        \item Se almacena en .git/objects/XX/XXXXXX\dots{}
+        \item Se almacena en \verb$.git/objects/XX/XXXXXX$\dots{}
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Ejemplos de lectura directa}
     \begin{itemize}
-        \item git init repo; cd repo
-        \item echo "Version 1" > fichero.txt; git add fichero.txt
-        \item git commit -m "Version 1"
-        \item find .git/objects -type f
-        \item git cat-file -p HEAD
-        \item git cat-file -p b7c0dba424af1e98a3570f8125476126129e5c32
-        \item git cat-file -p fb8247c7b27ae4cad9e7e3e66ba95126658ea7c2
-        \item cat .git/objects/fb/8247c7b27ae4cad9e7e3e66ba95126658ea7c2 | zlib-flate -uncompress
+        \item \verb$git init repo; cd repo$
+        \item \verb$echo "Version 1" > fichero.txt; git add fichero.txt$
+        \item \verb$git commit -m "Version 1"$
+        \item \verb$find .git/objects -type f$
+        \item \verb$git cat-file -p HEAD$
+        \item \verb$git cat-file -p b7c0dba424af1e98a3570f8125476126129e5c32$
+        \item \verb$git cat-file -p fb8247c7b27ae4cad9e7e3e66ba95126658ea7c2$
+        \item \verb$cat .git/objects/fb/8247c7b27ae4cad9e7e3e66ba95126658ea7c2 \$ \verb$| zlib-flate -uncompress$
     \end{itemize}
   \end{frame}
 
   \section*{Packfiles}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Packfiles}
     \begin{itemize}
         \item Paquetes de objetos.
         \item Periodicamente git empaqueta los objetos en packs (gc).
-        \item Se almacenan en .git/objects/pack/.
-        \item Hay un listado de packs en .git/objects/info/packs.
-        \item Cada pack tiene su indice en .git/objects/pack/.
+        \item Se almacenan en \verb$.git/objects/pack/$.
+        \item Hay un listado de packs en \verb$.git/objects/info/packs$.
+        \item Cada pack tiene su indice en \verb$.git/objects/pack/$.
     \end{itemize}
   \end{frame}
 
   \section*{Referencias}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Referencias}
     \begin{itemize}
-        \item Están en .git/refs principalmente.
+        \item Están en \verb$.git/refs$ principalmente.
         \item Son punteros a objetos.
         \item Contienen el id del objeto al que apuntan.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{branchs}
     \begin{itemize}
-        \item Están en .git/refs/heads
+        \item Están en \verb$.git/refs/heads$
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{HEAD}
     \begin{itemize}
-        \item Esta en .git/HEAD
+        \item Esta en \verb$.git/HEAD$
         \item Es una referencia simbolica que apunta a la referencia de la rama actual.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{tags}
     \begin{itemize}
-        \item Están en .git/refs/tags
+        \item Están en \verb$.git/refs/tags$
         \item Son referencias a commits o a objetos tag.
         \item Los tags simples son una referencia directa a un commit.
         \item Los tags con anotaciones son referencias a un objeto tag que apunta a un commit.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{remotes}
     \begin{itemize}
-        \item Están en .git/refs/remotes
+        \item Están en \verb$.git/refs/remotes$
         \item Contiene las referencias de mis remotes.
         \item Se actualizan cuando hago push o fetch.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Refspects}
     \begin{itemize}
         \item Forma de definir la relación entre las referencias de diferentes origines
-        \item Tienen el formato [+]<src>:<dst>
-        \item Opcionalmente se pone un + para actualizar la referencia cuando no hay fast-forward.
-        \item Las referencias pueden tener * para definir "todo lo que haya en un directorio"
-        \item No se permite el uso de * para selecciones parciales de referencias.
-        \item Ejemplo: +refs/heads/*:refs/remotes/origin/*
+        \item Tienen el formato \verb$[+]<src>:<dst>$
+        \item Opcionalmente se pone un \verb$+$ para actualizar la referencia cuando no hay fast-forward.
+        \item Las referencias pueden tener \verb$*$ para definir "todo lo que haya en un directorio"
+        \item No se permite el uso de \verb$*$ para selecciones parciales de referencias.
+        \item Ejemplo: \verb$+refs/heads/*:refs/remotes/origin/*$
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Pulling with refspects}
     \begin{itemize}
-        \item Ejemplo: git fetch origin master:refs/remotes/origin/mymaster
-        \item Descarga la referencia master del origin a refs/remotes/origin/mymaster en local
+        \item Ejemplo: \verb$git fetch origin master:refs/remotes/origin/mymaster$
+        \item Descarga la referencia master del origin a \verb$refs/remotes/origin/mymaster$ en local
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Pushing with refspects}
     \begin{itemize}
-        \item Ejemplo: git push origin master:refs/heads/qa/master
-        \item Envia la referencia master local al refs/heads/qa/master en origin
+        \item Ejemplo: \verb$git push origin master:refs/heads/qa/master$
+        \item Envia la referencia master local al \verb$refs/heads/qa/master$ en origin
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Borrando referencias}
     \begin{itemize}
-        \item Ejemplo: git push origin :topic
+        \item Ejemplo: \verb$git push origin :topic$
         \item Borra la referencia topic en origin
     \end{itemize}
   \end{frame}
 
   \section*{Hablemos de algunos comandos}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{init}
     Crea un .git con datos básicos.
     \begin{itemize}
@@ -308,7 +308,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{add}
     \begin{itemize}
       \item añade el fichero a la base de datos de Objetos
@@ -316,7 +316,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{commit}
     \begin{itemize}
       \item Añade el tree apuntando al arbol de ficheros al que apunte el index a la base de datos de Objetos
@@ -328,7 +328,7 @@
 
   \section*{Para terminar}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{¿De qué no hemos hablado?}
     \begin{itemize}
         \item Más comandos de porcelana.
@@ -339,7 +339,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Referencias}
     \begin{itemize}
       \item \small{http://git-scm.com/ - Web oficial de git.}
@@ -350,7 +350,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[containsverbatim]
     \frametitle{Dudas}
     \dots
   \end{frame}
