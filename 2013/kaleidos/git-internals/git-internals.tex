@@ -260,6 +260,14 @@
   \end{frame}
 
   \begin{frame}[containsverbatim]
+    \frametitle{Reflog}
+    \begin{itemize}
+        \item Log de cambios de las referencias
+        \item Cada referencia tiene su log de cambios en \verb+.git/logs/+
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
     \frametitle{Refspects}
     \begin{itemize}
         \item Forma de definir la relación entre las referencias de diferentes origines
@@ -364,6 +372,17 @@
       \item Si hay comflicto los resuelve (automatica o manualmente).
       \item Genera un objeto commit (con varios parents) con las diferencias de ambos aplicadas.
       \item Actualiza la referncia de la rama destino al nuevo commit.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{stash}
+    \begin{itemize}
+      \item Almacena todos los blobs y trees de mis cambios actuales.
+      \item Genera y almacena un commit a partir de los cambios actuales.
+      \item Actualiza la referencia \verb+.git/refs/stash+.
+      \item Esta acción añade una entrada al reflog de la referencia stash.
+      \item Cuando hacemos un \verb+stash pop+ aplicamos el commit y eliminamos la ultima entrada del reflog.
     \end{itemize}
   \end{frame}
 
