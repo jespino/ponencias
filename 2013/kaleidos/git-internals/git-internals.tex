@@ -105,7 +105,7 @@
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Ejemplos de almacenar blob}
+    \frametitle{Ejemplo de almacenar blob}
     \begin{itemize}
         \item \verb$git init repo; cd repo$
         \item \verb$echo 'version 1' | git hash-object -w --stdin$
@@ -131,7 +131,7 @@
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Ejemplos de almacenar tree}
+    \frametitle{Ejemplo de almacenar tree}
     \begin{itemize}
         \item \verb$git init repo; cd repo$
         \item \verb$git update-index --add --cacheinfo 100644 \$ \verb$83baae61804e65cc73a7201a7252750c76066a30 test.txt$
@@ -156,7 +156,7 @@
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Ejemplos de commit}
+    \frametitle{Ejemplo de commit}
     \begin{itemize}
         \item \verb$git init repo; cd repo$
         \item \verb$echo "Version 1" > fichero.txt; git add fichero.txt$
@@ -188,7 +188,7 @@
   \end{frame}
 
   \begin{frame}[containsverbatim]
-    \frametitle{Ejemplos de lectura directa}
+    \frametitle{Ejemplo de lectura directa}
     \begin{itemize}
         \item \verb$git init repo; cd repo$
         \item \verb$echo "Version 1" > fichero.txt; git add fichero.txt$
@@ -301,9 +301,9 @@
     \frametitle{init}
     Crea un .git con datos básicos.
     \begin{itemize}
-      \item Un fichero config por defecto
-      \item Los directorios refs, objects e info
-      \item Un HEAD apuntando a la referencia master
+      \item Un fichero config por defecto.
+      \item Los directorios refs, objects e info.
+      \item Un \verb+HEAD+ apuntando a la referencia master.
       \item Y poco más
     \end{itemize}
   \end{frame}
@@ -311,18 +311,59 @@
   \begin{frame}[containsverbatim]
     \frametitle{add}
     \begin{itemize}
-      \item añade el fichero a la base de datos de Objetos
-      \item añade el fichero al index
+      \item Añade el fichero a la base de datos de Objetos.
+      \item Añade el fichero al index.
     \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]
     \frametitle{commit}
     \begin{itemize}
-      \item Añade el tree apuntando al arbol de ficheros al que apunte el index a la base de datos de Objetos
-      \item Añade el commit apunte al tree recien añadido a la base de datos de objetos
-      \item modifica el HEAD
-      \item modifica la referencia de la rama actual
+      \item Añade el tree apuntando al arbol de ficheros al que apunte el index a la base de datos de objetos.
+      \item Añade el commit apunte al tree recien añadido a la base de datos de objetos.
+      \item Modifica el \verb+HEAD+.
+      \item Modifica la referencia de la rama actual.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{checkout}
+    \begin{itemize}
+      \item Compara el tree del commit actual y el tree del commit destino.
+      \item Extrae los objetos diferentes entre ambos a la working copy.
+      \item Si existen ficheros modificados intenta hacer el merge y conservar las modificaciones.
+      \item Modifica el \verb+HEAD+.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{reset}
+    \begin{itemize}
+      \item Modifica la referencia a la que apunte \verb+HEAD+ y la apunta al commit que le digas.
+      \item Depende del tipo de reset modifica el index para ajustarlo al nuevo commit.
+      \item Depende del tipo de reset modifica la working copy para ajustarlo al nuevo commit.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{rebase}
+    \begin{itemize}
+      \item Se posiciona en la rama destino.
+      \item Añade los commits de la rama origen uno a uno en la rama destino.
+      \item Si hay comflicto los resuelve (automatica o manualmente) modificando el commit.
+      \item Actualiza la referencia de ambas ramas para apuntar al último commit.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]
+    \frametitle{merge}
+    \begin{itemize}
+      \item Pregunta por el origen comun de las ramas a mergear.
+      \item Calcula las diferencias que genera cada rama.
+      \item Intenta mezclar las diferencias en un nuevo commit.
+      \item Si hay comflicto los resuelve (automatica o manualmente).
+      \item Genera un objeto commit (con varios parents) con las diferencias de ambos aplicadas.
+      \item Actualiza la referncia de la rama destino al nuevo commit.
     \end{itemize}
   \end{frame}
 
@@ -336,6 +377,7 @@
         \item Protocolos de transferencia.
         \item Mantenimiento y recuperación de datos.
         \item Stash
+        \item fsck
     \end{itemize}
   \end{frame}
 
