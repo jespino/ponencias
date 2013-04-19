@@ -56,7 +56,7 @@
   \begin{frame}[containsverbatim]
     \frametitle{Conceptos básicos}
     \begin{itemize}
-        \item Procelain (Porcelana).
+        \item Porcelain (Porcelana).
         \item Plumbing (Cañerias).
         \item Objetos
         \item Referencias
@@ -99,7 +99,7 @@
   \begin{frame}[containsverbatim]
     \frametitle{blobs}
     \begin{itemize}
-        \item Será el nodo hoja de nuestros arboles.
+        \item Será el nodo hoja de nuestros árboles.
         \item Será equivalente (normalmente) a nuestros ficheros.
     \end{itemize}
   \end{frame}
@@ -181,7 +181,7 @@
     \begin{itemize}
         \item Se añade una cabecera con el tipo de objeto y la longitud del mismo.
         \item Se concatena con los datos que se van a almacenar
-        \item Se calcula su sha1 que se utilizara como nombre del objeto.
+        \item Se calcula su sha1 que se utilizará como nombre del objeto.
         \item Se comprime con zlib.
         \item Se almacena en \verb$.git/objects/XX/XXXXXX$\dots{}
     \end{itemize}
@@ -207,10 +207,10 @@
     \frametitle{Packfiles}
     \begin{itemize}
         \item Paquetes de objetos.
-        \item Periodicamente git empaqueta los objetos en packs (gc).
+        \item Periódicamente git empaqueta los objetos en packs (gc).
         \item Se almacenan en \verb$.git/objects/pack/$.
         \item Hay un listado de packs en \verb$.git/objects/info/packs$.
-        \item Cada pack tiene su indice en \verb$.git/objects/pack/$.
+        \item Cada pack tiene su índice en \verb$.git/objects/pack/$.
     \end{itemize}
   \end{frame}
 
@@ -235,8 +235,8 @@
   \begin{frame}[containsverbatim]
     \frametitle{HEAD}
     \begin{itemize}
-        \item Esta en \verb$.git/HEAD$
-        \item Es una referencia simbolica que apunta a la referencia de la rama actual.
+        \item Está en \verb$.git/HEAD$
+        \item Es una referencia simbólica que apunta a la referencia de la rama actual.
     \end{itemize}
   \end{frame}
 
@@ -270,7 +270,7 @@
   \begin{frame}[containsverbatim]
     \frametitle{Refspects}
     \begin{itemize}
-        \item Forma de definir la relación entre las referencias de diferentes origines
+        \item Forma de definir la relación entre las referencias de diferentes origins
         \item Tienen el formato \verb$[+]<src>:<dst>$
         \item Opcionalmente se pone un \verb$+$ para actualizar la referencia cuando no hay fast-forward.
         \item Las referencias pueden tener \verb$*$ para definir "todo lo que haya en un directorio"
@@ -291,7 +291,7 @@
     \frametitle{Pushing with refspects}
     \begin{itemize}
         \item Ejemplo: \verb$git push origin master:refs/heads/qa/master$
-        \item Envia la referencia master local al \verb$refs/heads/qa/master$ en origin
+        \item Envía la referencia master local al \verb$refs/heads/qa/master$ en origin
     \end{itemize}
   \end{frame}
 
@@ -327,8 +327,8 @@
   \begin{frame}[containsverbatim]
     \frametitle{commit}
     \begin{itemize}
-      \item Añade el tree apuntando al arbol de ficheros al que apunte el index a la base de datos de objetos.
-      \item Añade el commit apunte al tree recien añadido a la base de datos de objetos.
+      \item Añade el tree apuntando al árbol de ficheros al que apunte el index a la base de datos de objetos.
+      \item Añade el commit apunte al tree recién añadido a la base de datos de objetos.
       \item Modifica el \verb+HEAD+.
       \item Modifica la referencia de la rama actual.
     \end{itemize}
@@ -358,7 +358,7 @@
     \begin{itemize}
       \item Se posiciona en la rama destino.
       \item Añade los commits de la rama origen uno a uno en la rama destino.
-      \item Si hay comflicto los resuelve (automatica o manualmente) modificando el commit.
+      \item Si hay conflicto los resuelve (automática o manualmente) modificando el commit.
       \item Actualiza la referencia de ambas ramas para apuntar al último commit.
     \end{itemize}
   \end{frame}
@@ -366,12 +366,12 @@
   \begin{frame}[containsverbatim]
     \frametitle{merge}
     \begin{itemize}
-      \item Pregunta por el origen comun de las ramas a mergear.
+      \item Pregunta por el origen común de las ramas a mergear.
       \item Calcula las diferencias que genera cada rama.
       \item Intenta mezclar las diferencias en un nuevo commit.
-      \item Si hay comflicto los resuelve (automatica o manualmente).
+      \item Si hay conflicto los resuelve (automática o manualmente).
       \item Genera un objeto commit (con varios parents) con las diferencias de ambos aplicadas.
-      \item Actualiza la referncia de la rama destino al nuevo commit.
+      \item Actualiza la referencia de la rama destino al nuevo commit.
     \end{itemize}
   \end{frame}
 
