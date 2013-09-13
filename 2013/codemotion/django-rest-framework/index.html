@@ -65,7 +65,7 @@
                         <div>
                             <ul>
                                 <li>Facil de implementar APIs simples</li>
-                                <li>Muy modular</li>
+                                <li>Muy modular (basado principalmente en Mixins)</li>
                                 <li>Facil de probar</li>
                                 <li>RESTful</li>
                             </ul>
@@ -90,23 +90,49 @@
                         </div>
                     </section>
                     <section>
+                        <h2>Definir mi modelo</h2>
+                        <div>
+                            <pre><code>
+class MyModel(models.Model):
+    name = models.CharField(max_length=100)
+    thing = models.IntegerField()
+    internal_thing = models.FloatField()
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section>
                         <h2>Definir el serializador</h2>
                         <div>
-                            <ul>
-                                <li>Facil de implementar APIs simples</li>
-                                <li>Muy modular</li>
-                                <li>Facil de probar</li>
-                                <li>RESTful</li>
-                            </ul>
+                            <pre><code>
+class MyModelSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MyModel
+        fields = ('name', 'thing')
+                            </code></pre>
                         </div>
                     </section>
                     <section>
                         <h2>Definir la vista</h2>
-                        <div></div>
+                        <div>
+                            <pre><code>
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+                            </code></pre>
+                        </div>
                     </section>
                     <section>
                         <h2>Definir las urls</h2>
-                        <div></div>
+                        <div>
+                            <pre><code>
+router = routers.DefaultRouter()
+router.register(r'my-models', views.MyModelViewSet)
+
+urlpatterns = patterns('',
+    url(r'^api', include(router.urls)),
+)
+                            </code></pre>
+                        </div>
                     </section>
                 </section>
 
