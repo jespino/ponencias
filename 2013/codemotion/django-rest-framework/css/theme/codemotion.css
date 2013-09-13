@@ -135,24 +135,14 @@ body {
   background: white; }
 
 .reveal {
-  color: #222; }
-  .reveal .codemotion-madrid-img {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 250px; }
-  .reveal .codemotion-logo-img {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    width: 250px; }
+  color: #333; }
   .reveal section {
     height: 1024px;
     background: url(../../img/other-background.png); }
     .reveal section.first {
       background: url(../../img/first-background.png); }
       .reveal section.first h1 {
-        color: #222;
+        color: #333;
         text-align: left;
         font-size: 1.5em;
         height: 100px;
@@ -165,7 +155,7 @@ body {
         margin-left: 250px;
         text-align: left; }
     .reveal section h1, .reveal section h2 {
-      color: #222;
+      color: #333;
       text-align: left;
       font-size: 1.5em;
       height: 100px;
