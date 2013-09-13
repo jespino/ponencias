@@ -150,10 +150,12 @@ body {
         margin-top: 220px;
         margin-left: 250px; }
       .reveal section.first p {
-        height: 100px;
+        height: 15px;
         width: 600px;
         margin-left: 250px;
         text-align: left; }
+        .reveal section.first p.logo {
+          height: 130px; }
     .reveal section h1, .reveal section h2 {
       color: #333;
       text-align: left;

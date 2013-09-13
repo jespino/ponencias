@@ -59,10 +59,13 @@ body {
                 margin-left: 250px;
             }
             p {
-                height: 100px;
+                height: 15px;
                 width: 600px;
                 margin-left: 250px;
                 text-align: left;
+                &.logo {
+                    height: 130px;
+                }
             }
         }
         h1, h2{
