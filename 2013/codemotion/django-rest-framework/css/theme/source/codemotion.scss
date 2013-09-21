@@ -45,7 +45,9 @@ body {
 
     section {
         height: 1024px;
-        background: url(../../img/other-background.png);
+        &.slide {
+            background: url(../../img/other-background.png);
+        }
 
         &.first {
             background: url(../../img/first-background.png);
@@ -76,6 +78,12 @@ body {
             width: 500px;
             margin-top: 20px;
             margin-left: 250px;
+        }
+        div {
+            text-align: left;
+            p, li {
+                margin-left: 80px;
+            }
         }
     }
 }

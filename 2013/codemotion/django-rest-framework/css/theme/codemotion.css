@@ -137,8 +137,9 @@ body {
 .reveal {
   color: #333; }
   .reveal section {
-    height: 1024px;
-    background: url(../../img/other-background.png); }
+    height: 1024px; }
+    .reveal section.slide {
+      background: url(../../img/other-background.png); }
     .reveal section.first {
       background: url(../../img/first-background.png); }
       .reveal section.first h1 {
@@ -164,3 +165,7 @@ body {
       width: 500px;
       margin-top: 20px;
       margin-left: 250px; }
+    .reveal section div {
+      text-align: left; }
+      .reveal section div p, .reveal section div li {
+        margin-left: 80px; }

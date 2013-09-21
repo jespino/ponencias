@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Git Intermedio</title>
+        <title>Django Rest Framework</title>
 
-        <meta name="description" content="Charla técnica sobre Git Intermedio">
+        <meta name="description" content="Introducción a Django Rest Framework">
         <meta name="author" content="Jesús Espino">
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,18 +50,20 @@
                 </section>
 
                 <section>
-                    <section>
+                    <section class="slide">
                         <h2>¿Qué es?</h2>
                         <div>
                             <ul>
                                 <li>Aplicación Django</li>
                                 <li>Generación de APIs RESTful</li>
-                                <li>Basada en "Class Based Views"</li>
-                                <li>Genera automaticamente un interfaz interactivo</li>
+                                <li>Soporte "Class Based Views"</li>
+                                <li>API navegable</li>
+                                <li>Politicas de autenticación</li>
+                                <li>Bien documentado</li>
                             </ul>
                         </div>
                     </section>
-                    <section>
+                    <section class="slide">
                         <h2>¿Por qué?</h2>
                         <div>
                             <ul>
@@ -72,14 +74,10 @@
                             </ul>
                         </div>
                     </section>
-                    <section>
-                        <h2>¿Cómo funciona?</h2>
-                        <div></div>
-                    </section>
                 </section>
 
                 <section>
-                    <section>
+                    <section class="slide">
                         <h2>API desde mis modelos</h2>
                         <div>
                             <p>Solo son necesarios 3 pasos:</p>
@@ -90,7 +88,7 @@
                             </ul>
                         </div>
                     </section>
-                    <section>
+                    <section class="slide">
                         <h2>Definir mi modelo</h2>
                         <div>
                             <pre><code>
@@ -101,7 +99,7 @@ class MyModel(models.Model):
                             </code></pre>
                         </div>
                     </section>
-                    <section>
+                    <section class="slide">
                         <h2>Definir el serializador</h2>
                         <div>
                             <pre><code>
@@ -112,7 +110,7 @@ class MyModelSerializer(serializers.HyperlinkedModelSerializer):
                             </code></pre>
                         </div>
                     </section>
-                    <section>
+                    <section class="slide">
                         <h2>Definir la vista</h2>
                         <div>
                             <pre><code>
@@ -122,7 +120,7 @@ class MyModelViewSet(viewsets.ModelViewSet):
                             </code></pre>
                         </div>
                     </section>
-                    <section>
+                    <section class="slide">
                         <h2>Definir las urls</h2>
                         <div>
                             <pre><code>
@@ -138,13 +136,13 @@ urlpatterns = patterns('',
                 </section>
 
                 <section>
-                    <section>
+                    <section class="slide">
                         <h2>Arquitectura</h2>
                         <div>
                         </div>
                     </section>
 
-                    <section>
+                    <section class="slide">
                         <h2>Ciclo de vida de una petición</h2>
                         <div>
                         </div>
@@ -152,7 +150,7 @@ urlpatterns = patterns('',
                 </section>
 
                 <section>
-                    <section>
+                    <section class="slide">
                         <h2>Modulos</h2>
                         <div>
                             <p>Django Rest Framework tiene los siguientes modulos:</p>
@@ -172,7 +170,7 @@ urlpatterns = patterns('',
                     </section>
                 </section>
 
-                <section>
+                <section class="slide">
                     <h2>Dudas...</h2>
                     <div>Dudas...</div>
                 </section>
@@ -189,7 +187,7 @@ urlpatterns = patterns('',
             // Full list of configuration options available here:
             // https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
-                controls: true,
+                controls: false,
                 progress: true,
                 history: true,
                 center: true,
