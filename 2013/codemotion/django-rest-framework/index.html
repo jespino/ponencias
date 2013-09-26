@@ -69,7 +69,9 @@
                             <ul>
                                 <li>Facil de implementar APIs simples</li>
                                 <li>Muy modular (basado principalmente en Mixins)</li>
+                                <li>Facil de extender o personalizar</li>
                                 <li>Facil de probar</li>
+                                <li>Muy bien documentado</li>
                                 <li>RESTful</li>
                             </ul>
                         </div>
@@ -80,11 +82,10 @@
                     <section class="slide">
                         <h2>API desde mis modelos</h2>
                         <div>
-                            <p>Solo son necesarios 3 pasos:</p>
+                            <p>Solo son necesarios 2 pasos:</p>
                             <ul>
-                                <li>Definir el serializador</li>
-                                <li>Definir la vista</li>
-                                <li>Definir las urls</li>
+                                <li>Definir mi modelo</li>
+                                <li>Definir un viewset</li>
                             </ul>
                         </div>
                     </section>
@@ -95,12 +96,148 @@
 class MyModel(models.Model):
     name = models.CharField(max_length=100)
     thing = models.IntegerField()
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Definir un viewset</h2>
+                        <div>
+                            <pre><code>
+class MyModelViewSet(viewsets.ModelViewSet):
+    model = MyModel
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Principales componentes</h2>
+                        <div>
+                            <ul>
+                                <li>APIViews</li>
+                                <li>ViewSet</li>
+                                <li>Routers</li>
+                                <li>Parsers</li>
+                                <li>Renderers</li>
+                                <li>Serializers</li>
+                                <li>Autentications</li>
+                                <li>Permissions</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>ApiViews</h2>
+                        <div>
+                            <ul>
+                                <li>Class Views.</li>
+                                <li>Extiende el HTTPRequest.</li>
+                                <li>Extiende el HTTPResponse.</li>
+                                <li>Captura las excepciones APIException.</li>
+                                <li>Procesa la autenticación, permisos y demas de las peticiones.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>ViewSets</h2>
+                        <div>
+                            <ul>
+                                <li>APIViews.</li>
+                                <li>Permite definir todas las acciones de un recurso en una sola vista.</li>
+                                <li>Utiliza el Router para definir sus urls.</li>
+                                <li>Permite definir acciones extra en la API de manera sencilla.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Routers</h2>
+                        <div>
+                            <ul>
+                                <li>Permite definir las urls de uno o varios ViewSets.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Parsers</h2>
+                        <div>
+                            <ul>
+                                <li>Define como convertir los datos enviados por el usuario a tipos basicos de python.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Renderers</h2>
+                        <div>
+                            <ul>
+                                <li>Define como convertir los tipos basicos de python a datos para el usuario.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Serializers</h2>
+                        <div>
+                            <ul>
+                                <li>Define como convertir datos internos de la aplicacion a los tipos basicos de python (y viceversa).</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Authentications</h2>
+                        <div>
+                            <ul>
+                                <li>Define como saber si una petición esta autenticada.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Permissions</h2>
+                        <div>
+                            <ul>
+                                <li>Define como saber si una petición esta autorizada.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Arquitectura</h2>
+                        <div>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Ciclo de vida de una petición</h2>
+                        <div>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Mejorando mi API</h2>
+                    </section>
+                    <section class="slide">
+                        <h2>Mi modelo</h2>
+                        <div>
+                            <pre><code>
+class MyModel(models.Model):
+    name = models.CharField(max_length=100)
+    thing = models.IntegerField()
     internal_thing = models.FloatField()
                             </code></pre>
                         </div>
                     </section>
                     <section class="slide">
-                        <h2>Definir el serializador</h2>
+                        <h2>Definir un serializador</h2>
                         <div>
                             <pre><code>
 class MyModelSerializer(serializers.HyperlinkedModelSerializer):
@@ -111,7 +248,7 @@ class MyModelSerializer(serializers.HyperlinkedModelSerializer):
                         </div>
                     </section>
                     <section class="slide">
-                        <h2>Definir la vista</h2>
+                        <h2>Definir un viewset</h2>
                         <div>
                             <pre><code>
 class MyModelViewSet(viewsets.ModelViewSet):
@@ -135,40 +272,6 @@ urlpatterns = patterns('',
                     </section>
                 </section>
 
-                <section>
-                    <section class="slide">
-                        <h2>Arquitectura</h2>
-                        <div>
-                        </div>
-                    </section>
-
-                    <section class="slide">
-                        <h2>Ciclo de vida de una petición</h2>
-                        <div>
-                        </div>
-                    </section>
-                </section>
-
-                <section>
-                    <section class="slide">
-                        <h2>Modulos</h2>
-                        <div>
-                            <p>Django Rest Framework tiene los siguientes modulos:</p>
-                            <ul>
-                                <li>Serializers</li>
-                                <li>Class Views</li>
-                                <li>Authentication</li>
-                                <li>Permissions</li>
-                                <li>Filtering</li>
-                                <li>Pagination</li>
-                                <li>Routers</li>
-                                <li>Parsers</li>
-                                <li>Renderers</li>
-                                <li>Relation Serializers</li>
-                            </ul>
-                        </div>
-                    </section>
-                </section>
 
                 <section class="slide">
                     <h2>Dudas...</h2>
