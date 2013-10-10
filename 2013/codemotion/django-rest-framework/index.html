@@ -82,10 +82,11 @@
                     <section class="slide">
                         <h2>API desde mis modelos</h2>
                         <div>
-                            <p>Solo son necesarios 2 pasos:</p>
+                            <p>Solo son necesarios 3 pasos:</p>
                             <ul>
                                 <li>Definir mi modelo</li>
                                 <li>Definir un viewset</li>
+                                <li>Definir y usar un router</li>
                             </ul>
                         </div>
                     </section>
@@ -96,6 +97,8 @@
 class MyModel(models.Model):
     name = models.CharField(max_length=100)
     thing = models.IntegerField()
+    internal_thing = models.FloatField(null=True, blank=True)
+    owner = models.ForeignKey(User)
                             </code></pre>
                         </div>
                     </section>
@@ -105,6 +108,20 @@ class MyModel(models.Model):
                             <pre><code>
 class MyModelViewSet(viewsets.ModelViewSet):
     model = MyModel
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Definir y usar un router</h2>
+                        <div>
+                            <pre><code>
+router = DefaultRouter()
+router.register('my-model', MyModelViewSet)
+
+urlpatterns = patterns('',
+    url(r'^api/v1/', include(router.urls)),
+    ...
+)
                             </code></pre>
                         </div>
                     </section>
@@ -209,14 +226,15 @@ class MyModelViewSet(viewsets.ModelViewSet):
 
                 <section>
                     <section class="slide">
-                        <h2>Arquitectura</h2>
+                        <h2>Petición a una APIView</h2>
                         <div>
+                            <img src="img/apiview-request.png" />
                         </div>
                     </section>
-
                     <section class="slide">
-                        <h2>Ciclo de vida de una petición</h2>
+                        <h2>Petición a un ViewSet</h2>
                         <div>
+                            <img src="img/viewset-request.png" />
                         </div>
                     </section>
                 </section>
@@ -226,47 +244,112 @@ class MyModelViewSet(viewsets.ModelViewSet):
                         <h2>Mejorando mi API</h2>
                     </section>
                     <section class="slide">
-                        <h2>Mi modelo</h2>
-                        <div>
-                            <pre><code>
-class MyModel(models.Model):
-    name = models.CharField(max_length=100)
-    thing = models.IntegerField()
-    internal_thing = models.FloatField()
-                            </code></pre>
-                        </div>
-                    </section>
-                    <section class="slide">
-                        <h2>Definir un serializador</h2>
+                        <h2>Serializador</h2>
                         <div>
                             <pre><code>
 class MyModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MyModel
         fields = ('name', 'thing')
+
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
                             </code></pre>
+                            <p>O puedes definirlo globalmente en DEFAULT_MODEL_SERIALIZER_CLASS.</p>
                         </div>
                     </section>
                     <section class="slide">
-                        <h2>Definir un viewset</h2>
+                        <h2>Autenticación y permisos</h2>
                         <div>
                             <pre><code>
 class MyModelViewSet(viewsets.ModelViewSet):
     queryset = MyModel.objects.all()
     serializer_class = MyModelSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+                            </code></pre>
+                            <p>O puedes definirlos globalmente en DEFAULT_PERMISSION_CLASSES y DEFAULT_AUTHENTICATION_CLASSES.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Paginación</h2>
+                        <div>
+                            <pre><code>
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
+                            </code></pre>
+                            <p>O puedes definirlo globalmente en PAGINATE_BY, PAGINATE_BY_PARAM y MAX_PAGINATE_BY.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Filtros</h2>
+                        <div>
+                            <pre><code>
+class IsOwnerFilterBackend(filters.BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(owner=request.user)
+
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    filter_backends = (IsOwnerFilterBackend, filters.OrderingFilter,)
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
+                            </code></pre>
+                            <p>O puedes definirlo globalmente en DEFAULT_FILTER_BACKENDS.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>ViewSet sin modelo</h2>
+                        <div>
+                            <pre><code>
+class NoModelViewSet(viewsets.ViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    def list(self, request):
+        return Response([{'hello': 'list'}])
+    def retrieve(self, request, pk=None):
+        return Response({'hello': pk})
+    def create(self, request):
+        return Response({'hello': 'create', 'data': request.DATA})
+    def update(self, request, pk=None):
+        return Response({'hello': pk, 'data': request.DATA})
+    def partial_update(self, request, pk=None):
+        return Response({'hello': pk, 'data': request.DATA})
+    def destroy(self, request, pk=None):
+        return Response({'hello': pk})
                             </code></pre>
                         </div>
                     </section>
                     <section class="slide">
-                        <h2>Definir las urls</h2>
+                        <h2>APIViews sin modelo</h2>
                         <div>
                             <pre><code>
-router = routers.DefaultRouter()
-router.register(r'my-models', views.MyModelViewSet)
+class NoModelAPIView(views.APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
 
-urlpatterns = patterns('',
-    url(r'^api', include(router.urls)),
-)
+    def get(self, request, format=None):
+        return Response([{'hello': 'get'}])
+
+    def post(self, request, format=None):
+        return Response([{'hello': 'post'}])
+
+    def put(self, request, format=None):
+        return Response([{'hello': 'put'}])
+
+    def delete(self, request, format=None):
+        return Response([{'hello': 'delete'}])
                             </code></pre>
                         </div>
                     </section>
