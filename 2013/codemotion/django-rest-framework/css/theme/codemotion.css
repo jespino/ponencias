@@ -138,10 +138,12 @@ body {
   color: #333; }
   .reveal section {
     height: 1024px; }
+    .reveal section pre {
+      font-size: .77em; }
     .reveal section.slide {
-      background: url(../../img/other-background.png); }
+      background: url(../../img/other-background.png) no-repeat; }
     .reveal section.first {
-      background: url(../../img/first-background.png); }
+      background: url(../../img/first-background.png) no-repeat; }
       .reveal section.first h1 {
         color: #333;
         text-align: left;

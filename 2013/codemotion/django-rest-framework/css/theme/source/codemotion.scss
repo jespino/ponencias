@@ -45,12 +45,15 @@ body {
 
     section {
         height: 1024px;
+        pre {
+            font-size: .77em;
+        }
         &.slide {
-            background: url(../../img/other-background.png);
+            background: url(../../img/other-background.png) no-repeat;
         }
 
         &.first {
-            background: url(../../img/first-background.png);
+            background: url(../../img/first-background.png) no-repeat;
             h1 {
                 color: #333;
                 text-align: left;
