@@ -55,11 +55,11 @@
                         <div>
                             <ul>
                                 <li>Aplicación Django</li>
-                                <li>Generación de APIs RESTful</li>
-                                <li>Soporte "Class Based Views"</li>
-                                <li>API navegable</li>
-                                <li>Politicas de autenticación</li>
-                                <li>Bien documentado</li>
+                                <li>Generador de APIs REST</li>
+                                <li>Open Source</li>
+                                <li>Creado por Tom Christie a finales del 2010</li>
+                                <li>Compatible con python2 y python3</li>
+                                <li>Compatible con Django &gt;= 1.3</li>
                             </ul>
                         </div>
                     </section>
@@ -67,12 +67,14 @@
                         <h2>¿Por qué?</h2>
                         <div>
                             <ul>
+                                <li>API navegable</li>
                                 <li>Facil de implementar APIs simples</li>
-                                <li>Muy modular (basado principalmente en Mixins)</li>
-                                <li>Facil de extender o personalizar</li>
+                                <li>Facil de implementar APIs RESTful</li>
                                 <li>Facil de probar</li>
+                                <li>Facil de extender o personalizar</li>
+                                <li>Muy modular (basado principalmente en Mixins)</li>
                                 <li>Muy bien documentado</li>
-                                <li>RESTful</li>
+                                <li>Amplia comunidad de usuarios</li>
                             </ul>
                         </div>
                     </section>
@@ -85,7 +87,7 @@
                             <p>Solo son necesarios 3 pasos:</p>
                             <ul>
                                 <li>Definir mi modelo</li>
-                                <li>Definir un viewset</li>
+                                <li>Definir un viewset (Recurso)</li>
                                 <li>Definir y usar un router</li>
                             </ul>
                         </div>
@@ -257,10 +259,10 @@ urlpatterns = patterns('',
                         <h2>Serializador</h2>
                         <div>
                             <pre><code>
-class MyModelSerializer(serializers.HyperlinkedModelSerializer):
+class MyModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyModel
-        fields = ('name', 'thing')
+        fields = ('id', 'name', 'thing', 'owner')
 
 class MyModelViewSet(viewsets.ModelViewSet):
     queryset = MyModel.objects.all()
@@ -360,6 +362,23 @@ class NoModelAPIView(views.APIView):
 
     def delete(self, request, format=None):
         return Response([{'hello': 'delete'}])
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Serializer with extra fields</h2>
+                        <div>
+                            <pre><code>
+class MyModelSerializer(serializers.ModelSerializer):
+    method_field = serializers.SerializerMethodField('get_method_field_data')
+    private_data = serializers.Field(source='internal_thing')
+
+    def get_method_field_data(self, obj):
+        return "This is a method generated data!"
+
+    class Meta:
+        model = MyModel
+        fields = ('id', 'name', 'thing', 'owner', 'private_data', 'method_field')
                             </code></pre>
                         </div>
                     </section>
