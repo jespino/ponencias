@@ -261,7 +261,7 @@ c_double(3.0)
 >>> charsize = ctypes.sizeof(ctypes.c_char)
 >>> x = b"yep"
 >>> ctypes.c_long.from_address(id(x) + longsize * 2)
-c_long(4)
+c_long(3)
 >>> hash(x)
 954696267706832433
 >>> ctypes.c_long.from_address(id(x) + longsize * 3)
@@ -281,6 +281,31 @@ c_char(b'\x00')
 				<section>
 					<section class="slide">
 						<h2>El objeto bytearray</h2>
+                        <ul>
+                            <li>Añade ob_exports, ob_alloc y ob_bytes al objeto variable básico</li>
+                            <li>ob_exports contaibliza los buffers apuntando a este objeto (memoryview en python3)</li>
+                            <li>ob_alloc contabiliza el numero de bytes almacenados</li>
+                            <li>ob_bytes almacena un puntero a la posición de los bytes almacenados</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto bytearray</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> charsize = ctypes.sizeof(ctypes.c_char)
+>>> x = bytearray(b"yep")
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(3)
+>>> ctypes.c_long.from_address(id(x) + longsize * 3)
+c_long(0)
+>>> ctypes.c_long.from_address(id(x) + longsize * 4)
+c_char(4)
+>>> addr = ctypes.c_void_p.from_address(id(x) + longsize * 5).value
+>>> ctypes.c_char.from_address(addr)
+c_char(b'y')
+>>> ctypes.c_char.from_address(addr + charsize)
+c_char(b'e')
+                        </code></pre>
 					</section>
 				</section>
 
@@ -292,13 +317,34 @@ c_char(b'\x00')
 
 				<section>
 					<section class="slide">
-						<h2>El objeto list</h2>
+						<h2>El objeto tuple</h2>
+                        <ul>
+                            <li>Añade ob_item al objeto variable básico</li>
+                            <li>ob_item es un array de punteros a PyObject</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto tuple</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = (True, False)
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(2)
+>>> ctypes.c_void_p.from_address(id(x) + longsize * 3)
+c_void_p(140048684311616)
+>>> ctypes.c_long.from_address(id(x) + longsize * 4)
+c_void_p(140048684311648)
+>>> id(True)
+140048684311616
+>>> id(False)
+140048684311648
+                        </code></pre>
 					</section>
 				</section>
 
 				<section>
 					<section class="slide">
-						<h2>El objeto tuple</h2>
+						<h2>El objeto list</h2>
 					</section>
 				</section>
 
