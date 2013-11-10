@@ -332,7 +332,7 @@ c_char(b'e')
 c_long(2)
 >>> ctypes.c_void_p.from_address(id(x) + longsize * 3)
 c_void_p(140048684311616)
->>> ctypes.c_long.from_address(id(x) + longsize * 4)
+>>> ctypes.c_void_p.from_address(id(x) + longsize * 4)
 c_void_p(140048684311648)
 >>> id(True)
 140048684311616
@@ -345,6 +345,30 @@ c_void_p(140048684311648)
 				<section>
 					<section class="slide">
 						<h2>El objeto list</h2>
+                        <ul>
+                            <li>Añade ob_item y allocated al objeto variable básico</li>
+                            <li>ob_item es un puntero a punteros de PyObject</li>
+                            <li>allocated memoria reservada actualmente para la lista</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto list</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = [1,2,3]
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(3)
+>>> ctypes.c_void_p.from_address(id(x) + longsize * 3)
+c_void_p(36205328)
+>>> ctypes.c_void_p.from_address(36205328)
+c_void_p(140048684735040)
+>>> id(1)
+140048684735040
+>>> ctypes.c_void_p.from_address(36205328 + longsize)
+c_void_p(140048684735072)
+>>> id(2)
+140048684735072
+                        </code></pre>
 					</section>
 				</section>
 
