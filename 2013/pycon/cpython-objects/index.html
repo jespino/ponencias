@@ -382,7 +382,11 @@ c_void_p(140048684735072)
 					<section class="slide">
 						<h2>El objeto type</h2>
                         <ul>
-                            <li>Añade tp_name, tp_basicsize y tp_itemsize al objeto variable básico</li>
+                            <li>Añade tp_name, tp_basicsize, tp_itemsize,
+                            tp_flags, tp_doc, tp_weaklistoffset, tp_dict,
+                            tp_dictoffset, tp_bases, tp_mro, tp_cache,
+                            tp_subclasses, tp_weaklist, tp_version_tag al
+                            objeto variable básico</li>
                             <li>Tras esto añade un monton de slots.</li>
                             <li>tp_name: Nombre de la clase</li>
                             <li>tp_basicsize y tp_itemsize: Para reservar memoria</li>
@@ -396,13 +400,26 @@ c_void_p(140048684735072)
 'int'
 >>> ctypes.c_char_p.from_address(id(type) + longsize * 3)
 'type'
+>>> class Prueba:
+...     pass
+...
+>>> ctypes.c_char_p.from_address(id(Prueba) + longsize * 3)
+'Prueba'
                         </code></pre>
 					</section>
 				</section>
 
 				<section>
 					<section class="slide">
-						<h2>El proceso de creación de un objeto.</h2>
+						<h2>Very Bad Things</h2>
+                        <pre><code data-trim contenteditable>
+>>> val = ctypes.c_int.from_address(id(True) + longsize * 2)
+>>> val.value = 0
+>>> val = ctypes.c_int.from_address(id(True) + longsize * 3)
+>>> val.value = 0
+>>> True == False
+True
+                        </code></pre>
 					</section>
 				</section>
 
