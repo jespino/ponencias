@@ -380,6 +380,28 @@ c_void_p(140048684735072)
 
 				<section>
 					<section class="slide">
+						<h2>El objeto type</h2>
+                        <ul>
+                            <li>Añade tp_name, tp_basicsize y tp_itemsize al objeto variable básico</li>
+                            <li>Tras esto añade un monton de slots.</li>
+                            <li>tp_name: Nombre de la clase</li>
+                            <li>tp_basicsize y tp_itemsize: Para reservar memoria</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto type</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> ctypes.c_char_p.from_address(id(int) + longsize * 3)
+'int'
+>>> ctypes.c_char_p.from_address(id(type) + longsize * 3)
+'type'
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
 						<h2>El proceso de creación de un objeto.</h2>
 					</section>
 				</section>
