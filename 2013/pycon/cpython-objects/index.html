@@ -311,12 +311,6 @@ c_char(b'e')
 
 				<section>
 					<section class="slide">
-						<h2>El objeto unicode</h2>
-					</section>
-				</section>
-
-				<section>
-					<section class="slide">
 						<h2>El objeto tuple</h2>
                         <ul>
                             <li>Añade ob_item al objeto variable básico</li>
@@ -375,6 +369,54 @@ c_void_p(140048684735072)
 				<section>
 					<section class="slide">
 						<h2>El objeto dict</h2>
+                        <ul>
+                            <li>Añade ma_used, ma_keys y ma_values al objeto básico</li>
+                            <li>ma_used es el número de items.</li>
+                            <li>ma_keys es un puntero a la estructura que almacena el diccionario.</li>
+                            <li>ma_values es un puntero a una lista de valores para slited tables y NULL para combined tables.</li>
+                        </ul>
+					</section>
+
+					<section class="slide">
+                        <h2>PyDictKeysObject</h2>
+                        <ul>
+                            <li>dk_refcnt: contador de referencias</li>
+                            <li>dk_size: Tamaño total de la tabla hash para guardar entradas</li>
+                            <li>dk_lookup: Slot para funcion de busqueda</li>
+                            <li>dk_usable: La fraccion usable del diccionario antes de un redimensionado</li>
+                            <li>dk_entries[n]: Las entradas en la tabla hash</li>
+                        </ul>
+					</section>
+
+					<section class="slide">
+                        <h2>PyDictKeyEntry</h2>
+                        <ul>
+                            <li>me_hash: Hash de la key</li>
+                            <li>me_key: Puntero al objeto key</li>
+                            <li>me_value: Puntero al objeto valor (Solo para combined tables)</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto dict</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> d = {1: 3, 7: 5}
+>>> keys = ctypes.c_void_p.from_address(id(d) + longsize * 3).value
+>>> keyentry1 = keys + longsize * 4 + longsize * hash(1) * 3
+>>> keyentry7 = keys + longsize * 4 + longsize * hash(7) * 3
+>>> key1 = ctypes.c_long.from_address(keyentry1 + longsize).value
+>>> val1 = ctypes.c_long.from_address(keyentry1 + longsize * 2).value
+>>> key7 = ctypes.c_long.from_address(keyentry7 + longsize).value
+>>> val7 = ctypes.c_long.from_address(keyentry7 + longsize * 2).value
+>>> ctypes.c_uint.from_address(key1 + longsize * 3)
+c_long(1)
+>>> ctypes.c_uint.from_address(val1 + longsize * 3)
+c_long(3)
+>>> ctypes.c_uint.from_address(key7 + longsize * 3)
+c_long(5)
+>>> ctypes.c_uint.from_address(val7 + longsize * 3)
+c_long(7)
+                        </code></pre>
 					</section>
 				</section>
 
@@ -421,6 +463,24 @@ c_void_p(140048684735072)
 True
                         </code></pre>
 					</section>
+				</section>
+
+				<section class="slide">
+					<h2>Como se almacenan los atributos</h2>
+					<ul>
+                        <li>Los de clase en tp_dict</li>
+                        <li>Los de los objetos en id(obj) + tp_dictoffset</li>
+                        <li>No todos los tipos permiten atributos de objeto</li>
+					</ul>
+				</section>
+
+				<section class="slide">
+					<h2>Como se crea un objeto</h2>
+					<ul>
+                        <li>Se llama al tp_call del tipo</li>
+                        <li>Este llama al tp_new del tipo que le devuelve un objeto inicializado en memoria</li>
+                        <li>Llama al tp_init del type del objeto creado</li>
+					</ul>
 				</section>
 
 				<section class="slide">
