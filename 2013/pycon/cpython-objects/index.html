@@ -34,7 +34,7 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section class="portada">
-					<h1>Ojbetos en CPython</h1>
+					<h1>Objetos en CPython</h1>
 					<p>
 						<small><a href="http://kaleidos.net">Kaleidos</a> / <a href="http://twitter.com/kaleidosnet">@kaleidosnet</a></small>
 					</p>
@@ -129,6 +129,7 @@ True
                             <li>Un puntero al tipo de datos</li>
                             <li>Otros datos especificos para este tipo</li>
                         </ul>
+                        <img src="img/PyObject.png" height="30%" />
 					</section>
 					<section class="slide">
 						<h2>Estructura variable básica de un objeto</h2>
@@ -138,6 +139,7 @@ True
                             <li>Un entero que define el tamaño del objeto</li>
                             <li>Otros datos especificos para este tipo</li>
                         </ul>
+                        <img src="img/PyVarObject.png" height="30%" />
 					</section>
 				</section>
 
@@ -168,6 +170,11 @@ True
                             <li>El ob_digit es un array de enteros</li>
                             <li>El valor del entero es sum(map(lambda x: 1024*1024*1024, ob_size))
                         </ul>
+                        <img src="img/Int.png" height="30%" />
+					</section>
+					<section class="slide">
+						<h2>El objeto int</h2>
+                        <img src="img/Int-Usage.png" height="60%" />
 					</section>
 					<section class="slide">
 						<h2>El objeto int</h2>
@@ -186,6 +193,36 @@ c_long(2)
 c_uint(0)
 >>> ctypes.c_uint.from_address(id(x) + longsize * 3 + intsize)
 c_uint(1)
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = 100
+>>> int_value = ctypes.c_uint.from_address(id(x) + longsize * 3)
+>>> int_value.value = 101
+>>> x
+101
+>>> 100
+101
+>>> 100 + 2
+103
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = 888
+>>> y = x
+>>> ob_refcnt = ctypes.c_long.from_address(id(x))
+>>> ob_refcnt
+c_long(2)
+>>> ob_refcnt.value = 1
+>>> del(x)
+>>> ctypes.c_long.from_address(id(y))
+[1]    22700 segmentation fault (core dumped)  python3
                         </code></pre>
 					</section>
 				</section>
@@ -212,6 +249,17 @@ c_long(1)
 c_uint(0)
                         </code></pre>
 					</section>
+					<section class="slide">
+						<h2>Very Bad Things</h2>
+                        <pre><code data-trim contenteditable>
+>>> val = ctypes.c_int.from_address(id(True) + longsize * 2)
+>>> val.value = 0
+>>> val = ctypes.c_int.from_address(id(True) + longsize * 3)
+>>> val.value = 0
+>>> True == False
+True
+                        </code></pre>
+					</section>
 				</section>
 
 				<section>
@@ -221,6 +269,8 @@ c_uint(0)
                             <li>Añade ob_fval al objeto básico</li>
                             <li>El ob_fval es un double</li>
                         </ul>
+                        <br />
+                        <img src="img/Float.png" height="30%" />
 					</section>
 					<section class="slide">
 						<h2>El objeto float</h2>
@@ -240,6 +290,7 @@ c_double(1.5)
                             <li>Añade cval al objeto básico</li>
                             <li>cval se compone de dos valores double real e imag</li>
                         </ul>
+                        <img src="img/Complex.png" height="30%" />
 					</section>
 					<section class="slide">
 						<h2>El objeto complex</h2>
@@ -457,20 +508,6 @@ c_long(7)
 ...
 >>> ctypes.c_char_p.from_address(id(Prueba) + longsize * 3)
 'Prueba'
-                        </code></pre>
-					</section>
-				</section>
-
-				<section>
-					<section class="slide">
-						<h2>Very Bad Things</h2>
-                        <pre><code data-trim contenteditable>
->>> val = ctypes.c_int.from_address(id(True) + longsize * 2)
->>> val.value = 0
->>> val = ctypes.c_int.from_address(id(True) + longsize * 3)
->>> val.value = 0
->>> True == False
-True
                         </code></pre>
 					</section>
 				</section>
