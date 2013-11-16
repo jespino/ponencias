@@ -532,16 +532,15 @@ c_long(7)
 					<ul>
                         <li>Se obtiene el tipo del objeto</li>
                         <li>Se ejecuta el slot apropiado pasandole el puntero al objeto</li>
-                        <li>Ejemplo:</p>
-                            <pre><code data-trim contenteditable>
+                        <li>Ejemplo:</li>
+					</ul>
+                    <pre><code data-trim contenteditable>
 x = 5
 x + 2
-                            </code></pre>
-                            <pre><code data-trim contenteditable>
+                    </code></pre>
+                    <pre><code data-trim contenteditable>
 x.ob_type->tp_as_number->tp_add(x, 2)
-                            </code></pre>
-                        </li>
-					</ul>
+                    </code></pre>
 				</section>
 
 				<section class="slide">
@@ -559,7 +558,18 @@ x.ob_type->tp_as_number->tp_add(x, 2)
                         <li>Se llama al tp_call del tipo</li>
                         <li>Este llama al tp_new del tipo que le devuelve un objeto inicializado en memoria</li>
                         <li>Llama al tp_init del type del objeto creado</li>
+                        <li>Ejemplo:</li>
 					</ul>
+                        <pre><code data-trim contenteditable>
+class Prueba:
+    pass
+p = Prueba()
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+Prueba.ob_type->tp_call(Prueba, [], {})
+    p = Prueba.tp_new(Prueba, [], {})
+    p.ob_type->tp_init(p, [], {})
+                        </code></pre>
 				</section>
 
 				<section class="slide">
