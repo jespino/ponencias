@@ -505,16 +505,15 @@ c_long(7)
 
 				<section>
 					<section class="slide">
-						<h2>El objeto type</h2>
+						<h2>El objeto type (no completo)</h2>
                         <ul>
-                            <li>Añade tp_name, tp_basicsize, tp_itemsize,
-                            tp_flags, tp_doc, tp_weaklistoffset, tp_dict,
-                            tp_dictoffset, tp_bases, tp_mro, tp_cache,
-                            tp_subclasses, tp_weaklist, tp_version_tag al
-                            objeto variable básico</li>
-                            <li>Tras esto añade un monton de slots.</li>
                             <li>tp_name: Nombre de la clase</li>
-                            <li>tp_basicsize y tp_itemsize: Para reservar memoria</li>
+                            <li>tp_doc: El docstring del tipo</li>
+                            <li>tp_dict: El docstring del tipo</li>
+                            <li>tp_dictoffset: El docstring del tipo</li>
+                            <li>tp_as_number: Puntero a estructura de slots</li>
+                            <li>tp_as_sequence: Puntero a estructura de slots</li>
+                            <li>tp_as_mappings: Puntero a estructura de slots</li>
                         </ul>
 					</section>
 					<section class="slide">
@@ -532,6 +531,23 @@ c_long(7)
 'Prueba'
                         </code></pre>
 					</section>
+				</section>
+
+				<section class="slide">
+					<h2>Operaciones sobre objetos</h2>
+					<ul>
+                        <li>Se obtiene el tipo del objeto</li>
+                        <li>Se ejecuta el slot apropiado pasandole el puntero al objeto</li>
+                        <li>Ejemplo:</p>
+                            <pre><code data-trim contenteditable>
+x = 5
+x + 2
+                            </code></pre>
+                            <pre><code data-trim contenteditable>
+x.ob_type->tp_as_number->tp_add(x, 2)
+                            </code></pre>
+                        </li>
+					</ul>
 				</section>
 
 				<section class="slide">
@@ -555,9 +571,12 @@ c_long(7)
 				<section class="slide">
 					<h2>Referencias</h2>
 					<ul>
-                        <li>Proyecto python: http://www.python.org.</li>
-                        <li>Documentación de python: http://docs.python.org.</li>
-                        <li>Python-ES: python-es@python.org</li>
+                        <li>Código de python: Include and Objects</li>
+                        <li>Documentación de ctypes: http://docs.python.org/3/library/ctypes.html</li>
+                        <li>Documentación de la API C de Python: http://docs.python.org/3/c-api/index.html</li>
+                        <li>PEP 412 -- Key-Sharing Dictionary</li>
+                        <li>Website de Eli Bendersky: http://eli.thegreenplace.net/</li>
+                        <li>Yaniv Aknin Tech Blog: http://tech.blog.aknin.name/</li>
 					</ul>
 				</section>
 			</div>
