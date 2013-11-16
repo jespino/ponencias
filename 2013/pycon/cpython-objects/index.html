@@ -135,24 +135,24 @@ True
 				<section>
 					<section class="slide">
 						<h2>Estructura básica de un objeto</h2>
+                        <img src="img/PyObject.png" height="30%" />
+                        <br />
                         <ul>
-                            <li>Un contador de referencias</li>
-                            <li>Un puntero al tipo de datos</li>
+                            <li>ob_refcnt: contador de referencias</li>
+                            <li>ob_type: puntero al tipo de datos</li>
                             <li>Otros datos especificos para este tipo</li>
                         </ul>
-                        <br />
-                        <img src="img/PyObject.png" height="30%" />
 					</section>
 					<section class="slide">
 						<h2>Estructura variable básica de un objeto</h2>
+                        <img src="img/PyVarObject.png" height="30%" />
+                        <br />
                         <ul>
-                            <li>Un contador de referencias</li>
-                            <li>Un puntero al tipo de datos</li>
-                            <li>Un entero que define el tamaño del objeto</li>
+                            <li>ob_refcnt: contador de referencias</li>
+                            <li>ob_type: puntero al tipo de datos</li>
+                            <li>ob_size: tamaño del objeto</li>
                             <li>Otros datos especificos para este tipo</li>
                         </ul>
-                        <br />
-                        <img src="img/PyVarObject.png" height="30%" />
 					</section>
 				</section>
 
@@ -178,13 +178,12 @@ True
 				<section>
 					<section class="slide">
 						<h2>El objeto int</h2>
+                        <img src="img/Int.png" height="30%" />
+                        <br />
                         <ul>
-                            <li>Añade ob_digit al objeto variable basico</li>
-                            <li>El ob_digit es un array de enteros</li>
+                            <li>ob_digit: array de enteros</li>
                             <li>El valor del entero es sum(map(lambda x: 1024*1024*1024, ob_size))
                         </ul>
-                        <br />
-                        <img src="img/Int.png" height="30%" />
 					</section>
 					<section class="slide">
 						<h2>El objeto int</h2>
@@ -244,6 +243,8 @@ c_long(2)
 				<section>
 					<section class="slide">
 						<h2>El objeto bool</h2>
+                        <img src="img/True-False.png" height="30%" />
+                        <br />
                         <ul>
                             <li>Realmente son 2 instancias int con un tipo especifico y valores 0 y 1</li>
                         </ul>
@@ -252,13 +253,12 @@ c_long(2)
 						<h2>El objeto bool</h2>
                         <pre><code data-trim contenteditable>
 >>> longsize = ctypes.sizeof(ctypes.c_long)
->>> intsize = ctypes.sizeof(ctypes.c_int)
 >>> ctypes.c_long.from_address(id(True) + longsize * 2)
 c_long(1)
 >>> ctypes.c_uint.from_address(id(True) + longsize * 3)
 c_uint(1)
 >>> ctypes.c_long.from_address(id(False) + longsize * 2)
-c_long(1)
+c_long(0)
 >>> ctypes.c_uint.from_address(id(False) + longsize * 3)
 c_uint(0)
                         </code></pre>
@@ -279,12 +279,11 @@ True
 				<section>
 					<section class="slide">
 						<h2>El objeto float</h2>
-                        <ul>
-                            <li>Añade ob_fval al objeto básico</li>
-                            <li>El ob_fval es un double</li>
-                        </ul>
-                        <br />
                         <img src="img/Float.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_fval: es un double</li>
+                        </ul>
 					</section>
 					<section class="slide">
 						<h2>El objeto float</h2>
@@ -300,12 +299,11 @@ c_double(1.5)
 				<section>
 					<section class="slide">
 						<h2>El objeto complex</h2>
-                        <ul>
-                            <li>Añade cval al objeto básico</li>
-                            <li>cval se compone de dos valores double real e imag</li>
-                        </ul>
-                        <br />
                         <img src="img/Complex.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>cval: dos valores double real e imag</li>
+                        </ul>
 					</section>
 					<section class="slide">
 						<h2>El objeto complex</h2>
@@ -324,13 +322,12 @@ c_double(3.0)
 				<section>
 					<section class="slide">
 						<h2>El objeto bytes</h2>
-                        <ul>
-                            <li>Añade ob_shash y ob_sval al objeto variable básico</li>
-                            <li>ob_shash almacena el hash de la cadena o -1</li>
-                            <li>ob_sval es una cadena terminada en \0 (tipo C)</li>
-                        </ul>
-                        <br />
                         <img src="img/Bytes.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_shash: hash de la cadena o -1</li>
+                            <li>ob_sval: cadena terminada en \0 (tipo C)</li>
+                        </ul>
 					</section>
 					<section class="slide">
 						<h2>El objeto bytes</h2>
@@ -363,11 +360,12 @@ c_char(b'\x00')
 				<section>
 					<section class="slide">
 						<h2>El objeto bytearray</h2>
+                        <img src="img/Bytearray.png" height="40%" />
+                        <br />
                         <ul>
-                            <li>Añade ob_exports, ob_alloc y ob_bytes al objeto variable básico</li>
-                            <li>ob_exports contaibliza los buffers apuntando a este objeto (memoryview en python3)</li>
-                            <li>ob_alloc contabiliza el numero de bytes almacenados</li>
-                            <li>ob_bytes almacena un puntero a la posición de los bytes almacenados</li>
+                            <li>ob_exports: memoryviews apuntando a este objeto</li>
+                            <li>ob_alloc: contabiliza el numero de bytes almacenados</li>
+                            <li>ob_bytes: puntero a la posición de los bytes almacenados</li>
                         </ul>
 					</section>
 					<section class="slide">
@@ -394,9 +392,10 @@ c_char(b'e')
 				<section>
 					<section class="slide">
 						<h2>El objeto tuple</h2>
+                        <img src="img/Tuple.png" height="30%" />
+                        <br />
                         <ul>
-                            <li>Añade ob_item al objeto variable básico</li>
-                            <li>ob_item es un array de punteros a PyObject</li>
+                            <li>ob_item: array de punteros a PyObject</li>
                         </ul>
 					</section>
 					<section class="slide">
@@ -421,10 +420,11 @@ c_void_p(140048684311648)
 				<section>
 					<section class="slide">
 						<h2>El objeto list</h2>
+                        <img src="img/List.png" height="40%" />
+                        <br />
                         <ul>
-                            <li>Añade ob_item y allocated al objeto variable básico</li>
-                            <li>ob_item es un puntero a punteros de PyObject</li>
-                            <li>allocated memoria reservada actualmente para la lista</li>
+                            <li>ob_item: puntero a punteros de PyObject</li>
+                            <li>allocated: memoria reservada actualmente para la lista</li>
                         </ul>
 					</section>
 					<section class="slide">
@@ -451,11 +451,12 @@ c_void_p(140048684735072)
 				<section>
 					<section class="slide">
 						<h2>El objeto dict</h2>
+                        <img src="img/Dict.png" height="30%" />
+                        <br />
                         <ul>
-                            <li>Añade ma_used, ma_keys y ma_values al objeto básico</li>
-                            <li>ma_used es el número de items.</li>
-                            <li>ma_keys es un puntero a la estructura que almacena el diccionario.</li>
-                            <li>ma_values es un puntero a una lista de valores para slited tables y NULL para combined tables.</li>
+                            <li>ma_used: número de items.</li>
+                            <li>ma_keys: puntero a la estructura que almacena el diccionario.</li>
+                            <li>ma_values: puntero a punteros de PyObject (para slited tables y NULL para combined tables).</li>
                         </ul>
 					</section>
 

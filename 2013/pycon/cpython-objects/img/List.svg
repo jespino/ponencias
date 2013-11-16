@@ -10,11 +10,14 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="192.04106"
-   height="158.13731"
+   height="191.27542"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Int.svg">
+   sodipodi:docname="Tuple.svg"
+   inkscape:export-filename="/home/jespino/Projects/GitHub/ponencias/2013/pycon/cpython-objects/img/Tuple.png"
+   inkscape:export-xdpi="75"
+   inkscape:export-ydpi="75">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,10 +28,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.8407812"
-     inkscape:cx="113.30372"
-     inkscape:cy="21.418198"
+     inkscape:cx="29.643583"
+     inkscape:cy="54.556301"
      inkscape:document-units="px"
-     inkscape:current-layer="g3859"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1366"
      inkscape:window-height="752"
@@ -57,13 +60,13 @@
      id="layer1"
      transform="translate(-152.72322,-199.37111)">
     <rect
-       style="fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:1.92080188;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:2.11260271;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2985"
-       width="190.12025"
-       height="156.21651"
-       x="153.68362"
-       y="200.33151"
-       ry="10.230856" />
+       width="189.92845"
+       height="189.16281"
+       x="153.77953"
+       y="200.42741"
+       ry="12.388559" />
     <g
        id="g3817">
       <rect
@@ -88,7 +91,7 @@
     </g>
     <g
        id="g3822"
-       transform="translate(-1.2543945,-1.5752563)">
+       transform="translate(-1.2543945,-1.103363)">
       <rect
          ry="0"
          y="255.06181"
@@ -111,7 +114,7 @@
     </g>
     <g
        id="g3827"
-       transform="translate(-1.6599731,-1.8587036)">
+       transform="translate(-1.6599731,-0.91483687)">
       <rect
          ry="0"
          y="286.5459"
@@ -134,7 +137,7 @@
     </g>
     <g
        id="g3827-3"
-       transform="translate(-1.270893,30)">
+       transform="translate(-1.270893,30.757751)">
       <g
          id="g3859"
          transform="translate(-0.38908014,0)">
@@ -156,8 +159,31 @@
              sodipodi:role="line"
              id="tspan3759-4-0-6"
              x="202.80652"
-             y="303.2095">ob_digit[]</tspan></text>
+             y="303.2095">**ob_item</tspan></text>
       </g>
+    </g>
+    <g
+       id="g3827-2"
+       transform="translate(-1.6599731,62.430342)">
+      <rect
+         ry="0"
+         y="286.5459"
+         x="177.13498"
+         height="17.915121"
+         width="19.001617"
+         id="rect2987-4-3-6"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.05055308;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3757-3-5-6"
+         y="303.2095"
+         x="202.80652"
+         style="font-size:26.90450859px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="303.2095"
+           x="202.80652"
+           id="tspan3759-4-0-66"
+           sodipodi:role="line">allocated</tspan></text>
     </g>
   </g>
 </svg>
