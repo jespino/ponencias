@@ -143,6 +143,10 @@ body {
   .reveal section {
     width: 1027px;
     height: 768px; }
+    .reveal section img {
+      border: none;
+      background: none;
+      box-shadow: none; }
     .reveal section.slide {
       background: url(../../img/slide-background.png) no-repeat; }
       .reveal section.slide h1, .reveal section.slide h2 {
