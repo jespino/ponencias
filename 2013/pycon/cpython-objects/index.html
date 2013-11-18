@@ -55,7 +55,7 @@
                         <h2>introducción</h2>
                         <ul>
                             <li>Python 3.3</li>
-                            <li>Usare ctypes para los ejemplos.</li>
+                            <li>Usaré ctypes para los ejemplos.</li>
                             <li>La estructura de un objeto en cpython.</li>
                             <li>Los objetos escritos en c de python.</li>
                             <li>El proceso de creación de un nuevo objeto</li>
@@ -65,17 +65,17 @@
 
 				<section>
                     <section class="slide">
-                        <h2>¿Que es un tipo en python?</h2>
+                        <h2>¿Qué es un tipo en python?</h2>
                         <ul>
                             <li>Un tipo es una clase</li>
                             <li>Es una estructura compuesta de datos y slots</li>
                             <li>Los slots son punteros a funciones que definen comportamientos</li>
                             <li>Los tipos son objetos de python</li>
-                            <li>Los tipos son de tipo tipo (??????)</li>
+                            <li>Los tipos son de objetos de tipo tipo</li>
                         </ul>
                     </section>
                     <section class="slide">
-                        <h2>¿Que es un tipo en python?</h2>
+                        <h2>¿Qué es un tipo en python?</h2>
                         <pre><code data-trim contenteditable>
 >>> class Prueba:
 ...   pass
@@ -91,16 +91,16 @@ True
                         </code></pre>
                     </section>
                     <section class="slide">
-                        <h2>¿Que es una instancia?</h2>
+                        <h2>¿Qué es una instancia?</h2>
                         <ul>
                             <li>Es exactamente lo mismo que un objeto.</li>
                             <li>Es una zona reservada de la memoria con datos.</li>
-                            <li>Tiene un tipo (y solo 1) que determina que puede hacer el objeto.</li>
+                            <li>Tiene un tipo (y solo 1) que determina qué puede hacer el objeto.</li>
                             <li>El tipo de un objeto no cambia a lo largo de su vida (existen excepciones).</li>
                         </ul>
                     </section>
                     <section class="slide">
-                        <h2>¿Que es una instancia?</h2>
+                        <h2>¿Qué es una instancia?</h2>
                         <pre><code data-trim contenteditable>
 >>> prueba = Prueba()
 >>> type(prueba)
@@ -240,7 +240,7 @@ c_long(2)
                         <img src="img/True-False.png" height="30%" />
                         <br />
                         <ul>
-                            <li>Realmente son 2 instancias int con un tipo especifico y valores 0 y 1</li>
+                            <li>Realmente son 2 instancias int con un tipo específico y valores 0 y 1</li>
                         </ul>
 					</section>
 					<section class="slide">
@@ -503,8 +503,8 @@ c_long(5)
                         <ul>
                             <li>tp_name: Nombre de la clase</li>
                             <li>tp_doc: El docstring del tipo</li>
-                            <li>tp_dict: El docstring del tipo</li>
-                            <li>tp_dictoffset: El docstring del tipo</li>
+                            <li>tp_dict: El diccionario de attributos del tipo</li>
+                            <li>tp_dictoffset: El offset al diccionario de atributos de los objetos</li>
                             <li>tp_as_number: Puntero a estructura de slots</li>
                             <li>tp_as_sequence: Puntero a estructura de slots</li>
                             <li>tp_as_mappings: Puntero a estructura de slots</li>
@@ -531,7 +531,7 @@ c_long(5)
 					<h2>Operaciones sobre objetos</h2>
 					<ul>
                         <li>Se obtiene el tipo del objeto</li>
-                        <li>Se ejecuta el slot apropiado pasandole el puntero al objeto</li>
+                        <li>Se ejecuta el slot apropiado pasándole el puntero al objeto</li>
                         <li>Ejemplo:</li>
 					</ul>
                     <pre><code data-trim contenteditable>
@@ -544,7 +544,7 @@ x.ob_type->tp_as_number->tp_add(x, 2)
 				</section>
 
 				<section class="slide">
-					<h2>Como se almacenan los atributos</h2>
+					<h2>¿Cómo se almacenan los atributos?</h2>
 					<ul>
                         <li>Los de clase en tp_dict</li>
                         <li>Los de los objetos en id(obj) + tp_dictoffset</li>
@@ -553,7 +553,7 @@ x.ob_type->tp_as_number->tp_add(x, 2)
 				</section>
 
 				<section class="slide">
-					<h2>Como se crea un objeto</h2>
+					<h2>¿Cómo se crea un objeto?</h2>
 					<ul>
                         <li>Se llama al tp_call del tipo</li>
                         <li>Este llama al tp_new del tipo que le devuelve un objeto inicializado en memoria</li>
