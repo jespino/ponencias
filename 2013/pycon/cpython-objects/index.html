@@ -167,6 +167,18 @@ True
                             <li>No añade ningún dato extra a la estructura básica de objeto</li>
                         </ul>
 					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> ref_cnt = ctypes.c_long.from_address(id(None))
+>>> ref_cnt.value = 0
+Fatal Python error: deallocating None
+
+Current thread 0x00007f2fb8d2a700:
+  File "<stdin>", line 1 in <module>
+[2]    10960 abort (core dumped)  python3
+                        </code></pre>
+					</section>
 				</section>
 
 				<section>
@@ -206,6 +218,19 @@ c_uint(1)
 						<h2>Very bad things</h2>
                         <pre><code data-trim contenteditable>
 >>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = 1000
+>>> int_value = ctypes.c_uint.from_address(id(x) + longsize * 3)
+>>> int_value.value = 1001
+>>> x
+1001
+>>> 1000
+1000
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
 >>> x = 100
 >>> int_value = ctypes.c_uint.from_address(id(x) + longsize * 3)
 >>> int_value.value = 101
@@ -215,21 +240,6 @@ c_uint(1)
 101
 >>> 100 + 2
 103
-                        </code></pre>
-					</section>
-					<section class="slide">
-						<h2>Very bad things</h2>
-                        <pre><code data-trim contenteditable>
->>> longsize = ctypes.sizeof(ctypes.c_long)
->>> x = 888
->>> y = x
->>> ob_refcnt = ctypes.c_long.from_address(id(x))
->>> ob_refcnt
-c_long(2)
->>> ob_refcnt.value = 1
->>> del(x)
->>> ctypes.c_long.from_address(id(y))
-[1]    22700 segmentation fault (core dumped)  python3
                         </code></pre>
 					</section>
 				</section>
