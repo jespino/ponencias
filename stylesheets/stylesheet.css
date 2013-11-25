@@ -245,3 +245,11 @@ a {
 .cf {
   zoom:1;
 }
+
+/* My Customizations */
+
+#downloads {
+    float: right;
+    position: relative;
+    bottom: 40px;
+}
