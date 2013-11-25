@@ -1,0 +1,89 @@
+/**
+ * Default theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@font-face {
+	font-family: 'League Gothic';
+	src: url('../../lib/font/league_gothic-webfont.eot');
+	src: url('../../lib/font/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../../lib/font/league_gothic-webfont.woff') format('woff'),
+		 url('../../lib/font/league_gothic-webfont.ttf') format('truetype'),
+		 url('../../lib/font/league_gothic-webfont.svg#LeagueGothicRegular') format('svg');
+
+	font-weight: normal;
+	font-style: normal;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal section img {
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+body {
+    background: white;
+}
+
+.reveal {
+    color: #333;
+
+    section {
+        height: 1024px;
+        &.slide {
+            background: url(../../img/other-background.png) no-repeat;
+        }
+
+        &.first {
+            background: url(../../img/first-background.png) no-repeat;
+            h1 {
+                color: #333;
+                text-align: left;
+                font-size: 1.5em;
+                height: 100px;
+                width: 400px;
+                margin-top: 220px;
+                margin-left: 250px;
+            }
+            p {
+                height: 15px;
+                width: 600px;
+                margin-left: 250px;
+                text-align: left;
+                &.logo {
+                    height: 130px;
+                }
+            }
+        }
+        h1, h2{
+            color: #333;
+            text-align: left;
+            font-size: 1.5em;
+            height: 100px;
+            width: 500px;
+            margin-top: 20px;
+            margin-left: 250px;
+        }
+        div {
+            text-align: left;
+            p, li {
+                margin-left: 80px;
+            }
+        }
+    }
+}

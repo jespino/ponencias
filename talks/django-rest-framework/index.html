@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Django Rest Framework</title>
+
+        <meta name="description" content="Introducción a Django Rest Framework">
+        <meta name="author" content="Jesús Espino">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/codemotion.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section class="first">
+                    <h1>Introducción a Django Rest Framework</h1>
+                    <p>
+                        <small>
+                            <a href="#">Jesús Espino</a> /
+                            <a href="http://twitter.com/jespinog">@jespinog</a> /
+                            <a href="http://github.com/jespino">http://github.com/jespino</a>
+                        </small>
+                    </p>
+                    <p class="logo"><a href="http://kaleidos.net"><img src="img/kaleidos.png" class="logo" /></a></p>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Yo y los servicios web</h2>
+                        <div>
+                            <ul>
+                                <li>SOAP</li>
+                                <li>Tastypie</li>
+                                <li>Adhoc</li>
+                                <li>Django Rest Framework</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>SOAP</h2>
+                        <img src="img/sick.gif" width="800" />
+                    </section>
+                    <section class="slide">
+                        <h2>Tastypie</h2>
+                        <img src="img/no-power.gif" width="800" />
+                    </section>
+                    <section class="slide">
+                        <h2>Adhoc</h2>
+                        <img src="img/juggler.gif" width="750" />
+                    </section>
+                    <section class="slide">
+                        <h2>Django Rest Framework</h2>
+                        <img src="img/slow-clap.gif" width="670" />
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>¿Qué es?</h2>
+                        <div>
+                            <ul>
+                                <li>Aplicación Django</li>
+                                <li>Generador de APIs REST</li>
+                                <li>Open Source</li>
+                                <li>Creado por Tom Christie a finales del 2010</li>
+                                <li>Compatible con python2 y python3</li>
+                                <li>Compatible con Django &gt;= 1.3</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>¿Por qué?</h2>
+                        <div>
+                            <ul>
+                                <li>API navegable</li>
+                                <li>Facil de implementar APIs simples</li>
+                                <li>Facil de implementar APIs RESTful</li>
+                                <li>Facil de probar</li>
+                                <li>Facil de extender o personalizar</li>
+                                <li>Muy modular (basado principalmente en Mixins)</li>
+                                <li>Muy bien documentado</li>
+                                <li>Amplia comunidad de usuarios</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>API desde mis modelos</h2>
+                        <div>
+                            <p>Solo son necesarios 3 pasos:</p>
+                            <ul>
+                                <li>Definir mi modelo</li>
+                                <li>Definir un viewset (Recurso)</li>
+                                <li>Definir y usar un router</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Definir mi modelo</h2>
+                        <div>
+                            <pre><code>
+class MyModel(models.Model):
+    name = models.CharField(max_length=100)
+    thing = models.IntegerField()
+    internal_thing = models.FloatField(null=True, blank=True)
+    owner = models.ForeignKey(User)
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Definir un viewset</h2>
+                        <div>
+                            <pre><code>
+class MyModelViewSet(viewsets.ModelViewSet):
+    model = MyModel
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Definir y usar un router</h2>
+                        <div>
+                            <pre><code>
+router = DefaultRouter()
+router.register('my-model', MyModelViewSet)
+
+urlpatterns = patterns('',
+    url(r'^api/v1/', include(router.urls)),
+    ...
+)
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Hi Five!</h2>
+                        <img src="img/auto-hi-five.gif" width="500" />
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Principales componentes</h2>
+                        <div>
+                            <ul>
+                                <li>APIViews</li>
+                                <li>ViewSet</li>
+                                <li>Routers</li>
+                                <li>Parsers</li>
+                                <li>Renderers</li>
+                                <li>Serializers</li>
+                                <li>Autentications</li>
+                                <li>Permissions</li>
+                                <li>Filters</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>ApiViews</h2>
+                        <div>
+                            <ul>
+                                <li>Class Views.</li>
+                                <li>Extiende el HTTPRequest.</li>
+                                <li>Extiende el HTTPResponse.</li>
+                                <li>Captura las excepciones APIException.</li>
+                                <li>Procesa la autenticación, permisos y demas de las peticiones.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>ViewSets</h2>
+                        <div>
+                            <ul>
+                                <li>APIViews.</li>
+                                <li>Permite definir todas las acciones de un recurso en una sola vista.</li>
+                                <li>Utiliza el Router para definir sus urls.</li>
+                                <li>Permite definir acciones extra en la API de manera sencilla.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Routers</h2>
+                        <div>
+                            <ul>
+                                <li>Permite definir las urls de uno o varios ViewSets.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Parsers</h2>
+                        <div>
+                            <ul>
+                                <li>Define como convertir los datos enviados por el usuario a tipos basicos de python.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Renderers</h2>
+                        <div>
+                            <ul>
+                                <li>Define como convertir los tipos basicos de python a datos para el usuario.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Serializers</h2>
+                        <div>
+                            <ul>
+                                <li>Define como convertir datos internos de la aplicacion a los tipos basicos de python (y viceversa).</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Authentications</h2>
+                        <div>
+                            <ul>
+                                <li>Define como saber si una petición esta autenticada.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Permissions</h2>
+                        <div>
+                            <ul>
+                                <li>Define como saber si una petición esta autorizada.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>Filters</h2>
+                        <div>
+                            <ul>
+                                <li>Filtra los contenidos de un ModelViewSet o un ModelAPIView.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="slide">
+                        <h2>What?</h2>
+                        <img src="img/what.gif" width="800" />
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Petición a una APIView</h2>
+                        <div>
+                            <img src="img/apiview-request.png" />
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Petición a un ViewSet</h2>
+                        <div>
+                            <img src="img/viewset-request.png" />
+                        </div>
+                    </section>
+                </section>
+
+                <section>
+                    <section class="slide">
+                        <h2>Mejorando mi API</h2>
+                    </section>
+                    <section class="slide">
+                        <h2>Serializador</h2>
+                        <div>
+                            <pre><code>
+class MyModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyModel
+        fields = ('id', 'name', 'thing', 'owner')
+
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+                            </code></pre>
+                            <p>O puedes definirlo globalmente en DEFAULT_MODEL_SERIALIZER_CLASS.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Autenticación y permisos</h2>
+                        <div>
+                            <pre><code>
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+                            </code></pre>
+                            <p>O puedes definirlos globalmente en DEFAULT_PERMISSION_CLASSES y DEFAULT_AUTHENTICATION_CLASSES.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Paginación</h2>
+                        <div>
+                            <pre><code>
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
+                            </code></pre>
+                            <p>O puedes definirlo globalmente en PAGINATE_BY, PAGINATE_BY_PARAM y MAX_PAGINATE_BY.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Filtros</h2>
+                        <div>
+                            <pre><code>
+class IsOwnerFilterBackend(filters.BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(owner=request.user)
+
+class MyModelViewSet(viewsets.ModelViewSet):
+    queryset = MyModel.objects.all()
+    serializer_class = MyModelSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    filter_backends = (IsOwnerFilterBackend, filters.OrderingFilter,)
+    paginate_by = 10
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
+                            </code></pre>
+                            <p>O puedes definirlo globalmente en DEFAULT_FILTER_BACKENDS.</p>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>ViewSet sin modelo</h2>
+                        <div>
+                            <pre><code>
+class NoModelViewSet(viewsets.ViewSet):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    def list(self, request):
+        return Response([{'hello': 'list'}])
+    def retrieve(self, request, pk=None):
+        return Response({'hello': pk})
+    def create(self, request):
+        return Response({'hello': 'create', 'data': request.DATA})
+    def update(self, request, pk=None):
+        return Response({'hello': pk, 'data': request.DATA})
+    def partial_update(self, request, pk=None):
+        return Response({'hello': pk, 'data': request.DATA})
+    def destroy(self, request, pk=None):
+        return Response({'hello': pk})
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>APIViews sin modelo</h2>
+                        <div>
+                            <pre><code>
+class NoModelAPIView(views.APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        return Response([{'hello': 'get'}])
+
+    def post(self, request, format=None):
+        return Response([{'hello': 'post'}])
+
+    def put(self, request, format=None):
+        return Response([{'hello': 'put'}])
+
+    def delete(self, request, format=None):
+        return Response([{'hello': 'delete'}])
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2>Serializer with extra fields</h2>
+                        <div>
+                            <pre><code>
+class MyModelSerializer(serializers.ModelSerializer):
+    method_field = serializers.SerializerMethodField('get_method_field_data')
+    private_data = serializers.Field(source='internal_thing')
+
+    def get_method_field_data(self, obj):
+        return "This is a method generated data!"
+
+    class Meta:
+        model = MyModel
+        fields = ('id', 'name', 'thing', 'owner', 'private_data', 'method_field')
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section class="slide">
+                        <h2></h2>
+                        <img src="img/slow-clap2.gif" width="670" />
+                    </section>
+                </section>
+
+
+                <section class="slide">
+                    <h2>Dudas...</h2>
+                    <img src="img/doubt.gif" width="670" />
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

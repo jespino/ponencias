@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Objetos en CPython</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/kaleidos.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="portada">
+					<h1>Objetos en CPython</h1>
+                    <p class="logo"><a href="http://kaleidos.net"><img src="img/kaleidos.png" class="logo" /></a></p>
+					<p>
+						<small>
+                            <a href="http://kaleidos.net">Kaleidos</a> / <a href="http://twitter.com/kaleidosnet">@kaleidosnet</a><br />
+                            <a href="http://github.com/kaleidos">http://github.com/kaleidos</a>
+                        </small>
+					</p>
+					<p>
+						<small>
+                            Jesús Espino García / <a href="http://twitter.com/jespinog">@jespinog</a><br />
+                            <a href="http://github.com/jespino">http://github.com/jespino</a>
+                        </small>
+					</p>
+				</section>
+
+				<section>
+                    <section class="slide">
+                        <h2>introducción</h2>
+                        <ul>
+                            <li>Python 3.3</li>
+                            <li>Usaré ctypes para los ejemplos.</li>
+                            <li>La estructura de un objeto en cpython.</li>
+                            <li>Los objetos escritos en c de python.</li>
+                            <li>El proceso de creación de un nuevo objeto</li>
+                        </ul>
+                    </section>
+                </section>
+
+				<section>
+                    <section class="slide">
+                        <h2>¿Qué es un tipo en python?</h2>
+                        <ul>
+                            <li>Un tipo es una clase</li>
+                            <li>Es una estructura compuesta de datos y slots</li>
+                            <li>Los slots son punteros a funciones que definen comportamientos</li>
+                            <li>Los tipos son objetos de python</li>
+                            <li>Los tipos son de objetos de tipo tipo</li>
+                        </ul>
+                    </section>
+                    <section class="slide">
+                        <h2>¿Qué es un tipo en python?</h2>
+                        <pre><code data-trim contenteditable>
+>>> class Prueba:
+...   pass
+... 
+>>> type(Prueba)
+&lt;class 'type'>
+>>> isinstance(Prueba, object)
+True
+>>> isinstance(type, object)
+True
+>>> type(type)
+&lt;class 'type'>
+                        </code></pre>
+                    </section>
+                    <section class="slide">
+                        <h2>¿Qué es una instancia?</h2>
+                        <ul>
+                            <li>Es exactamente lo mismo que un objeto.</li>
+                            <li>Es una zona reservada de la memoria con datos.</li>
+                            <li>Tiene un tipo (y solo 1) que determina qué puede hacer el objeto.</li>
+                            <li>El tipo de un objeto no cambia a lo largo de su vida (existen excepciones).</li>
+                        </ul>
+                    </section>
+                    <section class="slide">
+                        <h2>¿Qué es una instancia?</h2>
+                        <pre><code data-trim contenteditable>
+>>> prueba = Prueba()
+>>> type(prueba)
+&lt;class '__main__.Prueba'>
+>>> prueba
+&lt;__main__.Prueba object at 0x7f3555af9bd0>
+>>> Prueba
+&lt;class '__main__.Prueba'>
+>>> id(prueba)
+139867047566288
+>>> hex(id(prueba))
+'0x7f3555af9bd0'
+                        </code></pre>
+                    </section>
+                </section>
+
+				<section>
+					<section class="slide">
+						<h2>Diagrama de herencia</h2>
+                        <img src="img/Object-Type-Relation.png" height="25%"/>
+					</section>
+					<section class="slide">
+						<h2>Diagrama de herencia</h2>
+                        <img src="img/MyClass-BuiltinClass-Relation.png" height="50%"/>
+					</section>
+					<section class="slide">
+						<h2>Diagrama de herencia</h2>
+                        <img src="img/Metaclass-Relation.png" height="50%"/>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>Estructura básica de un objeto</h2>
+                        <img src="img/PyObject.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_refcnt: contador de referencias</li>
+                            <li>ob_type: puntero al tipo de datos</li>
+                            <li>Otros datos específicos para este tipo</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>Estructura variable básica de un objeto</h2>
+                        <img src="img/PyVarObject.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_refcnt: contador de referencias</li>
+                            <li>ob_type: puntero al tipo de datos</li>
+                            <li>ob_size: tamaño del objeto</li>
+                            <li>Otros datos específicos para este tipo</li>
+                        </ul>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto None</h2>
+                        <img src="img/None.png" height="15%" />
+                        <br />
+                        <ul>
+                            <li>Es el tipo más simple</li>
+                            <li>Su instancia es singleton</li>
+                            <li>No añade ningún dato extra a la estructura básica de objeto</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> ref_cnt = ctypes.c_long.from_address(id(None))
+>>> ref_cnt.value = 0
+Fatal Python error: deallocating None
+
+Current thread 0x00007f2fb8d2a700:
+  File "<stdin>", line 1 in <module>
+[2]    10960 abort (core dumped)  python3
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto int</h2>
+                        <img src="img/Int.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_digit: array de enteros</li>
+                            <li>El valor del entero es sum(map(lambda x: 1024*1024*1024, ob_size))
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto int</h2>
+                        <img src="img/Int-Usage.png" height="60%" />
+					</section>
+					<section class="slide">
+						<h2>El objeto int</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> intsize = ctypes.sizeof(ctypes.c_int)
+>>> x = 100
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(1)
+>>> ctypes.c_uint.from_address(id(x) + longsize * 3)
+c_uint(100)
+>>> x = 1024 * 1024 * 1024
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(2)
+>>> ctypes.c_uint.from_address(id(x) + longsize * 3)
+c_uint(0)
+>>> ctypes.c_uint.from_address(id(x) + longsize * 3 + intsize)
+c_uint(1)
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = 1000
+>>> int_value = ctypes.c_uint.from_address(id(x) + longsize * 3)
+>>> int_value.value = 1001
+>>> x
+1001
+>>> 1000
+1000
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = 100
+>>> int_value = ctypes.c_uint.from_address(id(x) + longsize * 3)
+>>> int_value.value = 101
+>>> x
+101
+>>> 100
+101
+>>> 100 + 2
+103
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto bool</h2>
+                        <img src="img/True-False.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>Realmente son 2 instancias int con un tipo específico y valores 0 y 1</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto bool</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> ctypes.c_long.from_address(id(True) + longsize * 2)
+c_long(1)
+>>> ctypes.c_uint.from_address(id(True) + longsize * 3)
+c_uint(1)
+>>> ctypes.c_long.from_address(id(False) + longsize * 2)
+c_long(0)
+>>> ctypes.c_uint.from_address(id(False) + longsize * 3)
+c_uint(0)
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very Bad Things</h2>
+                        <pre><code data-trim contenteditable>
+>>> val = ctypes.c_int.from_address(id(True) + longsize * 2)
+>>> val.value = 0
+>>> val = ctypes.c_int.from_address(id(True) + longsize * 3)
+>>> val.value = 0
+>>> True == False
+True
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto float</h2>
+                        <img src="img/Float.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_fval: es un double</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto float</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = 1.5
+>>> ctypes.c_double.from_address(id(x) + longsize * 2)
+c_double(1.5)
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto complex</h2>
+                        <img src="img/Complex.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>cval: dos valores double real e imag</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto complex</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> doublesize = ctypes.sizeof(ctypes.c_double)
+>>> x = 1 + 3j
+>>> ctypes.c_double.from_address(id(x) + longsize * 2)
+c_double(1.0)
+>>> ctypes.c_double.from_address(id(x) + longsize * 2 + doublesize)
+c_double(3.0)
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto bytes</h2>
+                        <img src="img/Bytes.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_shash: hash de la cadena o -1</li>
+                            <li>ob_sval: cadena terminada en \0 (tipo C)</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto bytes</h2>
+                        <img src="img/Bytes-Usage.png" height="60%" />
+					</section>
+					<section class="slide">
+						<h2>El objeto bytes</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> charsize = ctypes.sizeof(ctypes.c_char)
+>>> x = b"yep"
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(3)
+>>> hash(x)
+954696267706832433
+>>> ctypes.c_long.from_address(id(x) + longsize * 3)
+c_long(954696267706832433)
+>>> ctypes.c_char.from_address(id(x) + longsize * 4)
+c_char(b'y')
+>>> ctypes.c_char.from_address(id(x) + longsize * 4 + charsize)
+c_char(b'e')
+>>> ctypes.c_char.from_address(id(x) + longsize * 4 + charsize * 2)
+c_char(b'p')
+>>> ctypes.c_char.from_address(id(x) + longsize * 4 + charsize * 3)
+c_char(b'\x00')
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto bytearray</h2>
+                        <img src="img/Bytearray.png" height="40%" />
+                        <br />
+                        <ul>
+                            <li>ob_exports: memoryviews apuntando a este objeto</li>
+                            <li>ob_alloc: contabiliza el número de bytes almacenados</li>
+                            <li>ob_bytes: puntero a la posición de los bytes almacenados</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto bytearray</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> charsize = ctypes.sizeof(ctypes.c_char)
+>>> x = bytearray(b"yep")
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(3)
+>>> ctypes.c_long.from_address(id(x) + longsize * 3)
+c_long(0)
+>>> ctypes.c_long.from_address(id(x) + longsize * 4)
+c_char(4)
+>>> addr = ctypes.c_void_p.from_address(id(x) + longsize * 5).value
+>>> ctypes.c_char.from_address(addr)
+c_char(b'y')
+>>> ctypes.c_char.from_address(addr + charsize)
+c_char(b'e')
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto tuple</h2>
+                        <img src="img/Tuple.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ob_item: array de punteros a PyObject</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto tuple</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = (True, False)
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(2)
+>>> ctypes.c_void_p.from_address(id(x) + longsize * 3)
+c_void_p(140048684311616)
+>>> ctypes.c_void_p.from_address(id(x) + longsize * 4)
+c_void_p(140048684311648)
+>>> id(True)
+140048684311616
+>>> id(False)
+140048684311648
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = (1, 2, 3)
+>>> tuple_size = ctypes.c_long.from_address(id(x) + longsize * 2)
+>>> tuple_size.value = 2
+>>> x
+(1, 2)
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto list</h2>
+                        <img src="img/List.png" height="40%" />
+                        <br />
+                        <ul>
+                            <li>ob_item: puntero a punteros de PyObject</li>
+                            <li>allocated: memoria reservada actualmente para la lista</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto list</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = [1,2,3]
+>>> ctypes.c_long.from_address(id(x) + longsize * 2)
+c_long(3)
+>>> ctypes.c_void_p.from_address(id(x) + longsize * 3)
+c_void_p(36205328)
+>>> ctypes.c_void_p.from_address(36205328)
+c_void_p(140048684735040)
+>>> id(1)
+140048684735040
+>>> ctypes.c_void_p.from_address(36205328 + longsize)
+c_void_p(140048684735072)
+>>> id(2)
+140048684735072
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> x = [1,2,3,4,5,6,7,8,9,10]
+>>> y = [10,9,8,7]
+>>> datos_y = ctypes.c_long.from_address(id(y) + longsize * 3)
+>>> datos_x = ctypes.c_long.from_address(id(x) + longsize * 3)
+>>> datos_y.value = datos_x.value
+>>> y
+[1, 2, 3, 4]
+>>> x[0] = 7
+>>> y
+[7, 2, 3, 4]
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto dict</h2>
+                        <img src="img/Dict.png" height="30%" />
+                        <br />
+                        <ul>
+                            <li>ma_used: número de items.</li>
+                            <li>ma_keys: puntero a la estructura que almacena el diccionario.</li>
+                            <li>ma_values: puntero a punteros de PyObject (para slited tables y NULL para combined tables).</li>
+                        </ul>
+					</section>
+
+					<section class="slide">
+                        <h2>PyDictKeysObject</h2>
+                        <ul>
+                            <li>dk_refcnt: contador de referencias</li>
+                            <li>dk_size: Tamaño total de la tabla hash para guardar entradas</li>
+                            <li>dk_lookup: Slot para función de búsqueda</li>
+                            <li>dk_usable: La fracción usable del diccionario antes de un redimensionado</li>
+                            <li>dk_entries[n]: Las entradas en la tabla hash</li>
+                        </ul>
+					</section>
+
+					<section class="slide">
+                        <h2>PyDictKeyEntry</h2>
+                        <ul>
+                            <li>me_hash: Hash de la key</li>
+                            <li>me_key: Puntero al objeto key</li>
+                            <li>me_value: Puntero al objeto valor (Solo para combined tables)</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto dict</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> d = {1: 3, 7: 5}
+>>> keys = ctypes.c_void_p.from_address(id(d) + longsize * 3).value
+>>> keyentry1 = keys + longsize * 4 + longsize * hash(1) * 3
+>>> keyentry7 = keys + longsize * 4 + longsize * hash(7) * 3
+>>> key1 = ctypes.c_long.from_address(keyentry1 + longsize).value
+>>> val1 = ctypes.c_long.from_address(keyentry1 + longsize * 2).value
+>>> key7 = ctypes.c_long.from_address(keyentry7 + longsize).value
+>>> val7 = ctypes.c_long.from_address(keyentry7 + longsize * 2).value
+>>> ctypes.c_uint.from_address(key1 + longsize * 3)
+c_long(1)
+>>> ctypes.c_uint.from_address(val1 + longsize * 3)
+c_long(3)
+>>> ctypes.c_uint.from_address(key7 + longsize * 3)
+c_long(7)
+>>> ctypes.c_uint.from_address(val7 + longsize * 3)
+c_long(5)
+                        </code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section class="slide">
+						<h2>El objeto type (no completo)</h2>
+                        <ul>
+                            <li>tp_name: Nombre de la clase</li>
+                            <li>tp_doc: El docstring del tipo</li>
+                            <li>tp_dict: El diccionario de attributos del tipo</li>
+                            <li>tp_dictoffset: El offset al diccionario de atributos de los objetos</li>
+                            <li>tp_as_number: Puntero a estructura de slots</li>
+                            <li>tp_as_sequence: Puntero a estructura de slots</li>
+                            <li>tp_as_mappings: Puntero a estructura de slots</li>
+                        </ul>
+					</section>
+					<section class="slide">
+						<h2>El objeto type</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> ctypes.c_char_p.from_address(id(int) + longsize * 3)
+'int'
+>>> ctypes.c_char_p.from_address(id(type) + longsize * 3)
+'type'
+>>> class Prueba:
+...     pass
+...
+>>> ctypes.c_char_p.from_address(id(Prueba) + longsize * 3)
+'Prueba'
+                        </code></pre>
+					</section>
+					<section class="slide">
+						<h2>Very bad things</h2>
+                        <pre><code data-trim contenteditable>
+>>> longsize = ctypes.sizeof(ctypes.c_long)
+>>> class LifeInt(int):
+...   def __repr__(self):
+...     return "42"
+...
+>>> for x in range(-5, 258):
+...   type_addr = ctypes.c_long.from_address(id(x) + sizeof(c_long))
+...   type_addr.value = id(LifeInt)
+>>> 5 + 5
+42
+                        </code></pre>
+					</section>
+				</section>
+
+				<section class="slide">
+					<h2>Operaciones sobre objetos</h2>
+					<ul>
+                        <li>Se obtiene el tipo del objeto</li>
+                        <li>Se ejecuta el slot apropiado pasándole el puntero al objeto</li>
+                        <li>Ejemplo:</li>
+					</ul>
+                    <pre><code data-trim contenteditable>
+x = 5
+x + 2
+                    </code></pre>
+                    <pre><code data-trim contenteditable>
+x.ob_type->tp_as_number->tp_add(x, 2)
+                    </code></pre>
+				</section>
+
+				<section class="slide">
+					<h2>¿Cómo se almacenan los atributos?</h2>
+					<ul>
+                        <li>Los de clase en tp_dict</li>
+                        <li>Los de los objetos en id(obj) + tp_dictoffset</li>
+                        <li>No todos los tipos permiten atributos de objeto</li>
+					</ul>
+				</section>
+
+				<section class="slide">
+					<h2>¿Cómo se crea un objeto?</h2>
+					<ul>
+                        <li>Se llama al tp_call del tipo</li>
+                        <li>Este llama al tp_new del tipo que le devuelve un objeto inicializado en memoria</li>
+                        <li>Llama al tp_init del type del objeto creado</li>
+                        <li>Ejemplo:</li>
+					</ul>
+                        <pre><code data-trim contenteditable>
+class Prueba:
+    pass
+p = Prueba()
+                        </code></pre>
+                        <pre><code data-trim contenteditable>
+Prueba.ob_type->tp_call(Prueba, [], {})
+    p = Prueba.tp_new(Prueba, [], {})
+    p.ob_type->tp_init(p, [], {})
+                        </code></pre>
+				</section>
+
+				<section class="slide">
+					<h2>Referencias</h2>
+					<ul>
+                        <li>Código de python: Include and Objects</li>
+                        <li>Documentación de ctypes: http://docs.python.org/3/library/ctypes.html</li>
+                        <li>Documentación de la API C de Python: http://docs.python.org/3/c-api/index.html</li>
+                        <li>PEP 412 -- Key-Sharing Dictionary</li>
+                        <li>Website de Eli Bendersky: http://eli.thegreenplace.net/</li>
+                        <li>Yaniv Aknin Tech Blog: http://tech.blog.aknin.name/</li>
+					</ul>
+				</section>
+
+				<section class="slide">
+					<h2>Dudas</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
