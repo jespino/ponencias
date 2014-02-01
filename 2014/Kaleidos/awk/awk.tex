@@ -1,0 +1,244 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+
+% Definiciones para usar luego
+\newtheorem{ejemplo}{Ejemplo}
+\newtheorem{definicion}{Definición}
+
+\title{Introduccion a AWK}
+\author{Jesús Espino García}
+\date{10 de Octubre de 2008}
+\subject{Introducción a AWK}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos}}
+
+\begin{document}
+
+  \frame{\maketitle}
+  
+  \section{Introducción}
+
+  \begin{frame}{Un poco de historia}
+    \begin{block}{Historia}
+      \begin{itemize}
+        \item Desarrollado por Alfred V. Aho, Peter J. Weinberger y Brian W. Kernighan
+        \item Version original escrita en los laboratorios de AT\&T en 1977.
+        \item En 1985 aparece una nueva version con muchas nuevas caracteristicas.
+        \item En 1986 aparece la implementacion gnu de AWK, GAWK.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}{¿Qué es AWK?}
+    \begin{definicion}[AWK]
+      AWK es equivalente a una navaja del ejercito suizo, que es útil para
+      modificar archivos, buscar y transformar bases de datos, generar informes
+      simples y otras muchas cosas.
+    \end{definicion}
+  \end{frame}
+
+  \section{La entrada}
+
+  \begin{frame}[containsverbatim]{Gestión de la entrada}
+    \begin{block}{Tratamiento de la entrada}
+      \begin{itemize}
+        \item Cada fichero se divide en registros. Normalmente una registro por linea.
+        \item Cada registro se divide en campos. Normalmente un campo por palabra.
+        \item Los ficheros se procesan registro a registro.
+        \item Para cada registro se generan las variables \verb+$0+ para todo el
+              registro y \verb+$1+, \verb+$2+, \verb+$3+\dots para cada campos.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \section{El proceso}
+
+  \begin{frame}[containsverbatim]{Reglas en AWK}
+    \begin{itemize}
+      \item En AWK el código se compone de reglas, divididas en:
+	    \begin{block}{Patron}
+		Un patron que se ajuste al registro. Ej: \verb+/hola/+.
+	    \end{block}
+	    \begin{block}{Accion}
+		Un codigo a ejecutar. Ej: \verb+{print 'hola'}+.
+	    \end{block}
+      \item Si el patron es verdadero, se ejecuta la accion.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Patrones}
+    \begin{block}{Patrones existentes}
+      \begin{itemize}
+        \item \verb+/expresion regular/+: Ejecuta la accion si el texto de
+              entrada concuerda con la expresion regular. Ej: \verb+/^192.168/{print $0}+.
+        \item \verb+expresion+: Ejecuta la acción si la expresión es verdadera.
+              Ej: \verb+$1 == 192.168.0.1{print $0}+.
+        \item \verb+pat1,pat2+: Ejecuta la acción para todas las cadenas entre la
+              cadena que coincida con el primer patron y la que siguiente que coincida con el
+              segundo patron. Ej: \verb+/^a/,/^b/{print $0}+.
+        \item \verb+BEGIN+: Se ejecuta la acción antes de procesar ninguna
+              entrada. Ej: \verb+BEGIN{print 'Principio de programa'}+.
+        \item \verb+END+: Se ejecuta la acción después de haber procesado toda la
+              entrada. Ej: \verb+END{print 'Fin de programa'}+.
+        \item \verb+null+: Ejecuta siempre la acción. Ej: \verb+{print $0}+
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Comparadores}
+    \begin{block}{Comparadores}
+      \begin{itemize}
+        \item \verb+x > y+: Si x es mayor que y.
+        \item \verb+x >= y+: Si x es mayor o igual que y.
+        \item \verb+x < y+: Si x es menor que y.
+        \item \verb+x <= y+: Si x es menor o igual que y.
+        \item \verb+x == y+: Si x es igual a y.
+        \item \verb+x != y+: Si x es diferente de y.
+        \item \verb+x ~ y+: Si x encaja en la expresión regular y.
+        \item \verb+x !~ y+: Si x no encaja en la expresión regular y.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Operadores}
+    \begin{block}{Operadores}
+    \begin{itemize}
+      \item \verb-x + y-: Suma.
+      \item \verb+x - y+: Resta.
+      \item \verb+- x+: Negación.
+      \item \verb+x * y+: Multiplicación.
+      \item \verb+x / y+: División.
+      \item \verb+x % y+: Resto.
+      \item \verb+x ^ y+: Potencia.
+      \item \verb+x ** y+: Potencia.
+      \item \verb+x = y+: Asignacion.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Sentencias de control}
+    \begin{block}{Sentencias de control}
+    \begin{itemize}
+      \item \verb+if+: Bifurcacion if.
+      \item \verb+while+: Bucle while.
+      \item \verb+for+: Bucle for.
+      \item \verb+break+: Sale del bucle actual.
+      \item \verb+continue+: Salta al proximo ciclo del bucle.
+      \item \verb+next+: Hace que pase a la siguiente cadena sin tener en cuenta el resto de las reglas.
+      \item \verb+exit+: Hace que termine la ejecucion.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Variables predefinidas para el sistema}
+    \begin{block}{Variables predefinidas para el sistema}
+    \begin{itemize}
+      \item \verb+IGNORECASE+: Sensibilidad a mayúsculas.
+      \item \verb+FS+: Separador de campos.
+      \item \verb+RS+: Separador de registros.
+      \item \verb+OFS+: Separador de campos a la salida.
+      \item \verb+ORS+: Separador de registros a la salida.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Variables predefinidas para el usuario}
+    \begin{block}{Variables predefinidas para el usuario}
+    \begin{itemize}
+      \item \verb+ARGC+: Numero de argumentos pasados.
+      \item \verb+ARGV+: Argumentos pasados.
+      \item \verb+ENVIRON+: Array con las variables de entorno.
+      \item \verb+FILENAME+: El fichero que esta leyendo awk actualmente.
+      \item \verb+FNR+: Numero del registro actual.
+      \item \verb+NF+: Numero de campos del registro actual.
+      \item \verb+NR+: Numero de registros procesados hasta el momento.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Acciones}
+    \begin{block}{Acciones}
+    \begin{itemize}
+      \item Cada acción es un código de lo que debe hacer.
+      \item Una de las principales funciones y mas usadas es \verb+print+.
+      \item Existen muchas otras funciones predefinidas, podemos encontrar algunas en \verb+man awk+.
+      \item Se pueden definir funciones propias.
+    \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \section{Ejemplos}
+
+  \begin{frame}[containsverbatim]{Ejemplos simples}
+    \begin{ejemplo}[Codigos de una linea]
+    \begin{itemize}
+      \item \verb+{print $0}+ == \verb+cat+.
+      \item \verb+/cadena/{print $0}+ == \verb+grep cadena+.
+      \item \verb+(NR%2)==0{print $0}+: Imprime las lineas impares.
+      \item \verb+BEGIN{FS=','}+: Establece que el separador de campo es ",".
+      \item \verb+END{print 'Programa terminado'}+: Muestra un fin de programa al final
+    \end{itemize}
+    \end{ejemplo}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Ejemplo complejo I}
+    \begin{ejemplo}[Analisis de logs de apache]
+    \begin{verbatim}
+BEGIN{r200=0; r301=0; r304=0; r404=0;}
+$9==200{r200++; next;}
+$9==301{r301++; next;}
+$9==304{r304++; next;}
+$9==404{r404++; next;}
+END{print "OK: " r200;
+    print "Moved Permanently: " r301;
+    print "Not Modified: " r304;
+    print "Not Found: " r404;
+    print "Others: " NR-r200-r301-r304-r404;
+    print "Total: " NR}
+    \end{verbatim}
+    \end{ejemplo}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Ejemplo complejo II}
+    \begin{ejemplo}[Analisis de diccionario]
+Ver el ejemplo dict.awk en la carpeta ejemplos.
+    \end{ejemplo}
+  \end{frame}
+  
+  \section{Para terminar.}
+
+  \begin{frame}[containsverbatim]{Referencias}
+    \begin{itemize}
+      \item \verb+man awk+: Pagina del manual.
+      \item http://www.gnu.org/software/gawk/manual/: Manual de AWK de GNU.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Dudas}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{kaleidos}
+    \end{center}
+  \end{frame}
+
+\end{document}
