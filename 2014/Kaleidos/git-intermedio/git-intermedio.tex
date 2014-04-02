@@ -1,0 +1,90 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\mode<presentation>
+\usetheme{Madrid}
+%\usecolortheme[RGB={111,73,135}]{structure}
+\usecolortheme[RGB={128,0,0}]{structure}
+%\usecolortheme[RGB={0,96,0}]{structure}
+%\usecolortheme[RGB={200,0,200}]{structure}
+%\usecolortheme[RGB={0,128,0}]{structure}
+%\usecolortheme[RGB={0,0,128}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+
+% Definiciones para usar luego
+\newtheorem{ejemplo}{Ejemplo}
+\newtheorem{definicion}{Definición}
+
+\title{Git intermedio: Más allá del commit}
+\author{Jesús Espino García}
+\date{4 de Abril de 2014}
+\subject{Git intermedio}
+
+\institute[Kaleidos]{\includegraphics[height=1.5cm]{kaleidos}}
+
+\begin{document}
+
+  \frame{\maketitle}
+  
+  \section{Introducción}
+
+  \begin{frame}{¿Por qué?}
+    \begin{itemize}
+      \item Es una herramienta importante.
+      \item La usamos a diario.
+      \item Es tambien una base de conocimiento.
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{¿Qué supongo que ya sabeis?}
+    \begin{itemize}
+      \item Add/Commit
+      \item Merge
+      \item Fetch/Pull/Push
+      \item Ramas
+      \item Logs
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Qué vamos a ver?}
+    \begin{itemize}
+      \item Index
+      \item Reflog
+      \item Commit/Add patch
+      \item Commit/Range selectors
+      \item Bisect
+      \item Cherry-picking
+      \item Rebases
+      \item Submodules
+    \end{itemize}
+  \end{frame}
+
+  \section{Index}
+  \section{Reflog}
+  \section{Commit/Add patch}
+  \section{Commit/Range selectors}
+  \section{Bisect}
+  \section{Cherry-picking}
+  \section{Rebases}
+  \section{Submodules}
+
+  \section{Para terminar.}
+
+  \begin{frame}{Dudas}
+    \dots
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\begin{center}Fin\end{center}}
+    \begin{center}
+      \includegraphics[height=3cm]{kaleidos}
+    \end{center}
+  \end{frame}
+
+\end{document}

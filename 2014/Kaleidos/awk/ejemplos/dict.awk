@@ -29,7 +29,7 @@ function inttochar (value) {
      return ret
 }
 
-BEGIN { for (x = 1; x <= 27; x++) {arr1[x]=0; arr2[x]=0; arr3[x] }; mayorde27=0; totallongitud=0 }
+BEGIN { for (x = 1; x <= 27; x++) {arr1[x]=0; arr2[x]=0; arr3[x]=0; }; mayorde27=0; totallongitud=0 }
 /^a/{arr1[1]++};/^b/{arr1[2]++};/^c/{arr1[3]++};/^d/{arr1[4]++}
 /^d/{arr1[5]++};/^e/{arr1[6]++};/^f/{arr1[7]++};/^g/{arr1[8]++}
 /^h/{arr1[9]++};/^i/{arr1[10]++};/^j/{arr1[11]++};/^k/{arr1[12]++}
