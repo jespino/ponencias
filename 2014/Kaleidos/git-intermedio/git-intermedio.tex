@@ -31,7 +31,7 @@
 \begin{document}
 
   \frame{\maketitle}
-  
+
   \section{Introducción}
 
   \begin{frame}{¿Por qué?}
@@ -41,7 +41,7 @@
       \item Es tambien una base de conocimiento.
     \end{itemize}
   \end{frame}
-  
+
   \begin{frame}{¿Qué supongo que ya sabeis?}
     \begin{itemize}
       \item Add/Commit
@@ -59,20 +59,115 @@
       \item Commit/Add patch
       \item Commit/Range selectors
       \item Bisect
+      \item Revert
       \item Cherry-picking
       \item Rebases
-      \item Submodules
+      \item Reset
     \end{itemize}
   \end{frame}
 
   \section{Index}
+
+  \begin{frame}{Index}
+    \begin{itemize}
+      \item El lugar para poner lo que vas a comitear
+      \item Al añadir un cambio o fichero al index se genera un blob nuevo.
+      \item Puede haber cambios diferentes en la copia de trabajo y el index.
+    \end{itemize}
+  \end{frame}
+
   \section{Reflog}
+
+  \begin{frame}{Reflog}
+    \begin{itemize}
+      \item Log de referencias.
+      \item Se añade una entrada cada vez que cambia HEAD.
+      \item Es util para acceder a commits desreferenciados.
+      \item Suele ser util para ver en que ramas has hecho ciertas cosas.
+    \end{itemize}
+  \end{frame}
+
   \section{Commit/Add patch}
+
+  \begin{frame}{Commit/Add patch}
+    \begin{itemize}
+      \item Es importante la atomicidad de los commits.
+      \item Se puede hacer añadido o commits de partes de un fichero.
+    \end{itemize}
+  \end{frame}
+
   \section{Commit/Range selectors}
+
+  \begin{frame}{Commit/Range selectors}
+    \begin{itemize}
+      \item Hay que ser capaz de referenciar commits o rangos.
+      \item Acceder a commits por diferentes caminos.
+    \end{itemize}
+  \end{frame}
+
   \section{Bisect}
+
+  \begin{frame}{Bisect}
+    \begin{itemize}
+      \item Busqueda dicotomica de errores.
+      \item Permite detectar exactamente en que commit empezo a ocurrir algo.
+      \item Se puede hacer manualmente o de manera automatica.
+    \end{itemize}
+  \end{frame}
+
+  \section{Revert}
+
+  \begin{frame}{Revert}
+    \begin{itemize}
+      \item Es interesante poder deshacer un commit.
+    \end{itemize}
+  \end{frame}
+
   \section{Cherry-picking}
+
+  \begin{frame}{Cherry-picking}
+    \begin{itemize}
+      \item Es interesante poder reaplicar un commit en otra rama.
+      \item No siempre quieres hacer un merge.
+    \end{itemize}
+  \end{frame}
+
   \section{Rebases}
-  \section{Submodules}
+
+  \begin{frame}{Rebases de ramas}
+    \begin{itemize}
+      \item Se utiliza para actualizar la rama actual.
+      \item Funciona en tres pasos:
+      \begin{itemize}
+        \item Elimina los commits aplicados en la rama.
+        \item Coloca el puntero de la rama sobre el ultimo commit de la otra rama.
+        \item Añade los commits eliminados previamente.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Rebases sobre la misma rama}
+    \begin{itemize}
+      \item Es interesante poder reestructurar mis commits.
+      \item Reordenarlos.
+      \item Juntarlos.
+      \item Renomrar el mensaje de commit.
+    \end{itemize}
+  \end{frame}
+
+  \section{Reset}
+
+  \begin{frame}{Reset}
+    \begin{itemize}
+      \item Permite modificar el puntero de la rama.
+      \item Existen 5 tipos de reset:
+      \begin{itemize}
+        \item soft: Establece solo el puntero de la rama
+        \item mixed: Establece el puntero y reinicia el index.
+        \item hard: Establece el puntero y reinicia el index y la copia de trabajo.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
 
   \section{Para terminar.}
 
