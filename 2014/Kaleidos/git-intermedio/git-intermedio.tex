@@ -160,11 +160,13 @@
   \begin{frame}{Reset}
     \begin{itemize}
       \item Permite modificar el puntero de la rama.
-      \item Existen 5 tipos de reset:
+      \item Existen 5 modos de reset:
       \begin{itemize}
         \item soft: Establece solo el puntero de la rama
         \item mixed: Establece el puntero y reinicia el index.
         \item hard: Establece el puntero y reinicia el index y la copia de trabajo.
+        \item merge: Como un hard pero conserva los cambios que estén en el index.
+        \item keep: Como hard pero mateniendo los ficheros cambiados (siempre que no colisionen con los cambios).
       \end{itemize}
     \end{itemize}
   \end{frame}
