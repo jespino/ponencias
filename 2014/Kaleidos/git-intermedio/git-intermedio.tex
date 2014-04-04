@@ -32,8 +32,6 @@
 
   \frame{\maketitle}
 
-  \section{Introducción}
-
   \begin{frame}{¿Por qué?}
     \begin{itemize}
       \item Es una herramienta importante.
@@ -58,15 +56,14 @@
       \item Reflog
       \item Commit/Add patch
       \item Commit/Range selectors
+      \item Checkout
+      \item Reset
       \item Bisect
       \item Revert
       \item Cherry-picking
       \item Rebases
-      \item Reset
     \end{itemize}
   \end{frame}
-
-  \section{Index}
 
   \begin{frame}{Index}
     \begin{itemize}
@@ -75,8 +72,6 @@
       \item Puede haber cambios diferentes en la copia de trabajo y el index.
     \end{itemize}
   \end{frame}
-
-  \section{Reflog}
 
   \begin{frame}{Reflog}
     \begin{itemize}
@@ -87,8 +82,6 @@
     \end{itemize}
   \end{frame}
 
-  \section{Commit/Add patch}
-
   \begin{frame}{Commit/Add patch}
     \begin{itemize}
       \item Es importante la atomicidad de los commits.
@@ -96,16 +89,34 @@
     \end{itemize}
   \end{frame}
 
-  \section{Commit/Range selectors}
-
   \begin{frame}{Commit/Range selectors}
     \begin{itemize}
       \item Hay que ser capaz de referenciar commits o rangos.
       \item Acceder a commits por diferentes caminos.
+      \item ####TODO####
     \end{itemize}
   \end{frame}
 
-  \section{Bisect}
+  \begin{frame}{Checkout}
+    \begin{itemize}
+      \item ####TODO####
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Reset}
+    \begin{itemize}
+      \item Permite restablecer a un commit la rama, el index y la copia de trabajo.
+      \item Existen 5 modos de reset:
+      \begin{itemize}
+        \item soft: Establece solo el puntero de la rama
+        \item mixed: Establece el puntero y reinicia el index (Por defecto).
+        \item hard: Establece el puntero y reinicia el index y la copia de trabajo.
+        \item merge: Como un hard pero conserva los cambios que no estén en el index.
+        \item keep: Como hard pero mateniendo los ficheros cambiados.
+      \end{itemize}
+      \item Los modos habituales son soft, mixed y hard.
+    \end{itemize}
+  \end{frame}
 
   \begin{frame}{Bisect}
     \begin{itemize}
@@ -115,15 +126,12 @@
     \end{itemize}
   \end{frame}
 
-  \section{Revert}
-
   \begin{frame}{Revert}
     \begin{itemize}
       \item Es interesante poder deshacer un commit.
+      \item Es la mejor opción cuando tus cambios ya subidos.
     \end{itemize}
   \end{frame}
-
-  \section{Cherry-picking}
 
   \begin{frame}{Cherry-picking}
     \begin{itemize}
@@ -132,7 +140,14 @@
     \end{itemize}
   \end{frame}
 
-  \section{Rebases}
+  \begin{frame}{Rebases}
+    \begin{itemize}
+      \item Permiten cambiar mis commits.
+      \item Reorganizarlos.
+      \item Actualizar mi rama de una manera mas limpia.
+      \item Mover un cojunto de commits a otro punto.
+    \end{itemize}
+  \end{frame}
 
   \begin{frame}{Rebases de ramas}
     \begin{itemize}
@@ -154,24 +169,6 @@
       \item Renomrar el mensaje de commit.
     \end{itemize}
   \end{frame}
-
-  \section{Reset}
-
-  \begin{frame}{Reset}
-    \begin{itemize}
-      \item Permite modificar el puntero de la rama.
-      \item Existen 5 modos de reset:
-      \begin{itemize}
-        \item soft: Establece solo el puntero de la rama
-        \item mixed: Establece el puntero y reinicia el index.
-        \item hard: Establece el puntero y reinicia el index y la copia de trabajo.
-        \item merge: Como un hard pero conserva los cambios que estén en el index.
-        \item keep: Como hard pero mateniendo los ficheros cambiados (siempre que no colisionen con los cambios).
-      \end{itemize}
-    \end{itemize}
-  \end{frame}
-
-  \section{Para terminar.}
 
   \begin{frame}{Dudas}
     \dots
