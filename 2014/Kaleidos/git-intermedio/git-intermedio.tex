@@ -73,6 +73,16 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}{Index}[containsverbatim]
+    \begin{verbatim}
+      git status
+      git add file-with-changes.txt
+      git status
+      echo "example" >> file-with-changes.txt
+      git status
+    \end{verbatim}
+  \end{frame}
+
   \begin{frame}{Reflog}
     \begin{itemize}
       \item Log de referencias.
@@ -80,6 +90,18 @@
       \item Es util para acceder a commits desreferenciados.
       \item Suele ser util para ver en que ramas has hecho ciertas cosas.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Reflog}[containsverbatim]
+    \begin{verbatim}
+      git reflog
+      git checkout -b new-branch
+      git checkout master
+      git commit --allow-empty -m "example"
+      git checkout new-branch
+      git checkout master
+      git reflog
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Commit/Add patch}
