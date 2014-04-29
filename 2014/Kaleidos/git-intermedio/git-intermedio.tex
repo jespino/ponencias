@@ -5,21 +5,11 @@
 
 \mode<presentation>
 \usetheme{Madrid}
-%\usecolortheme[RGB={111,73,135}]{structure}
 \usecolortheme[RGB={128,0,0}]{structure}
-%\usecolortheme[RGB={0,96,0}]{structure}
-%\usecolortheme[RGB={200,0,200}]{structure}
-%\usecolortheme[RGB={0,128,0}]{structure}
-%\usecolortheme[RGB={0,0,128}]{structure}
 \usefonttheme{serif}
 \useinnertheme{rectangles}
 \useoutertheme{split}
 \setbeamercovered{transparent}
-
-
-% Definiciones para usar luego
-\newtheorem{ejemplo}{Ejemplo}
-\newtheorem{definicion}{Definición}
 
 \title{Git intermedio: Más allá del commit}
 \author{Jesús Espino García}
@@ -73,7 +63,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Index}[containsverbatim]
+  \begin{frame}[containsverbatim]{Index}
     \begin{verbatim}
       git status
       git add file-with-changes.txt
@@ -92,7 +82,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Reflog}[containsverbatim]
+  \begin{frame}[containsverbatim]{Reflog}
     \begin{verbatim}
       git reflog
       git checkout -b new-branch
@@ -111,11 +101,46 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}[containsverbatim]{Commit/Add patch}
+    \begin{verbatim}
+      git add -p
+      git commit -p
+    \end{verbatim}
+  \end{frame}
+
   \begin{frame}{Commit/Range selectors}
     \begin{itemize}
       \item Hay que ser capaz de referenciar commits o rangos.
       \item Acceder a commits por diferentes caminos.
-      \item ####TODO####
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Commit/Range selectors}
+    \begin{itemize}
+      \item Acceder a un commit concreto
+      \begin{itemize}
+        \item HEAD
+        \item ramas (ejemplo: master)
+        \item tags (ejemplo: v1.0.0)
+        \item commit id (ejemplo: f7234b124a)
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Commit/Range selectors}
+    \begin{itemize}
+      \item Acceder a commit de manera relativa
+      \begin{itemize}
+        \item <commit>@{<date>}, <commit>@{yesterday}, <commit>@{5 minutes ago} (ejemplo: master@{1979-02-26})
+        \item <commit>@{<n>} (ejemplo: master@{2})
+        \item @{<n>} (ejemplo: @{2})
+        \item @{<-n>} (ejemplo: @{-2})
+        \item @{upstream} (ejemplo: master@{upstream})
+        \item <commit>\^, <commit>\^<n> (ejemplo: HEAD\^2)
+        \item <commit>~<n> (ejemplo: master~3)
+        \item <commit>\^{<type>
+        \item 
+      \end{itemize}
     \end{itemize}
   \end{frame}
 
@@ -192,10 +217,67 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}{Aliases}
+    \begin{itemize}
+      \item Pueden crearse alias de comandos.
+      \item Nos ahorra algo de tiempo.
+      \item Nos facilita no tener que recordar ciertas cosas.
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Stash}
+    \begin{itemize}
+      \item Almacena cambios no comiteados en una pila.
+      \item Muy util para dejar trabajo a medias y retomarlo luego.
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Archive}
+    \begin{itemize}
+      \item Permite crear un tar/zip del repo.
+      \item Util para generar versiones.
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Bundle}
+    \begin{itemize}
+      \item Permite crear un archivo que actua como repo.
+      \item Util para compartir un repo.
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Gitignore}
+    \begin{itemize}
+      \item Puedes ignorar ficheros.
+      \item por ejemplo los .pyc o .class.
+      \item Patrones en .gitignore o en .git/info/exclude
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Hooks}
+    \begin{itemize}
+      \item Acciones ante ciertos eventos
+      \item Normalmente Pre/Post Commit/Push
+      \item Ejemplos habituales
+      \begin{itemize}
+          \item Analisis de covertura/estilos (cliente o servidor).
+          \item Despliegue.
+          \item Integración continua.
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
   \begin{frame}{Dudas}
     \dots
   \end{frame}
-  
+
   \begin{frame}
     \frametitle{\begin{center}Fin\end{center}}
     \begin{center}
