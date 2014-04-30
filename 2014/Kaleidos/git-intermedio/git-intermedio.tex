@@ -36,6 +36,7 @@
       \item Merge
       \item Fetch/Pull/Push
       \item Ramas
+      \item Tags
       \item Logs
     \end{itemize}
   \end{frame}
@@ -52,6 +53,12 @@
       \item Revert
       \item Cherry-picking
       \item Rebases
+      \item Aliases
+      \item Stash
+      \item Archive
+      \item Bundle
+      \item Gitignore
+      \item Hooks
     \end{itemize}
   \end{frame}
 
@@ -115,39 +122,92 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Commit/Range selectors}
+  \begin{frame}[containsverbatim]{Commit/Range selectors}
     \begin{itemize}
       \item Acceder a un commit concreto
       \begin{itemize}
-        \item HEAD
-        \item ramas (ejemplo: master)
-        \item tags (ejemplo: v1.0.0)
-        \item commit id (ejemplo: f7234b124a)
+        \item \verb+HEAD+
+        \item ramas (ejemplo: \verb+master+)
+        \item tags (ejemplo: \verb+v1.0.0+)
+        \item commit id (ejemplo: \verb+f7234b124a+)
       \end{itemize}
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Commit/Range selectors}
+  \begin{frame}[containsverbatim]{Commit/Range selectors}
     \begin{itemize}
       \item Acceder a commit de manera relativa
       \begin{itemize}
-        \item <commit>@{<date>}, <commit>@{yesterday}, <commit>@{5 minutes ago} (ejemplo: master@{1979-02-26})
-        \item <commit>@{<n>} (ejemplo: master@{2})
-        \item @{<n>} (ejemplo: @{2})
-        \item @{<-n>} (ejemplo: @{-2})
-        \item @{upstream} (ejemplo: master@{upstream})
-        \item <commit>\^, <commit>\^<n> (ejemplo: HEAD\^2)
-        \item <commit>~<n> (ejemplo: master~3)
-        \item <commit>\^{<type>
-        \item 
+        \item \verb+<refname>@{<date>}+ (ejemplos: \verb+<refname>@{yesterday}+, \verb+<refname>@{5 minutes ago}+, \verb+master@{1979-02-26}+)
+        \item \verb+[<refname>]@{<n>}+ (ejemplos: \verb+master@{2}, @{2}+)
+        \item \verb+[<refname>]@{upstream}+ (ejemplo: \verb+master@{upstream}+)
+        \item \verb+<rev>\^, <rev>\^<n>+ (ejemplo: \verb+HEAD\^2+)
+        \item \verb+<rev>~<n>+ (ejemplo: \verb+master~3+)
+        \item \verb+<rev>\^{/<text>}+, :/text (ejemplo: \verb+<rev>\^{/model}+)
+        \item \verb+<rev>:<path>+ (ejemplo: \verb+master:settings.py+)
       \end{itemize}
+      \item ver \verb+man gitrevisions+
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Commit/Range selectors}
+    \begin{verbatim}
+      git show master@{yesterday}
+      git show master@{3}
+      git show master@{upstream}
+      git show master^
+      git show master^2
+      git show master~3
+      git show master~3^2~5
+      git show master^{/text}
+      git show :/text
+      git show master:settings.py
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Commit/Range selectors}
+    \begin{itemize}
+      \item Acceder a rangos
+      \begin{itemize}
+        \item \verb+<rev>+ (ejemplo: \verb+git log HEAD~5+)
+        \item \verb+<rev1>..<rev2>+ (ejemplo: \verb+git log master~5..master+)
+        \item \verb+<rev1>..<rev2>+ (ejemplo: \verb+git log master...stable+)
+        \item \verb+<rev>\^@+ (ejemplo: \verb+git log HEAD\^@+)
+        \item \verb+<rev>\^!+ (ejemplo: \verb+git log HEAD\^!+)
+      \end{itemize}
+      \item ver \verb+man gitrevisions+
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Commit/Range selectors}
+    \begin{verbatim}
+      git log master~3
+      git log master~3..master
+      git log master...stable
+      git log master^@
+      git log master^!
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Checkout}
     \begin{itemize}
-      \item ####TODO####
+      \item Saca una version del fichero a la working copy
+      \item Util para descartar cambios de un fichero concreto.
+      \item Util para restaurar el estado de un fichero en otra revision.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Checkout}
+    \begin{verbatim}
+      # discard changes on settings.py
+      git checkout settings.py
+
+      # Get the previous version of settings.py
+      git checkout HEAD~1 settings.py
+
+      # Get chunks of the previous version of settings.py
+      git checkout -p HEAD~1 settings.py
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Reset}
@@ -165,12 +225,50 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}[containsverbatim]{Reset}
+    \begin{verbatim}
+      # Uncommit
+      git reset --soft HEAD^
+
+      # Cleanup the working copy and index
+      git reset --hard
+
+      # Imitación de git reset --keep HEAD~5
+      git stash; git reset --hard HEAD~5; git stash pop
+    \end{verbatim}
+  \end{frame}
+
   \begin{frame}{Bisect}
     \begin{itemize}
       \item Busqueda dicotomica de errores.
       \item Permite detectar exactamente en que commit empezo a ocurrir algo.
       \item Se puede hacer manualmente o de manera automatica.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Bisect}
+    Manualmente
+    \begin{verbatim}
+      git bisect start
+      git bisect bad
+      git bisect good master~10
+      # Checking the problem (fail?)
+      git bisect bad
+      # Checking the problem (works?)
+      git bisect good
+      # Checking the problem (works?)
+      git bisect good
+    \end{verbatim}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Bisect}
+    Automaticamente
+    \begin{verbatim}
+      git bisect start
+      git bisect bad
+      git bisect good master~10
+      git bisect run test.sh
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Revert}
@@ -180,11 +278,24 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}[containsverbatim]{Revert}
+    \begin{verbatim}
+      git revert :/Bug#37
+    \end{verbatim}
+  \end{frame}
+
   \begin{frame}{Cherry-picking}
     \begin{itemize}
       \item Es interesante poder reaplicar un commit en otra rama.
       \item No siempre quieres hacer un merge.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Cherry-picking}
+    \begin{verbatim}
+      git cherry-pick 1b35539
+      git cherry-pick stable~3..stable
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Rebases}
@@ -208,6 +319,15 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}[containsverbatim]{Rebases de ramas}
+    \begin{verbatim}
+      git checkout my-branch
+      # Add some commits
+      git fetch
+      git rebase origin/master
+    \end{verbatim}
+  \end{frame}
+
   \begin{frame}{Rebases sobre la misma rama}
     \begin{itemize}
       \item Es interesante poder reestructurar mis commits.
@@ -217,40 +337,73 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}[containsverbatim]{Rebases sobre la misma rama}
+    \begin{verbatim}
+      git rebase -i master
+    \end{verbatim}
+  \end{frame}
+
   \begin{frame}{Aliases}
     \begin{itemize}
       \item Pueden crearse alias de comandos.
       \item Nos ahorra algo de tiempo.
       \item Nos facilita no tener que recordar ciertas cosas.
-      \item 
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Aliases}
+    \begin{verbatim}
+      git alias uncommit "git reset --soft HEAD^"
+      git alias
+      git alias unco
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Stash}
     \begin{itemize}
       \item Almacena cambios no comiteados en una pila.
       \item Muy util para dejar trabajo a medias y retomarlo luego.
-      \item 
-      \item 
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Stash}
+    \begin{verbatim}
+      git stash
+      git stash list
+      git stash pop
+
+      # Better save
+      git stash save Trabajo parcial en funcionalidad X
+      git stash save -p Trabajo parcial en funcionalidad X
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Archive}
     \begin{itemize}
       \item Permite crear un tar/zip del repo.
       \item Util para generar versiones.
-      \item 
-      \item 
+      \item Util para despliegues.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Archive}
+    \begin{verbatim}
+      git archive master --format=tar --output=master.tar
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Bundle}
     \begin{itemize}
       \item Permite crear un archivo que actua como repo.
       \item Util para compartir un repo.
-      \item 
-      \item 
+      \item Se puede compartir solo ramas concretas.
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Bundle}
+    \begin{verbatim}
+      git bundle mi-repo.git master stable
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Gitignore}
@@ -259,6 +412,17 @@
       \item por ejemplo los .pyc o .class.
       \item Patrones en .gitignore o en .git/info/exclude
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Gitignore}
+    \begin{verbatim}
+      *.pyc
+      *.class
+      !*.py
+      directory/
+      all/directories/**/
+      all/files/**
+    \end{verbatim}
   \end{frame}
 
   \begin{frame}{Hooks}
