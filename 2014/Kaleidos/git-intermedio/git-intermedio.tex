@@ -139,12 +139,29 @@
       \item Acceder a commit de manera relativa
       \begin{itemize}
         \item \verb+<refname>@{<date>}+ (ejemplos: \verb+<refname>@{yesterday}+, \verb+<refname>@{5 minutes ago}+, \verb+master@{1979-02-26}+)
+        \begin{itemize}
+          \item Commit que había en la rama en la fecha referenciada.
+        \end{itemize}
         \item \verb+[<refname>]@{<n>}+ (ejemplos: \verb+master@{2}, @{2}+)
+        \begin{itemize}
+          \item Commit de la posición "n" del reflog
+        \end{itemize}
         \item \verb+[<refname>]@{upstream}+ (ejemplo: \verb+master@{upstream}+)
+        \begin{itemize}
+          \item Referencia a donde apunta el upstream de la rama. (ejemplo: origin/master)
+        \end{itemize}
         \item \verb+<rev>\^, <rev>\^<n>+ (ejemplo: \verb+HEAD\^2+)
+        \begin{itemize}
+          \item Padre "n" de la revisión. (Por defecto 1)
+        \end{itemize}
         \item \verb+<rev>~<n>+ (ejemplo: \verb+master~3+)
+        \begin{itemize}
+          \item Ancestro "n" de la revisión.
+        \end{itemize}
         \item \verb+<rev>\^{/<text>}+, :/text (ejemplo: \verb+<rev>\^{/model}+)
-        \item \verb+<rev>:<path>+ (ejemplo: \verb+master:settings.py+)
+        \begin{itemize}
+          \item Buscar el commit por el texto del mensaje.
+        \end{itemize}
       \end{itemize}
       \item ver \verb+man gitrevisions+
     \end{itemize}
@@ -170,10 +187,25 @@
       \item Acceder a rangos
       \begin{itemize}
         \item \verb+<rev>+ (ejemplo: \verb+git log HEAD~5+)
+        \begin{itemize}
+          \item Todos los commits accesibles desde "rev".
+        \end{itemize}
         \item \verb+<rev1>..<rev2>+ (ejemplo: \verb+git log master~5..master+)
-        \item \verb+<rev1>..<rev2>+ (ejemplo: \verb+git log master...stable+)
+        \begin{itemize}
+          \item Todos los commits entre "rev1" y "rev2" (el orden importa).
+        \end{itemize}
+        \item \verb+<rev1>...<rev2>+ (ejemplo: \verb+git log master...stable+)
+        \begin{itemize}
+          \item Todos los commits accesibles desde "rev1" o "rev2" pero no de los dos.
+        \end{itemize}
         \item \verb+<rev>\^@+ (ejemplo: \verb+git log HEAD\^@+)
+        \begin{itemize}
+          \item Todos los padres de la revisión.
+        \end{itemize}
         \item \verb+<rev>\^!+ (ejemplo: \verb+git log HEAD\^!+)
+        \begin{itemize}
+          \item Ninguno de los padres de la revisión.
+        \end{itemize}
       \end{itemize}
       \item ver \verb+man gitrevisions+
     \end{itemize}
