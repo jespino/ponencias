@@ -30,6 +30,85 @@
     \end{itemize}
   \end{frame}
 
+  \begin{frame}{¿Cómo vamos a verlo?}
+    \begin{itemize}
+      \item Describiremos los pasos que da Angular para hacer algo.
+      \item Mostraremos el codigo que lo hace.
+      \item Pasaremos con el debugger sobre una aplicacion de ejemplo.
+      \item Para todo ello usaremos el git de angular en su tag v1.2.16.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Como arranca angularJS?}
+    \begin{itemize}
+      \item Se ejecuta angularInit (angular.suffix:14)
+      \item angularInit busca opciones para inicialilizar una app (Angular.js:1188).
+      \item Ejecuta bootstrap sobre el elemento (Angular.js:1228).
+      \item Se añaden los modulos ng y \$provide al listado de modulos (Angular.js:1296).
+      \item Se crea el injector con el listado de modulos (Angular.js:1300).
+      \item Y se invoca la compilación y el "digest" del contenido del elemento app (Angular.js:1303).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Que es el injector?}
+    \begin{itemize}
+      \item Permite hacer injección de dependencias.
+      \item Parsea la funcion para extrar el nombre de los parametros que recibe (auto/injector.js:69).
+      \item Sustituye los parametros que recibe por instancias de servicios (auto/injector.js:746).
+      \item Al crearse carga los modulos necesesarios (auto/injector.js:675). ### REVISAR
+      \item Tras cargar los modulos, los instancia (auto/injector.js:617).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Cómo funciona la compilación?}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Como funciona el data-binding?}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Que es un servicio?}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Que es un filtro?}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Que es una directiva?}
+    \begin{itemize}
+      \item 
+      \item 
+      \item 
+      \item 
+      \item 
+    \end{itemize}
+  \end{frame}
 
   \begin{frame}{Dudas}
     \dots

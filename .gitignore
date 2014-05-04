@@ -1,2 +1,9 @@
 .sconsign.dblite
 *.pyc
+*.fls
+*.aux
+*.log
+*.toc
+*.nav
+*.out
+*.snm
