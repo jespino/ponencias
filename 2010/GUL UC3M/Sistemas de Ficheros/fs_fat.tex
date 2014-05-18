@@ -24,7 +24,7 @@
 \begin{frame}{Estructura}
   \begin{itemize}
     \item Al principio de la partición nos encontramos el sector de arranque.
-    \item Justo después se encuentra la FAT
+    \item Justo después se encuentra la FAT.
     \item Normalmente (pero no necesariamente) encontramos después el directorio raíz.
     \item Después nos encontramos el área de datos, donde se almacenan todos los ficheros.
   \end{itemize}
@@ -40,9 +40,9 @@
   \begin{itemize}
     \item Los ficheros única y exclusivamente contienen datos y están almacenados en el sector de datos de la partición.
     \item Las entradas de directorios almacenan el nombre, el número de cluster y los atributos de cada uno de los ficheros que contiene.
-    \item Los ficheros vacíos no contienen ocupan bloques de datos ni entradas en la fat.
+    \item Los ficheros vacíos no ocupan bloques de datos ni entradas en la fat.
     \item Si un cluster no es el ultimo del fichero, contiene el número de cluster siguiente, si lo es, contiene una marca.
-    \item Los directorios siempre contiene como mínimo los subdirectorios \".\" y \"..\", excepto el directorio raíz.
+    \item Los directorios siempre contiene como mínimo los subdirectorios ``.`` y ``..``, excepto el directorio raíz.
   \end{itemize}
 \end{frame}
 

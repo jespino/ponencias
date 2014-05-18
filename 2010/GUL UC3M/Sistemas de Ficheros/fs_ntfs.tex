@@ -30,7 +30,7 @@
     \item Cada entrada del MFT es un fichero del sistema de ficheros.
     \item Las primeras 16 entradas de la MFT son ficheros de metadatos.
     \item Después tenemos el área de datos.
-    \item En medio de la partición, aproximadamente, nos encontramos una copia de la MFT
+    \item En medio de la partición, aproximadamente, nos encontramos una copia de la MFT.
     \item Al final de la partición nos encontramos un backup del sector de arranque.
   \end{itemize}
 \end{frame}
@@ -44,9 +44,9 @@
 \begin{frame}{Ficheros}
   \begin{itemize}
     \item Los ficheros contienen información sobre el fichero, atributos y características.
-    \item Si el fichero es pequeño lo incluye directamente en el MFT
-    \item Si el fichero es grande crea va almacenando los datos en \"extents\" (grupos de clusters fuera del MFT).
-    \item Si el fichero fuera tan grande que no cupieran más direcciones de \"extents\", externalizaría las direcciones.
+    \item Si el fichero es pequeño lo incluye directamente en el MFT.
+    \item Si el fichero es grande va almacenando los datos en ``extents`` (grupos de clusters fuera del MFT).
+    \item Si el fichero fuera tan grande que no cupieran más direcciones de ``extents``, externalizaría las direcciones.
     \item De este modo seguiría creciendo hasta que no se necesite más espacio.
     \item Los directorios contiene los ficheros ordenados a modo de arbol B.
   \end{itemize}
