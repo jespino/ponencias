@@ -1,0 +1,406 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\mode<presentation>
+\usetheme{Madrid}
+\usecolortheme[RGB={128,0,0}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+\title{Python funcional}
+\author{Jesús Espino García}
+\date{8 de Noviembre de 2014}
+\subject{Python funcional}
+
+\institute[Kaleidos \& Taiga.io]{\includegraphics[height=1.5cm]{kaleidos} \includegraphics[height=1.5cm]{taigaio} \\ \includegraphics[height=1.5cm]{pyladies}}
+
+\begin{document}
+
+  \frame{\maketitle}
+  
+  \section{Introducción}
+  
+  \begin{frame}{¿Que significa funcional?}
+    \begin{block}{¿Que significa funcional?}
+      \begin{itemize}
+        \item Programación con funciones (matematicas)
+        \item Funciones puras (mismas entradas, mismas salidas).
+        \item Inmutabilidad.
+        \item Ausencia de estado.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{¿Por qué?}
+    \begin{block}{¿Por qué?}
+      \begin{itemize}
+        \item Paralelización.
+        \item Facilitar el testing.
+        \item Reusabilidad.
+        \item Depuración más fácil.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}{¿Qué necesito?}
+    \begin{block}{¿Qué necesito?}
+      \begin{itemize}
+        \item Funciones como ciudadanos de primera (son un objeto más).
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{¿Es python funcional?}
+    \begin{block}{¿Es python funcional?}
+      \begin{itemize}
+        \item No, es un lenguaje multi-paradigma.
+        \item Soporta algunas caracteristicas funcionales.
+        \item Permite hacer programación funcional.
+        \item Carece de caracteristicas avanzadas presentes en lenguajes funcionales.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Tipicas estrategias funcionales}
+    \begin{block}{Tipicas estrategias funcionales}
+      \begin{itemize}
+        \item Combinación y composición de funciones pequeñas.
+        \item Datos + funciones transformadoras.
+        \item Aplicación de transformaciones mediante orden superior.
+        \item Uso de funciones inline.
+        \item Acotado de efectos laterales.
+        \item Tendencia al uso de funciones puras.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{¿Que me dan los lenguajes funcionales?}
+    \begin{block}{¿Que me dan los lenguajes funcionales?}
+      \begin{itemize}
+        \item Estructuras inmutables eficientes.
+        \item Funciones de orden superior.
+        \item Pattern matching.
+        \item TCO: Tail call optimization.
+        \item Aplicación parcial y currificación.
+        \item Control de efectos laterales.
+        \item Funciones lambda.
+        \item Evaluación peresoza.
+        \item Composición de funciones.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{¿Que me da python?}
+    \begin{block}{¿Que me da python?}
+      \begin{itemize}
+        \item Evaluación peresoza (Limitada).
+        \item Aplicación parcial.
+        \item Funciones lambda.
+        \item Funciones de orden superior.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{¿Que me da fn.py?}
+    \begin{block}{¿Que me da fn.py?}
+      \begin{itemize}
+        \item Estructuras inmutables eficientes (En desarrollo).
+        \item TCO: Tail call optimization.
+        \item Aplicación parcial y currificación.
+        \item Composición de funciones.
+        \item Funciones lambda (Al estilo de Scala).
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Funcional vs. Imperativo}
+    \begin{block}{Imperativo}
+       \begin{verbatim}
+x = sum(1, 2)
+y = sum(x, 3)
+z = prod(y, 4)
+print(z)
+       \end{verbatim}
+    \end{block}
+    \begin{block}{Funcional}
+       \begin{verbatim}
+print(prod(sum(sum(1,2),3), 4))
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Funcional vs. Imperativo}
+    \begin{block}{Funcional con composición y aplicacion parcial}
+       \begin{verbatim}
+func = F(sum, 1, 2) >> F(sum, 3) >> F(prod, 4) >> print
+func()
+       \end{verbatim}
+    \end{block}
+    \begin{block}{Funcional con currificación}
+       \begin{verbatim}
+prod4 = prod(4)
+sum3 = sum(3)
+sum2 = sum(2)
+print(prod4(sum3(sum2(1))))
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \section{Python funcional}
+
+  \begin{frame}{Evaluación peresoza}
+    \begin{itemize}
+      \item Iteradores
+      \item Generadores
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Evaluación peresoza}
+    \begin{block}{Iteradores}
+       \begin{verbatim}
+>>> i = map(print, [1,2,3])
+>>> next(i)
+1
+>>> i = map(print, [1,2,3])
+>>> list(i)
+1
+2
+3
+[None, None, None]
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Evaluación peresoza}
+    \begin{block}{Generadores}
+       \begin{verbatim}
+>>> import itertools
+>>> def generate():
+...    x = 0
+...    while True:
+...        yield x
+...        x += 1
+>>> numbers = generate()
+>>> list(itertools.takewhile(lambda x: x < 10, numbers))
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> list(itertools.takewhile(lambda x: x < 12, numbers))
+[11]
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Aplicación parcial}
+    \begin{block}{Applicación parcial}
+       \begin{verbatim}
+>>> from functools import partial
+>>> from opertor import add
+>>> add4 = partial(add, 4)
+>>> add4(3)
+7
+>>> print_noline = partial(print, end="")
+>>> print_noline("hello")
+hello>>>
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Funciones lambda}
+    \begin{block}{Funciones lambda}
+       \begin{verbatim}
+>>> pow2 = lambda x: x**2
+>>> pow2(10)
+100
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Funciones de orden superior}
+    \begin{block}{Built-in}
+      \begin{itemize}
+        \item map
+        \item filter
+        \item sorted
+        \item reduce
+        \item decorators
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Funciones de orden superior}
+    \begin{block}{Funciones de orden superior}
+       \begin{verbatim}
+>>> list(map(lambda x: x**2, [1, 2, 3]))
+[1, 4, 9]
+>>> list(filter(lambda x: x > 1, [1, 2, 3]))
+[2, 3]
+>>> sorted([2, 1, 3], key=lambda x: x)
+[1, 2, 3]
+>>> sorted([1, 2, 3], key=lambda x: -x)
+[3, 2, 1]
+>>> from functools import reduce
+>>> reduce(lambda x, y: x + y, [1, 2, 3])
+6
+>>> from functools import lru_cache
+>>> cached_sum = lru_cache()(lambda x: sum(range(x)))
+>>> cached_sum(4)
+6
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \section{fn.py}
+
+  \begin{frame}{Estructuras inmutables}
+    \begin{block}{Estructuras inmutables}
+      \begin{itemize}
+        \item LinkedList
+        \item Stack
+        \item Queue
+        \item Deque
+        \item Vector
+        \item SkewHeap
+        \item PairingHeap
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Estructuras inmutables}
+    \begin{block}{LinkedList}
+      \begin{verbatim}
+>>> from fn.immutable import LinkedList
+>>> l = LinkedList()
+>>> l.head
+>>> l.tail
+>>> l2 = l.cons(10)
+>>> l2.head
+10
+>>> l2.tail
+<fn.immutable.list.LinkedList object at 0x7f3927e59f08>
+>>> l.head
+>>> l.tail
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Estructuras inmutables}
+    \begin{block}{Stack}
+      \begin{verbatim}
+>>> from fn.immutable import Stack
+>>> s = Stack()
+>>> s.head
+>>> s.tail
+>>> s2 = s.push(10)
+>>> s2.head
+10
+>>> s2.tail
+<fn.immutable.list.Stack object at 0x7f3926ae9818>
+>>> (value, s3) = s2.pop()
+>>> value
+10
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+
+
+  \begin{frame}[containsverbatim]{TCO}
+    \begin{block}{Normal recursion}
+      \begin{verbatim}
+def fact(n):
+    if n == 0: return 1
+        return n * fact(n-1)
+      \end{verbatim}
+    \end{block}
+
+    \begin{block}{TCO}
+      \begin{verbatim}
+from fn import recur
+
+@recur.tco
+def fact(n, acc=1):
+    if n == 0: return False, acc
+    return True, (n-1, acc*n)
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Applicación parcial}
+    \begin{block}{Applicación parcial}
+      \begin{verbatim}
+>>> from fn import F
+>>> from operator import add
+>>> add2 = F(add, 2)
+>>> add2(3)
+5
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Currificacion}
+    \begin{block}{Currificacion}
+      \begin{verbatim}
+>>> from fn.func import curried
+>>> curry_add = curried(lambda x, y: x + y)
+>>> curry_add(2)(3)
+5
+>>> @curried
+... def curried_add(x, y):
+...     return x + y
+...
+>>> curried_add(2)(3)
+5
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}[containsverbatim]{Composición de funciones}
+    \begin{block}{Composición normal}
+      \begin{verbatim}
+>>> myfunc = lambda x: duplicate(add2(x))
+>>> myfunc(3)
+10
+      \end{verbatim}
+    \end{block}
+
+    \begin{block}{Composición al estilo fn.py}
+      \begin{verbatim}
+>>> myfunc = F(duplicate) << add2
+>>> myfunc(3)
+10
+>>> myfunc = F(add2) >> duplicate
+>>> myfunc(3)
+10
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Funciones lambda al estilo scala}
+    \begin{block}{Funciones lambda al estilo scala}
+      \begin{verbatim}
+>>> from fn import _
+>>> (_ + _)(2, 3)
+5
+>>> list(map(_ + 2, [1, 2, 3]))
+[3, 4, 5]
+      \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \section{Para terminar.}
+
+  \begin{frame}{Referencias}
+    \begin{itemize}
+      \item https://github.com/kachayev/fn.py: Fn.py
+      \item https://docs.python.org/3/howto/functional.html: Howto de programación funcional.
+      \item http://kachayev.github.io/talks/uapycon2012/: Charla de Alexey Kachayev
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}
