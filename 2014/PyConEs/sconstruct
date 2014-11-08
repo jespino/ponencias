@@ -1,0 +1,2 @@
+SConscript('python-funcional/sconstruct')
+SConscript('sampledatahelper/sconstruct')
