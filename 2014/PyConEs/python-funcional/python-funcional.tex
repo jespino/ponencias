@@ -16,105 +16,99 @@
 \date{8 de Noviembre de 2014}
 \subject{Python funcional}
 
-\institute[Kaleidos \& Taiga.io]{\includegraphics[height=1.5cm]{kaleidos} \includegraphics[height=1.5cm]{taigaio} \\ \includegraphics[height=1.5cm]{pyladies}}
+\institute[Kaleidos \& Taiga.io]{
+    \includegraphics[height=1.5cm]{kaleidos}
+    \includegraphics[height=1.5cm]{taigaio} \\
+    \includegraphics[height=1.5cm]{pyladies}
+}
 
 \begin{document}
 
   \frame{\maketitle}
   
   \section{Introducción}
+
+  \begin{frame}{Introducción}
+    \begin{center}Introducción\end{center}
+  \end{frame}
   
   \begin{frame}{¿Que significa funcional?}
-    \begin{block}{¿Que significa funcional?}
-      \begin{itemize}
-        \item Programación con funciones (matematicas)
-        \item Funciones puras (mismas entradas, mismas salidas).
-        \item Inmutabilidad.
-        \item Ausencia de estado.
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item Programación con funciones (matematicas)
+      \item Funciones puras (mismas entradas, mismas salidas).
+      \item Inmutabilidad.
+      \item Ausencia de estado.
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{¿Por qué?}
-    \begin{block}{¿Por qué?}
-      \begin{itemize}
-        \item Paralelización.
-        \item Facilitar el testing.
-        \item Reusabilidad.
-        \item Depuración más fácil.
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item Paralelización.
+      \item Facilitar el testing.
+      \item Reusabilidad.
+      \item Depuración más fácil.
+      \item Estado muy controlado.
+    \end{itemize}
   \end{frame}
   
-  \begin{frame}{¿Qué necesito?}
-    \begin{block}{¿Qué necesito?}
-      \begin{itemize}
-        \item Funciones como ciudadanos de primera (son un objeto más).
-      \end{itemize}
-    \end{block}
-  \end{frame}
-
-  \begin{frame}{¿Es python funcional?}
-    \begin{block}{¿Es python funcional?}
-      \begin{itemize}
-        \item No, es un lenguaje multi-paradigma.
-        \item Soporta algunas caracteristicas funcionales.
-        \item Permite hacer programación funcional.
-        \item Carece de caracteristicas avanzadas presentes en lenguajes funcionales.
-      \end{itemize}
-    \end{block}
-  \end{frame}
-
   \begin{frame}{Tipicas estrategias funcionales}
-    \begin{block}{Tipicas estrategias funcionales}
-      \begin{itemize}
-        \item Combinación y composición de funciones pequeñas.
-        \item Datos + funciones transformadoras.
-        \item Aplicación de transformaciones mediante orden superior.
-        \item Uso de funciones inline.
-        \item Acotado de efectos laterales.
-        \item Tendencia al uso de funciones puras.
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item Combinación y composición de funciones pequeñas.
+      \item Datos + funciones transformadoras.
+      \item Aplicación de transformaciones mediante orden superior.
+      \item Uso de funciones inline.
+      \item Acotado de efectos laterales.
+      \item Tendencia al uso de funciones puras.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Qué necesito?}
+    \begin{itemize}
+      \item Funciones como ciudadanos de primera (son un objeto más).
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{¿Es python un lenguaje funcional?}
+    \begin{itemize}
+      \item No.
+      \item Es un lenguaje multi-paradigma.
+      \item Soporta algunas caracteristicas funcionales.
+      \item Permite hacer programación funcional.
+      \item Carece de caracteristicas avanzadas presentes en lenguajes funcionales.
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{¿Que me dan los lenguajes funcionales?}
-    \begin{block}{¿Que me dan los lenguajes funcionales?}
-      \begin{itemize}
-        \item Estructuras inmutables eficientes.
-        \item Funciones de orden superior.
-        \item Pattern matching.
-        \item TCO: Tail call optimization.
-        \item Aplicación parcial y currificación.
-        \item Control de efectos laterales.
-        \item Funciones lambda.
-        \item Evaluación peresoza.
-        \item Composición de funciones.
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item Estructuras inmutables eficientes.
+      \item Funciones de orden superior.
+      \item Pattern matching.
+      \item TCO: Tail call optimization.
+      \item Aplicación parcial y currificación.
+      \item Control de efectos laterales.
+      \item Funciones lambda.
+      \item Evaluación peresoza.
+      \item Composición de funciones.
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{¿Que me da python?}
-    \begin{block}{¿Que me da python?}
-      \begin{itemize}
-        \item Evaluación peresoza (Limitada).
-        \item Aplicación parcial.
-        \item Funciones lambda.
-        \item Funciones de orden superior.
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item Evaluación peresoza (Limitada).
+      \item Aplicación parcial.
+      \item Funciones lambda.
+      \item Funciones de orden superior.
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{¿Que me da fn.py?}
-    \begin{block}{¿Que me da fn.py?}
-      \begin{itemize}
-        \item Estructuras inmutables eficientes (En desarrollo).
-        \item TCO: Tail call optimization.
-        \item Aplicación parcial y currificación.
-        \item Composición de funciones.
-        \item Funciones lambda (Al estilo de Scala).
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item Estructuras inmutables eficientes (En desarrollo).
+      \item TCO: Tail call optimization.
+      \item Aplicación parcial y currificación.
+      \item Composición de funciones.
+      \item Funciones lambda (Al estilo de Scala).
+    \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]{Funcional vs. Imperativo}
@@ -151,6 +145,10 @@ print(prod4(sum3(sum2(1))))
   \end{frame}
 
   \section{Python funcional}
+
+  \begin{frame}{Python funcional}
+    \begin{center}Python funcional\end{center}
+  \end{frame}
 
   \begin{frame}{Evaluación peresoza}
     \begin{itemize}
@@ -219,15 +217,13 @@ hello>>>
   \end{frame}
 
   \begin{frame}{Funciones de orden superior}
-    \begin{block}{Built-in}
-      \begin{itemize}
-        \item map
-        \item filter
-        \item sorted
-        \item reduce
-        \item decorators
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item map
+      \item filter
+      \item sorted
+      \item reduce
+      \item decorators
+    \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]{Funciones de orden superior}
@@ -254,18 +250,20 @@ hello>>>
 
   \section{fn.py}
 
+  \begin{frame}{fn.py}
+    \begin{center}fn.py\end{center}
+  \end{frame}
+
   \begin{frame}{Estructuras inmutables}
-    \begin{block}{Estructuras inmutables}
-      \begin{itemize}
-        \item LinkedList
-        \item Stack
-        \item Queue
-        \item Deque
-        \item Vector
-        \item SkewHeap
-        \item PairingHeap
-      \end{itemize}
-    \end{block}
+    \begin{itemize}
+      \item LinkedList
+      \item Stack
+      \item Queue
+      \item Deque
+      \item Vector
+      \item SkewHeap
+      \item PairingHeap
+    \end{itemize}
   \end{frame}
 
   \begin{frame}[containsverbatim]{Estructuras inmutables}
@@ -389,7 +387,20 @@ def fact(n, acc=1):
     \end{block}
   \end{frame}
 
-  \section{Para terminar.}
+  \section{Para terminar}
+
+  \begin{frame}{Para terminar}
+    \begin{center}Para terminar\end{center}
+  \end{frame}
+
+  \begin{frame}{Consclusiones}
+    \begin{itemize}
+      \item Python permite programar de forma funcional.
+      \item Fn.py nos da las herramientas para llegar un poco más lejos.
+      \item Python + Fn.py se queda lejos de lenguajes como Erlang, Clojure o Haskell.
+      \item Lo que se puede aplicar en Python es una mejora significativa sobre el codigo.
+    \end{itemize}
+  \end{frame}
 
   \begin{frame}{Referencias}
     \begin{itemize}
