@@ -1,0 +1,156 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+
+\mode<presentation>
+\usetheme{Madrid}
+\usecolortheme[RGB={128,0,0}]{structure}
+\usefonttheme{serif}
+\useinnertheme{rectangles}
+\useoutertheme{split}
+\setbeamercovered{transparent}
+
+\title{Django Sample Data Helper}
+\author{Jesús Espino García}
+\date{8 de Noviembre de 2014}
+\subject{Django Sample Data Helper}
+
+\institute[Kaleidos \& Taiga.io]{
+    \includegraphics[height=1.5cm]{kaleidos}
+    \includegraphics[height=1.5cm]{taigaio} \\
+    \includegraphics[height=1.5cm]{pyladies}
+}
+
+\begin{document}
+
+  \frame{\maketitle}
+  
+  \section{Introducción}
+
+  \begin{frame}{¿Qué es?}
+    \begin{block}{¿Qué es?}
+      \begin{itemize}
+        \item Generador de datos aleatorios para python.
+        \item Facilidades para rellenar modelos de django.
+        \item Facil y rápido de integrar.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  \begin{frame}{¿Cómo surge?}
+    \begin{block}{¿Cómo surge?}
+      \begin{itemize}
+        \item Necesitabamos datos de ejemplo para trabajar en proyectos.
+        \item Las fixtures no nos funcionaban.
+        \item Creamos commands de django que generaban datos.
+        \item Generalizamos esto y lo empaquetamos.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{¿Por qué usarlo?}
+    \begin{block}{¿Por qué usarlo?}
+      \begin{itemize}
+        \item Datos de ejemplo (casi) gratis.
+        \item Datos de ejemplo realistas.
+        \item Generación de los datos repetible.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Installacion}
+    \begin{block}{shell}
+       \begin{verbatim}
+$ pip install django-sampledatahelper
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \section{Ejemplos}
+  
+  \begin{frame}[containsverbatim]{Desde el settings.py}
+    \begin{block}{settings.py}
+       \begin{verbatim}
+INSTALED_APPS += ["sampledatahelper"]
+SAMPLEDATAHELPER_MODELS = [
+    { 'model': 'myapp.MyModel', 'number': 5, },
+    {
+        'model': 'myapp.MyModel',
+        'number': 5,
+        'fields_overwrite': [
+            ('my_int_field', lambda _, sd: sd.int(5, 10)),
+        ]
+    },
+    {
+        'model': 'myapp.MyModel',
+        'number': 5,
+        'fields_overwrite': [('my_int_field', 5)]
+    }]
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Desde codigo}
+    \begin{block}{command.py}
+       \begin{verbatim}
+from django.core.management.base import BaseCommand
+from myapp.models import MyModel
+from sampledatahelper.model_helper import ModelDataHelper
+from sampledatahelper.helper import SampleDataHelper
+
+class Command(BaseCommand):
+    mdh = ModelDataHelper(seed=12345678901)
+
+    def handle(self, *args, **options):
+        self.mdh.fill_model(MyModel, 5)
+        self.mdh.fill_model(MyModel, 5,
+            my_int_field=lambda i, sd: sd.int(5, 10))
+        self.mdh.fill_model(MyModel, 5, my_int_field=8)
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Desde codigo}
+    \begin{block}{command.py}
+       \begin{verbatim}
+from django.core.management.base import BaseCommand
+from myapp.models import MyModel
+from sampledatahelper.helper import SampleDataHelper
+
+class Command(BaseCommand):
+    sd = SampleDataHelper(seed=12345678901)
+
+    def handle(self, *args, **options):
+        for x in range(5):
+            instance = MyModel.objects.create(
+                slug=self.sd.slug(2, 3),
+                name=self.sd.name(2, 3),
+            )
+       \end{verbatim}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}[containsverbatim]{Más ejemplos}
+    \begin{block}{Más ejemplos}
+      \begin{itemize}
+        \item Mezzanine: Rellenando el blog.
+        \item Taiga.io: Un ejemplo real.
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \section{Para terminar.}
+
+  \begin{frame}{Referencias}
+    \begin{itemize}
+      \item https://github.com/kaleidos/django-sampledatahelper
+      \item https://django-sample-data-helper.readthedocs.org/en/latest/
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Dudas}
+    \dots
+  \end{frame}
+
+\end{document}
