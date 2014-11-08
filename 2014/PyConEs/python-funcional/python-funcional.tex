@@ -34,7 +34,7 @@
   
   \begin{frame}{¿Que significa funcional?}
     \begin{itemize}
-      \item Programación con funciones (matematicas)
+      \item Programación con funciones (matemáticas)
       \item Funciones puras (mismas entradas, mismas salidas).
       \item Inmutabilidad.
       \item Ausencia de estado.
@@ -51,7 +51,7 @@
     \end{itemize}
   \end{frame}
   
-  \begin{frame}{Tipicas estrategias funcionales}
+  \begin{frame}{Típicas estrategias funcionales}
     \begin{itemize}
       \item Combinación y composición de funciones pequeñas.
       \item Datos + funciones transformadoras.
@@ -72,9 +72,9 @@
     \begin{itemize}
       \item No.
       \item Es un lenguaje multi-paradigma.
-      \item Soporta algunas caracteristicas funcionales.
+      \item Soporta algunas características funcionales.
       \item Permite hacer programación funcional.
-      \item Carece de caracteristicas avanzadas presentes en lenguajes funcionales.
+      \item Carece de características avanzadas presentes en lenguajes funcionales.
     \end{itemize}
   \end{frame}
 
@@ -87,14 +87,14 @@
       \item Aplicación parcial y currificación.
       \item Control de efectos laterales.
       \item Funciones lambda.
-      \item Evaluación peresoza.
+      \item Evaluación perezosa.
       \item Composición de funciones.
     \end{itemize}
   \end{frame}
 
   \begin{frame}{¿Que me da python?}
     \begin{itemize}
-      \item Evaluación peresoza (Limitada).
+      \item Evaluación perezosa (Limitada).
       \item Aplicación parcial.
       \item Funciones lambda.
       \item Funciones de orden superior.
@@ -128,7 +128,7 @@ print(prod(sum(sum(1,2),3), 4))
   \end{frame}
 
   \begin{frame}[containsverbatim]{Funcional vs. Imperativo}
-    \begin{block}{Funcional con composición y aplicacion parcial}
+    \begin{block}{Funcional con composición y aplicación parcial}
        \begin{verbatim}
 func = F(sum, 1, 2) >> F(sum, 3) >> F(prod, 4) >> print
 func()
@@ -150,14 +150,14 @@ print(prod4(sum3(sum2(1))))
     \begin{center}Python funcional\end{center}
   \end{frame}
 
-  \begin{frame}{Evaluación peresoza}
+  \begin{frame}{Evaluación perezosa}
     \begin{itemize}
       \item Iteradores
       \item Generadores
     \end{itemize}
   \end{frame}
 
-  \begin{frame}[containsverbatim]{Evaluación peresoza}
+  \begin{frame}[containsverbatim]{Evaluación perezosa}
     \begin{block}{Iteradores}
        \begin{verbatim}
 >>> i = map(print, [1,2,3])
@@ -173,7 +173,7 @@ print(prod4(sum3(sum2(1))))
     \end{block}
   \end{frame}
 
-  \begin{frame}[containsverbatim]{Evaluación peresoza}
+  \begin{frame}[containsverbatim]{Evaluación perezosa}
     \begin{block}{Generadores}
        \begin{verbatim}
 >>> import itertools
@@ -192,7 +192,7 @@ print(prod4(sum3(sum2(1))))
   \end{frame}
 
   \begin{frame}[containsverbatim]{Aplicación parcial}
-    \begin{block}{Applicación parcial}
+    \begin{block}{Aplicación parcial}
        \begin{verbatim}
 >>> from functools import partial
 >>> from opertor import add
@@ -305,7 +305,7 @@ hello>>>
 
 
   \begin{frame}[containsverbatim]{TCO}
-    \begin{block}{Normal recursion}
+    \begin{block}{Recursión normal}
       \begin{verbatim}
 def fact(n):
     if n == 0: return 1
@@ -325,8 +325,8 @@ def fact(n, acc=1):
     \end{block}
   \end{frame}
 
-  \begin{frame}[containsverbatim]{Applicación parcial}
-    \begin{block}{Applicación parcial}
+  \begin{frame}[containsverbatim]{Aplicación parcial}
+    \begin{block}{Aplicación parcial}
       \begin{verbatim}
 >>> from fn import F
 >>> from operator import add
@@ -337,8 +337,8 @@ def fact(n, acc=1):
     \end{block}
   \end{frame}
 
-  \begin{frame}[containsverbatim]{Currificacion}
-    \begin{block}{Currificacion}
+  \begin{frame}[containsverbatim]{Currificación}
+    \begin{block}{Currificación}
       \begin{verbatim}
 >>> from fn.func import curried
 >>> curry_add = curried(lambda x, y: x + y)
@@ -393,12 +393,12 @@ def fact(n, acc=1):
     \begin{center}Para terminar\end{center}
   \end{frame}
 
-  \begin{frame}{Consclusiones}
+  \begin{frame}{Conclusiones}
     \begin{itemize}
       \item Python permite programar de forma funcional.
       \item Fn.py nos da las herramientas para llegar un poco más lejos.
       \item Python + Fn.py se queda lejos de lenguajes como Erlang, Clojure o Haskell.
-      \item Lo que se puede aplicar en Python es una mejora significativa sobre el codigo.
+      \item Lo que se puede aplicar en Python es una mejora significativa sobre el código.
     \end{itemize}
   \end{frame}
 
