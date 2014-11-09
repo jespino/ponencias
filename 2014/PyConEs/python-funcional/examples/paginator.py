@@ -36,6 +36,4 @@ def paginator(pages, current, formater=linkify_formater):
 
 if __name__ == "__main__":
     print(paginator(15, 7))
-    print(paginator(15, 1))
-    print(paginator(15, 5, shell_formater))
-    print(paginator(7, 7, shell_formater))
+    print(paginator(15, 7, shell_formater))
