@@ -1,0 +1,15 @@
+Jinja2==2.7.3
+MarkupSafe==0.23
+amqp==1.4.6
+anyjson==0.3.3
+http://www.crummy.com/software/BeautifulSoup/bs4/download/4.3/beautifulsoup4-4.3.2.tar.gz
+billiard==3.3.0.18
+celery==3.1.16
+certifi==14.05.14
+flower==0.7.3
+ipython==2.3.1
+kombu==3.0.23
+pytz==2014.9
+pyzmq==14.4.1
+requests==2.4.3
+tornado==4.0.2

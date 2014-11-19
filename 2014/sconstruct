@@ -1,1 +1,3 @@
 SConscript('Kaleidos/sconstruct')
+SConscript('PyConEs/sconstruct')
+SConscript('Codemotion/sconstruct')
